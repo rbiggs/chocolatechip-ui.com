@@ -1,0 +1,36 @@
+<h1>Accomodating Navbars, etc.</h1>
+
+<p>ChocolateChip-UI provides a way to help you manage your layouts so that things are always positioned as you want, even when the user changes the orientation of the mobile device. It does this by using various sets of tags to indicate relationships. The holy grail of layouts is one with a navbar along the top of the app, a subview with scrollable content and a toolbar along the bottom. If you looked at the previous tutorial "Basic App Shell" you already so an example of how this is done. But you might want some variation on this. There are a number of possible ways in which you might want to use a subview in your app. They're listed below.</p>
+
+<ul>
+<li>just a subview</li>
+<li>a subview with a navbar along the top</li>
+<li>a subview with a navbar along the top and a toolbar along the bottom</li>
+<li>a subview with a toolbar along the top</li>
+<li>a subview with a toolbar along the top and a toolbar along the bottom</li>
+<li>a subview with a toolbar along the bottom</li>
+</ul>
+
+<p>All of these variations are easy to achieve by use of the <em>ui-associations</em> attribute on the subview.</p>
+
+<p><strong>Just a subview</strong></p>
+
+<p>In this case, just put the subview into the view and you're done.</p>
+
+<p><strong>A subview with a navbar along the top and a toolbar along the bottom</strong></p>
+
+<p>Give the subview this attribute: <em>ui-associations="withNavBar withBottomToolBar"</em>.</p>
+
+<p><strong>A subview with a toolbar along the top</strong></p>
+
+<p>Give the subview this attribute: <em>ui-associations="withTopToolBar"</em>.</p>
+
+<p><strong>A subview with a toolbar along the top and a toolbar along the bottom</strong></p>
+
+<p>Give the subview this attribute: <em>ui-associations="withTopToolBar withBottomToolBar"</em>.</p>
+
+<p><strong>A subview with a toolbar along the bottom</strong></p>
+
+<p>Give the subview this attribute: <em>ui-associations="withBottomToolBar"</em>.</p>
+
+<p><strong>Note:</strong> Be sure to put a scrollpanel inside the subveiw to hold your data. That way the user will be able to access data that overflows the available screen dimensions.</p>

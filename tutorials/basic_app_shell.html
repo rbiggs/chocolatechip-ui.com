@@ -1,0 +1,72 @@
+<h1>Basic App Shell</h1>
+
+<p>ChocolateChip is designed to use a particular set of markup as the shell of all Web apps. Most of the tags are specialized and unique to WAML, a markup language that ChocolateChip-UI uses to producing functioning applications. ChocolateChip-UI uses HTML5 as the foundation upon which it builds its apps. You will therefore always need to start will a proper HTML5 document. Below is the most basic structure needed to start a Web app:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" manifest="cache.manifest"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>This markup has its viewport meta tag set so that the app will automatically scale to fill the available screen. If you want to use a cache.manifest for offline storage, you may do so, otherwise you can leave it out. The link to chui.css is required to implement the default styles for ChocolateChip-UI's controls and to animate them. There are also links to ChocolateChip.js and ChUI.js which are used by ChocolateChip-UI to add interactivity and functionality to its controls. The shell also has places for local styles and local JavaScript.</p>
+
+<p>In the above markup you'll notice the app and view tags. The app tag is root of your Web app. A ChocolateChip-UI Web app will have only one app tag which must always be the first element inside the document's body tag. An app tag can have any number of views. The view that you wish to be the default when the app loads should have the attribute <em>ui-navigation-status="current"</em>. This view must have an id of <em>#main</em>. This is required for navigation from other views back to this one. You can give the other views any ids that you wish. In this case the view above has its background styled with the default vertical stripes pattern by having the <em>ui-background-style="striped</em> attribute.</p>
+
+<p>There are several routes you could take with the above markup to create your Web app. You could add data directly to the view, or you could add a navbar, or a toolbar and a subview to present more ways to interact with the app's data. When putting a subview into the app you'll want to also include a scrollpanel so that the user can scroll vertically to access any data overflowing the screen height. This scrolling functionality is implemented by ChocolateChip-UI automatically when you use this structure as in the example below.</p>
+
+<pre><code>&lt;view&gt;
+    &lt;subview&gt;
+        &lt;scrollpanel&gt;
+
+        &lt;/scrollpanel&gt;
+    &lt;/subview&gt;    
+&lt;/view&gt;
+</code></pre>
+
+<p>It is common for mobile Web apps to have a navbar along the top and possibly a toolbar along the bottom of the screen. ChocolateChip-UI makes these easy to achieve by using the appropriate tags, attributes and layouts. Notice how the subview tag has its <em>ui-associations</em> attribute set to indicate that it has a navbar and a bottom toolbar. This enables ChocolateChip-UI to know how to arrange the navbar, subview and toolbar so that they maintain there relationship are resize properly when there is an orientation change, while allowing the user to access the subview's content by scrolling. including this view inside the template above will give you a basic app shell with some functionality already implemented for you. You would only need to figure out how you want to put data in the subview. As a developer, you could do this with an Ajax call, a data query or a Web service. That's for you to decide.</p>
+
+<pre><code>&lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+    &lt;navbar&gt;
+        &lt;h1&gt;Tite&lt;/h1&gt;
+    &lt;/navbar&gt;
+    &lt;subview ui-associations="withNavBar withBottomToolbar"&gt;
+        &lt;scrollpanel&gt;
+
+        &lt;/scrollpanel&gt;
+    &lt;/subview&gt;
+    &lt;toolbar&gt;
+    &lt;/toolbar&gt;
+&lt;/view&gt;
+</code></pre>
+
+<p>To learn more about using subviews ready the tutorial "Accomodating Navbars, etc." and refer to the documentation for ChUI.css and WAML.</p>
+

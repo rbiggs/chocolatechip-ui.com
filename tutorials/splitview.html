@@ -1,0 +1,105 @@
+<h1>Split View</h1>
+
+<p>ChocolateChip-UI provides the split view layout for tablets that provides the basic functionality of a left navigation section and a large right detail view. There is actually nothing to do to initialize the split view layout: just provide the correct layout and ChocolateChip-UI will take care of the rest. A split view layout looks like this:</p>
+
+<pre><code>&lt;app&gt;
+    &lt;splitview&gt;
+        &lt;rootview&gt;
+            &lt;panel&gt;
+                &lt;view id="main" ui-navigation-status="current"&gt;
+                    &lt;navbar&gt;
+                        &lt;h1&gt;Navigation&lt;/h1&gt;
+                    &lt;/navbar&gt;
+                    &lt;subview id="scroller1"&gt;
+                        &lt;scrollpanel&gt;
+                        &lt;/scrollpanel&gt;
+                    &lt;/subview&gt;
+                &lt;/view&gt;
+                &lt;view id="second" ui-navigation-status="upcoming"&gt;
+                    &lt;navbar&gt;
+                        &lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+                            &lt;label&gt;Back&lt;/label&gt;
+                        &lt;/uibutton&gt;
+                        &lt;h1&gt;Pick One&lt;/h1&gt;
+                    &lt;/navbar&gt;
+                    &lt;subview id="scroller2"&gt;
+                        &lt;scrollpanel&gt;
+                        &lt;/scrollpanel&gt;
+                    &lt;/subview&gt;
+                &lt;/view&gt;
+            &lt;/panel&gt;
+        &lt;/rootview&gt;
+        &lt;detailview&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Detail View&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="scroller2"&gt;
+                &lt;scrollpanel&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/detailview&gt;
+    &lt;/splitview&gt;
+&lt;/app&gt;
+</code></pre>
+
+<p>In the above split view notice that the root view has two views as children. The first would hold a typical drill down list of a tableview with detail disclosures that reveal another view. You can populate the second view with data based on the user's choice on the first view. The root view's second view would then be an action list for performing actions on the detail view. When implementing a root view with navigation of views, remember to give the <em>ui-navigation-status</em> values just like normal navigation lists in ChocolateChip-UI: "current" or "upcoming".</p>
+
+<p>Of course, you may not need a drill down list in the root view. In that case the root view can have just one view with actionable list or uibuttons to affect the data in the detail view.</p>
+
+<p>When there is an orientation change to portrait mode, the split view hides the root view and shows a button in the detail view's header with the name of the hidden root view. This button will toggle the visibility of the root view, which in portrait mode appears as a popover. When the user turns the tablet back to landscape mode, the popover get converted back to its normal root view layout.</p>
+
+
+<p>If you&#8217;d prefer to not have the rootview hidden in portrait mode, you can add a class of &#8220;SplitViewFixed&#8221; to your app&#8217;s body tag. Then the rootview and detailview will remain visible in all orientations, with the detail view resizing depending on the amount of width available to it.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;body class="SplitViewFixed"&gt;
+    &lt;app&gt;
+        &lt;splitview&gt;
+            &lt;rootview&gt;
+                &lt;panel&gt;
+                    &lt;view id="main" ui-navigation-status="current"&gt;
+                        &lt;navbar&gt;
+                            &lt;h1&gt;Navigation&lt;/h1&gt;
+                        &lt;/navbar&gt;
+                        &lt;subview id="scroller1"&gt;
+                            &lt;scrollpanel&gt;
+                            &lt;/scrollpanel&gt;
+                        &lt;/subview&gt;
+                    &lt;/view&gt;
+                    &lt;view id="second" ui-navigation-status="upcoming"&gt;
+                        &lt;navbar&gt;
+                            &lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+                                &lt;label&gt;Back&lt;/label&gt;
+                            &lt;/uibutton&gt;
+                            &lt;h1&gt;Pick One&lt;/h1&gt;
+                        &lt;/navbar&gt;
+                        &lt;subview id="scroller2"&gt;
+                            &lt;scrollpanel&gt;
+                            &lt;/scrollpanel&gt;
+                        &lt;/subview&gt;
+                    &lt;/view&gt;
+                &lt;/panel&gt;
+            &lt;/rootview&gt;
+            &lt;detailview&gt;
+                &lt;navbar&gt;
+                    &lt;h1&gt;Detail View&lt;/h1&gt;
+                &lt;/navbar&gt;
+                &lt;subview id="scroller2"&gt;
+                    &lt;scrollpanel&gt;
+                    &lt;/scrollpanel&gt;
+                &lt;/subview&gt;
+            &lt;/detailview&gt;
+        &lt;/splitview&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+</code></pre>
+
+
+<p>Please see the file "split-view-1.html" in the examples folder for a working example. Below are screenshots of the split view with different orientations and how the layout adjusts itself automatically.</p>
+
+<p><img src="/screenshots/splitview-1.png" alt="Split View" />
+<img src="/screenshots/splitview-2.png" alt="Split View" />
+<img src="/screenshots/splitview-3.png" alt="Split View" />
+<img src="../screenshots/splitview-4.png" alt="Split View" />
+<img src="../screenshots/splitview-5.png" alt="Split View" /></p>

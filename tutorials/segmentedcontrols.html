@@ -1,0 +1,285 @@
+<h1>Segmented Controls</h1>
+
+<p>The segmented control provides a convenient way of presenting the user with several choices. The segmented control can be used to toggle the visibility of several subviews, a behavior similar to a tab bar or tab panel. It can also be used to group together several possible actions for the user to perform. Clicking or touching one of a segmented control's uibuttons immediately would immediately execute an action.</p>
+
+<p>Segmented controls are really just a container for a set of uibuttons. The container handles holding them together, toggeling their selected state and keeping track of which one is selected. Structurally the control is quite simple. It is literally just a segmented control element with regular uibuttons inside. Segmented controls can reside in two places: in a navbar or toolbar or in a subview. When there in a navbar or toolbar, their buttons have the default look of all other butons in navbars and toolbars. You can change that by using a custom tint. Refer to the documentation in ChUI.css and the tutorial on UIButtons for more information about custom tints.</p>
+
+<p>There are two ways to create a segmented control: manually and dynamically. Manually means you type the code out yourself. This is not really that hard, after all, its just a container with a couple of buttons in it. On document load ChocolateChip-UI will initialize it with the UISegmentedControl method. Or you could create the segmented control dynamically with the UICreateSegmentedControl method. You in that case you'll need to initialize the segmented control yourself with the UISegmentedControl method.</p>
+
+<p>To create a segmented control manually, all you need is this:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;navbar&gt;
+    &lt;segmentedcontrol&gt;
+        &lt;uibutton&gt;
+            &lt;label&gt;Canada&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;uibutton ui-icon-align="right"&gt;
+            &lt;label&gt;USA&lt;/label&gt;
+       &lt;/uibutton&gt;
+       &lt;uibutton class="disabled"&gt;
+            &lt;label&gt;Mexico&lt;/label&gt;
+       &lt;/uibutton&gt;
+   &lt;/segmentedcontrol&gt;
+&lt;/navbar&gt;
+</code></pre>
+
+<p>Because we've output the segmented control inside a navbar, its buttons will look like normal navbar buttons. Morever, the navbar will center it. If we wanted to have the segmented control on one side or the other of the navbar, we could but either <em>ui-bar-align="left"</em> or <em>ui-bar-align="right"&amp;</em> on the segmented control itself.</p>
+
+<p><img src="../screenshots/segmented_navbar.png" alt="Segmentedctontrol in Navbar" /></p>
+
+<p>To output a segmented control on outside of a navbar or toolbar, you would use a stack container. It will cause the segmented control to expand to the full width of available space. If instead you want the segmented control to collapse to its content as when it's in a navbar, just put the segmented control in a panel container.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;stack&gt;
+    &lt;segmentedcontrol&gt;
+        &lt;uibutton&gt;
+            &lt;label&gt;Canada&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;uibutton&gt;
+            &lt;label&gt;USA&lt;/label&gt;
+       &lt;/uibutton&gt;
+       &lt;uibutton&gt;
+            &lt;label&gt;Mexico&lt;/label&gt;
+       &lt;/uibutton&gt;
+   &lt;/segmentedcontrol&gt;
+&lt;/stack&gt;
+
+&lt;panel&gt;
+    &lt;segmentedcontrol&gt;
+        &lt;uibutton&gt;
+            &lt;label&gt;Canada&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;uibutton&gt;
+            &lt;label&gt;USA&lt;/label&gt;
+       &lt;/uibutton&gt;
+       &lt;uibutton&gt;
+            &lt;label&gt;Mexico&lt;/label&gt;
+       &lt;/uibutton&gt;
+   &lt;/segmentedcontrol&gt;
+&lt;/panel&gt;
+</code></pre>
+
+<p>Here's the segmented control in a stack:</p>
+
+<p><img src="../screenshots/segmented_stack.png" alt="Segmentedctontrol in Stack Container" /></p>
+
+<p>And here it is in a panel:</p>
+
+<p><img src="../screenshots/segmented_panel.png" alt="Segmentedctontrol in Panel Container" /></p>
+
+<p>You can also put icons in segmented controls. Check out the tutorial on buttons to see all the options available for displaying and styling icons in a button. One thing, a segmented control ina navbar or toolbar will have the same vertical limitation as other buttons in those bars, which is 30 pixels. However, if you're putting a segmented control outside of a navbar or toolbar, placing it instead in a stack or panel, you can increase the height of the segmented control by add an inline style directly on the segmentedcontrol. This also means that you can make room for vertical alignment of icons: stacking the icon over the segmentedcontrol uibutton labels or under them. See below:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;stack&gt;
+    &lt;segmentedcontrol&gt;
+        &lt;uibutton style="height: 60px;"&gt;
+            &lt;icon style="background-image: url(icons/reload.svg);"&gt;&lt;/icon&gt;
+            &lt;label&gt;Canada&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;uibutton style="height: 60px;" ui-icon-align="top"&gt;
+            &lt;icon style="background-image: url(icons/settings.svg);"&gt;&lt;/icon&gt;
+            &lt;label&gt;USA&lt;/label&gt;
+       &lt;/uibutton&gt;
+       &lt;uibutton style="height: 60px;" ui-icon-align="bottom"&gt;
+            &lt;icon style="background-image: url(icons/top_rated.svg);"&gt;&lt;/icon&gt;
+            &lt;label&gt;Mexico&lt;/label&gt;
+       &lt;/uibutton&gt;
+   &lt;/segmentedcontrol&gt;
+&lt;/stack&gt;
+</code></pre>
+
+<p>Here's how that looks:</p>
+
+<p><img src="../screenshots/segmented_icons.png" alt="Segmentedctontrol with Icons and Custom Height" /></p>
+
+<p>&nbsp;</p>
+
+<h2>Creating Segmented Controls Dynamically:</h2>
+
+<p>If you want, you can create segmented controls dynamically with JavaScript using the UICreateSegmentedControl method. You simply need to pass in the proper parameters describing how to construct the segmented control. The attributes are listed below.</p>
+
+<p>Because the segmented control contains a number of uibuttons, you need to pass the constructor the information for those uibuttons in a structured manner. That means if you want three uibuttons, you can pass information some of the information in a replicated manner. The value for <em>numberOfSegments</em> indicates how many uibuttons to create. <em>titlesOfSegments</em>, <em>iconsOfSegments</em>, <em>placementOfIcons</em> -- These three are arrays that get passed as arguments. That means that if you have one button with an icon and the others without, the ones without an icon still need something passed as placeholders. In that case you use an empty string: \"\".</p>
+
+<p>You need to give the segmented control a unique id, but placement, label, icons, placementOfIcons, selectedSegment and disabledSegment are all optional. It's up to you to decide how the segmented control should be.</p>
+
+<ul>
+<li>id: an id for the segmented control</li>
+<li>placement: for inserting in a navbar, possible values: "left", "center", "right"</li>
+<li>numberOfSegments: anything from 2 on up</li>
+<li>titlesOfSegments: an array of titles for the segmented controls uibuttons ["One", "Two", "Three"]. </li>
+<li>iconsOfSegments: if you want to add icons to the segmented control's uibuttons enter their names here using an array.</li>
+<li>placementOfIcons: to designate the place of icons pass an array using empty strings for uibuttons were there are no icons: ["top", "right", "bottom"]. If you have designated icons without indicating their placement, they will be placed by default on the left of the uibutton label.</li>
+<li>selectedSegment: if you wish to designate a segment as selected, enter its position here. Possible numbers start from 1.</li>
+<li>disabledSegment: if you wish to designate a segment as disabled, enter its position here. Possible numbers start from 1.</li>
+</ul>
+
+<p>The examples below illustrate how to leave empty places in certain values to change the output of a uibutton. <strong>Note:</strong> When creating a segmented control with UICreateSegmentedControl, you need to attach it on the container into which you wish to inject the segmented control. If this is a navbar, you would do it like this:</p>
+
+<pre><code>// Create and inset segmentedcontrol defined by opts into 
+// navbar in the second view.
+$("view:nth-of-type(2) &gt; navbar").UICreateSegmentedControl(opts);
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<p>Here's an example where the options for the segmented control are created as a seperate object.
+    var seg = {
+             id : "segmented_001",
+             placement : "left",
+             numberOfSegments : 3,
+             titlesOfSegments : ["One", "Two", "Three"],
+             iconsOfSegments : ["", "add", "info"],
+             fileExtension : ["", "svg", "svg"],
+             placementOfIcons : ["", "right", ""],
+             selectedSegment : 1,
+             disabledSegment : 3,
+             imagePath : "icons/"
+        };
+    $("#segmentedToolbar").UICreateSegmentedControl(seg, "first");</p>
+
+<p>And here's an example where the options are defined within the parens of the UICreateSegmentedControl method.</p>
+
+<pre><code>$("scrollpanel").UICreateSegmentedControl(
+    {
+         id : "segmented_002",
+         numberOfSegments : 3,
+         titlesOfSegments : ["One", "Two", "Three"],
+         iconsOfSegments : ["", "add", "info"],
+         fileExtension : ["", "svg", "svg"],
+         placementOfIcons : ["", "right", ""],
+         selectedSegment : 1                
+    }
+);
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2>Initializing a Newly Created Segmentedcontrol:</h2>
+
+<p>After creating the segmented control, you need to invoke UISegmentedControl on it so that ChocolateChip-UI makes it interact properly. This will give you touch states and management of selected state as well, which you will need in order to know what choice the user makes with the control.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Continuing with the two examples above, we can initialize them with the following:</p>
+
+<pre><code>$("#segmentedToolbar").UISegmentedControl();
+$("scrollpanel").UISegmentedControl();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#managing_selections">Managing Selections</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="managing_selections"></a></p>
+
+<h2>Managing Selections:</h2>
+
+<p><strong>Example:</strong></p>
+
+<p>If you created your segmented controls manually or if you created them dynamically and inialized them with the UISegmentedControl method, you can then take care of tracking the user's interaction with the control. When you create a segmented control dynamically and indicated a selected uibutton, ChocolateChip-UI automatically sets a value on the segmented control using the <em>ui-selected-index</em> attribute. The value of <em>ui-selected-index</em> will be from 1 to the number of segmented control uibuttons, 1 indicating the selection of the first uibutton. You can use a switch statement to determine what to do based on the value of <em>ui-selected-index</em>.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$$("#mySpecialSegmentedControl &gt; uibutton").forEach(function(button) {
+    button.bind("touchstart", function() {
+        var segCtlVal = $("#mySpecialSegmentedControl").
+            getAttribute("ui-selected-index");
+        switch (segCtlVal) {
+            case 1:
+                // code.
+                break;
+            case 2:
+                // code.
+                break;
+            case 3:
+                // code.
+                break/
+            default:
+                //code
+        }
+    }
+});
+</code></pre>
+
+<h2>Toggling Subviews</h2>
+
+<p>A common use for segmented controls is to toggle the visibility of a set of panels. Each panel corresponds to a segment. In order to be able to toggle the panels you'll need to put them in a container which you can pass as an argument to Element.UISegmentedControl(). You can use a manually create segmented control or a dynamically create one.</p>
+
+<p>The structure for the content you wish to toggle should consist of a stack tag with panel tags holding the content that will be toggled. The stack needs a unique ID. The markup could look something like this, with each panel corresponding to a segment of the segmented control:</p>
+
+<pre><code>&lt;stack id="stack_01"&gt;
+    &lt;panel&gt;
+        &lt;tableview&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;People&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;    
+    &lt;/panel&gt;
+    &lt;panel&gt;
+        &lt;tableview&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Places&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;    
+    &lt;/panel&gt;
+    &lt;panel&gt;
+        &lt;tableview&gt;
+
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;    
+    &lt;/panel&gt;
+    &lt;panel&gt;
+        &lt;tableview&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Food&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;    
+    &lt;/panel&gt;
+&lt;/stack&gt;
+</code></pre>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UISegmentedControl(callback, container);
+</code></pre>
+
+<p><strong>Example:</strong>
+    var logChildNodes = function(item) {
+        console.log("The child position is: " + item.getAttribute("ui-child-position"));
+    }</p>
+
+<pre><code>$("segmentedcontrol").UISegmentedControl(logChildNodes, "#stack_01");
+</code></pre>
+
+<h2>Segmented Paging Control</h2>
+
+<p>Besides the above segmented toggling of panels, you can also implement a specialized segmented control that pages through a set of subviews. This type of segmented control always resides in a navbar and pages through the subviews in the segmented control's parent view. The structure for a segmented paging control is quite simple. It's just a segmented control with two uibuttons of with <em>ui-implements="icon"</em>. You mark the segmented control with <em>ui-implements="segmented-paging"</em>, define whether the paging is horizontal or vertical: <em>ui-paging="horizontal"</em> and give it a <em>ui-bar-align</em> value of "right". When you define the paging as horizontal, the subviews will slide in from the right and out to the left. When it is vertical, subviews slide up from the bottom and out through the top, sliding under any navbar, toolbar or tab bar.</p>
+
+<p>The segmented paging control's icons do not need any images defined for them. That will be assigned depending on the paging orientation: horizontal or vertical. When the control has <em>ui-paging</em> set to horizontal, the icons are left and right facing arrows. When it is vertical, the arrows are up and down.</p>
+
+<p>Here is the structure for a segmented paging control:</p>
+
+<pre><code>&lt;segmentedcontrol ui-implements="segmented-paging" ui-paging="horizontal" ui-bar-align="right"&gt;
+    &lt;uibutton ui-implements="icon"&gt;
+        &lt;icon&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton ui-implements="icon"&gt;
+        &lt;icon&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+&lt;/segmentedcontrol&gt;
+</code></pre>
+
+<p>To initialize this you just need to do execute UISegmentedPagingControl on the view containing the segmented paging control and subviews. This method checks the paging orientation, then arranges the subviews appropriately for paging through them.</p>
+
+<p>Here's the segmented paging control showing both vertical and horizontal arrows.</p>
+
+<p><img src="../screenshots/paging_horizontal.png" alt="Segmented Paging Control with Horizontal Paging" />
+<img src="../screenshots/paging_vertical.png" alt="Segmented Paging Control with Vertical Paging" /></p>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 37 37">
+<defs>
+	<line x1="0" y1="9" x2="0" y2="15" id="line" />
+</defs>
+<g transform="translate(18,18)" stroke="rgb(0,0,0)" opacity="0.5" stroke-width="3" stroke-linecap="round">
+	<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+		<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+			<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+				<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+					<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+						<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+							<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+								<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+									<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+										<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+											<use xlink:href="#line" transform="rotate(-30)" opacity="0.85">
+												<use xlink:href="#line" transform="rotate(-30)" opacity="0.85" />
+											</use>
+										</use>
+									</use>
+								</use>
+							</use>
+						</use>
+					</use>
+				</use>
+			</use>
+		</use>
+	</use>
+	<animatetransform attributename="transform" attributetype="XML" type="rotate" values="0;30;60;90;120;150;180;210;240;270;300;330" calcmode="discrete" repeatcount="indefinite" additive="sum" dur="1.2s" />
+</g>
+</svg>

@@ -1,0 +1,417 @@
+<h1>Advanced Tableviews</h1>
+
+<p>In the earlier tutorial on basic tableviews we saw different way to use celltitles with tablecell indicators, icons and images. There are other useful elements that you can use to present data in a number of ways in a tablecell. These are:</p>
+
+<ul>
+<li><a href="#cellsubtitle">Cellsubtitle</a></li>
+<li><a href="#stacked_tableviews_with_images">Stacked Tableviews</a></li>
+<li><a href="#stacked_tableviews_with_images">Stacked Tableviews with Images</a></li>
+<li><a href="#centered_tableviews">Centered Tableviews</a></li>
+<li><a href="#celldetail">Celldetail</a></li>
+<li><a href="#celldetail_stacked">Stacked Celldetail</a></li>
+<li><a href="#stacked_tableview_with_celldetail_image">Stacked Tableview with Celldetail and Image</a></li>
+<li><a href="#celldatetime">Celldatetime</a></li>
+<li><a href="#cellcounter">Cellcounter</a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a name="cellsubtitle"></a></p>
+
+<h2>Cellsubtitle:</h2>
+
+<p>Although celltitles provide a nice way to present the user with some information in a tablecell, sometimes you might want to supply some secondary information as well. You can do this using a cellsubtitle tag. By default a cellsubtitle tag is styled in a small font than the celltitle, has a bluish color and gets positioned on the right side of the tablecell. ChocolateChip-UI will truncate both of these with an ellipsis when there is insufficient room for them to both fit in the available tablecell. You can override the positioning and color of the cellsubtitle by using the stacked tableview layout below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Animals are a lot of fun&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-1.png" alt="Cellsubtitle" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#stacked_tableviews_with_images">Stacked Tableviews</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="stacked_tableviews"></a></p>
+
+<h2>Stacked Tableviews:</h2>
+
+<p>If you want to change the location of the cellsubtite from the right to sit underneath the celltitle you can use the <em>ui-tablcell-order</em> attribute to set the tableview to display its contents in stacked format. Just put *ui-tablecell-order="stacked" on the tableview, as in the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-2.png" alt="Stacked Tableviews" /></p>
+
+<p>&nbsp;</p>
+
+<p><a name="stacked_tableviews_with_images"></a></p>
+
+<h2>Stacked Tableviews with Images:</h2>
+
+<p>Often you may need to display an image in a table cell along with at celltitle and cellsubtitle. This is easy to do. Give the tableview <em>ui-tablecell-order="stacked"</em> and put *ui-usage="image" on the tablecells. The image should be 55 by 55 pixels and should also be the first item in the tablecell, followed by the celltitle and cellsubtitle. Check out the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/alternative.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/blues.png"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/classical.png"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/itunes.png"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/killers.png"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-3.png" alt="Stacked Tableviews with Images" /></p>
+
+<p>&nbsp;</p>
+
+<p><a name="centered_tableviews"></a></p>
+
+<h2>Centered Tableviews:</h2>
+
+<p>Sometimes you may want to deemphasis the celltitles and draw the user's attention to the cellsubtitels. You can do that by using ChocolateChip-UI's centered tablecell layout. This is accomplished by putting <em>ui-tablecell-order="centered"</em> on the tableview. When using this type of layout, you only be using celltitles and cellsubtitles, no images or icons. 
+<strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="centered"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-4.png" alt="Centered Tableviews" /></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celldetail"></a></p>
+
+<h2>Celldetail</h2>
+
+<p>Sometimes you need to give the user more detailed information about and item than can be display by a celltitle and cellsubtitle. In those cases you can use celldetails. These always come after the celltitle and cellsubtitle. If you put celldetails into a plain tableview with celltitles and cellsubtitles, the cellsubtitle will be placed on the right and the celldetail will sit below it and the celltitle. If you want the tablecell items to be stacked, celltitle over cellsubtitle over celldetail, you'll need to use the <a href="#stacked_celldetail">stacked celldetail</a> layout. The example below shows the basic unstacked tableview with celltitle, cellsubtitle and celldetail. Note that I have two celldetails in the first tablecell.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-5.png" alt="Celldetail" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#stacked_celldetail">Stacked Celldetail</a></p>
+
+<p><a href="#cellsubtitle">Cellstubtitle</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celldetail_stacked"></a></p>
+
+<h2>Stacked Celldetail</h2>
+
+<p>To create a stacked tableview with celltitles, cellsubtitles and celldetails just put <em>ui-tablecell-order="stacked"</em> on the tableview, as in the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-6.png" alt="Stacked Celldetail" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#celldetail">Celldetail</a></p>
+
+<p><a href="#stacked_tableviews">Stacked Tableviews</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="stacked_tableview_with_celldetail_image"></a></p>
+
+<h2>Stacked Tableview with Celldetail and Image:</h2>
+
+<p>As much as you might want to display an image in some of the other layouts, you can also display an image with a celltitle, cellsubtitle and celldetail layout. Just put <em>ui-tablecell-order="stacked"</em> on the tableview and <em>ui-usage="image"</em> on the tablecells. Make sure the image is the first item in the tablecell, followed by the celltitle, cellsubtitle and celldetail. See the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked" ui-detail-alignment="right"&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/alternative.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/blues.png"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/classical.png"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/itunes.png"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/killers.png"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-7.png" alt="Stacked Tableview with Celldetail and Image" /></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celldatetime"></a></p>
+
+<p>If you need to display information regarding date or time you can do so using the celldatetime tag. For this use a tableview with <em>ui-tablecell-order="stacked"</em> and place the celldatetime tag right after the celltitle tag and before the cellsubtitle tag. ChocolateChip-UI will automatically style this tag as a bluish rounded badge positioned on the right of the tablecell. See the example below.</p>
+
+<h2>Celldatetime:</h2>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;celldatetime&gt;3/14/10&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;celldatetime&gt;12:30 PM&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Noon&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Next Week&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;                
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-8.png" alt="Tableview with Cellcounter" /></p>
+
+<p><a name="cellcounter"></a></p>
+
+<p>On occasion your tableview items may have numerical information that you would like to show the user so that they can make decisions based on those numerical values. You can present this numeral information using cellcounters. Put <em>ui-tablecell-order="stacked"</em> on a tableview, then put the cellcounters after the celltitles and before the cellsubtitles. The example below shows a stacked tableview with images, celltitles, cellcounters and cellsuttitles.</p>
+
+<h2>Cellcounter:</h2>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/phone.png"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+        &lt;cellcounter&gt;14&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Interesting Destinations&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/mail.png"&gt;
+        &lt;celltitle&gt;Funny Animals&lt;/celltitle&gt;
+        &lt;cellcounter&gt;83&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Critters from Around the Globe&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/safari.png"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+        &lt;cellcounter&gt;22&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Recipes&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/sms.png"&gt;
+        &lt;celltitle&gt;Good Eats&lt;/celltitle&gt;
+        &lt;cellcounter&gt;19&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Restaurants&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;        
+</code></pre>
+
+<p><strong>The above code produces:</strong></p>
+
+<p><img src="../screenshots/advanced_tableview-9.png" alt="Tableview with Cellcounter" /></p>
+
+<p>&nbsp;</p>
+
+<h2>Time to get creative.</h2>
+
+<p>So, you've seen all the layouts that ChocolateChip-UI provides. If you have some needs beyond these, grab one that is close, put its styles in your documents head and play around with it. You might come up with something useful. Don't be afraid to experiment.</p>

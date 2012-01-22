@@ -1,0 +1,102 @@
+<h1>LocalStorage</h1>
+
+<p>HTML5 offers localStorage as a type of client side data persistence. It's better than cookies, but not quite a database. It consists of key values pairs. By default it can hold up to 4 megabites of data. After that it will through an exception if you try to add to or read from it. Also it has no expiration functionality built in. It also only accepts strings, not objects. All of these shortcomings can be overcome with some clever JavaScript.</p>
+
+<p>ChocolateChip-UI provides an API for dealing with localStorage by insulating you from exceptions and allowing you to pass and retrieve eight strings or data. You don't have to make a choice, ChocolateChip takes care of it for you.</p>
+
+<p>&nbsp;</p>
+
+<h2>$.localItem</h2>
+
+<p>$.localItem is an API for handling localStorage. It takes one or two arguments. These are key/value pairs of data. By passing this a key/value pair the value gets set to that key in the domain's localStorage. If only a key is passed, $.localItem returns it's value, provided it exists. $.localItem will automatically handle parsing JSON objects for storage and retrieval.</p>
+
+<pre><code>$.localItem("clientFirstName", "John");
+$.localItem("clientLastName", "Doe");
+var clientName = $.localItem("clientFirstName") + " " + $.localItem("clientLastName");
+console.log("The client's name is: " + clientName + ".");
+</code></pre>
+
+<p>If $.localItem encounters an exception due to localStorage having exceeded its limit, ChocolateChip-UI logs an message to the error console: "Quota exceeded for localStorage!"</p>
+
+<p>&nbsp;</p>
+
+<h2>$.deleteLocalItem</h2>
+
+<p>This will delete a key/value pair from localStorage. Just pass the key and it's deleted.</p>
+
+<pre><code>$.deleteLocalItem("clientFirstName");
+$.deleteLocalItem("clientLastName");
+</code></pre>
+
+<h2>$.clearLocalItems</h2>
+
+<p>This method deletes the domain's entire localStorage. This does not affect localStorage for other domains.</p>
+
+<pre><code>$.ready(function() {
+    if (!$.localItem("agreement") {
+        $.clearLocalItems();
+    }
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2>Time Constraints for LocalStorage</h2>
+
+<p>Although localStorage doesn't have any time constraints for expiration the way cookies do, you can easily manage this by using a timestamp stored in localStorage. Just check the timestamp each time the app loads to see if the current date/time is past the expiration date. If so, you can clear the localStorage, or repopulate it with new data. Just create a date with the year, month, hour or minutes that you want for an expiration date, then set that in localStorage.</p>
+
+<p>To set a timestamp in localStorage you could do this:</p>
+
+<pre><code>// During your app's operation:
+var timestamp = new Date(2011 Mar 15);
+timestamp = timestamp.getTime();
+$.localItem("timestamp", timestamp);
+
+// Next time the app launches:
+
+$.ready(function() {
+    var presentTime = new Date();
+    presentTime = presentTime.getTime();
+    var expiration = $.localTime("timestamp");
+    if (expiration &lt;= presentTime) {
+        $.clearLocalItems();
+        // Add new data to localStorage:
+        // ...
+    }
+});
+</code></pre>
+
+<p>Because localStorage only stores strings, you'll need to convert the stored timestamp back to a number using <em>parseInt</em> if you want to get any date/time information from it:</p>
+
+<pre><code>var timestamp = $.localItem("timestamp");
+var tempDate = parsetIn(timestamp, 10);
+var tempDate = new Date(tempDate );
+tempDate.getMinutes() + " and the current time is: " + 
+    new Date().getHours() + ":" + new Date().getMinutes());
+</code></pre>
+
+<p>Be aware that by default hours returned do not reflect Daylight Savings. You would need to compensate for that. You can add 3600000 to the timestamp value or the the value returned by getTime() to add an hour to the value.</p>
+
+<h2>LocalStorage as a Client-Side Document Cache</h2>
+
+<p>A neat thing you can do with local storage is same dynamic parts of your app's document to localStorage. The next time the user launches the app, you could check the date or time and decide whether to get new data or whether to rehydrate the app from the localStorage cache. This is fairly easy to do using innerHTML:</p>
+
+<p>var timestamp = new Date.getTime();
+$.localItem("timestamp", timestamp);
+var docCache = $("#main > subview > .content").innerHTML;
+$.localItem("savedCache", docCache);</p>
+
+<p>And next time the app launches you can check:</p>
+
+<pre><code>$.ready(function() {
+    var tempDate = new Date().getTime();
+    var oldDate = $.localItem("timestamp");
+    // Since 36000 miliseconds are in an hour,
+    // we will multiple by 24 to get a day:
+    if (oldate + (36000 *24) &lt;= tempDate) {
+        $("#main &gt; subview &gt; .content")
+            .innerHTML($.localItem("docCache");
+        $.deleteLocalItem("docCache");
+    }
+});
+</code></pre>

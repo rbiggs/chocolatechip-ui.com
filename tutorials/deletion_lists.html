@@ -1,0 +1,78 @@
+<h1>Deletion Lists</h1>
+
+<p>ChocolateChip offers a way to make a tableview's tablecells deletable. 
+Like selection lists, deletion lists are just simple tableviews wired up by to enable deletion of tablecells. Please note that deletion lists require a navbar or toolbar to display the delete uibutton. So, any tableview that you want to enable for tablecell deletion with also require an adjacent navbar or toolbar. You really want to use the simplest possible tableview: with just a celltitle indicating the item to be deleted.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;navbar id="toolbar_01"&gt;
+    &lt;h1 ui-bar-align="center"&gt;Deletion List&lt;/h1&gt;
+&lt;/navbar&gt;
+&lt;tableview id="tableview_01"&gt;
+   &lt;tablecell id="item1"&gt;
+       &lt;celltitle&gt;People&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell id="item2"&gt;
+       &lt;celltitle&gt;Places&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell id="item3"&gt;
+       &lt;celltitle&gt;Things&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell id="item4" ui-implements="disclosure"&gt;
+       &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell id="item5" ui-implements="detail-disclosure"&gt;
+       &lt;celltitle&gt;Food&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>When you execute the $.UIDeleteTableCell method, it creates delete indicators in each tablecell and adds an "Edit" uibutton to the left side of the navbar or toolbar. It also add a "Delete" uibuton to the left side of the navbar or toolbar, except that it is hidden of the left. When the user touches the "Edit" uibutton,  ChococlateChip-UI turns it into a bright blue "Done" uibutton and displays the "Delete" uibutton and the delete indicators. The delete indicators slide in from the left. If there are any indicators on the right side of the tablecell, these are temporarily hidden. If there is a button already residing in the left side of the navbar or toolbar, it gets temporarily hidden when the "Delete" uibutton appears. When the user selects the selects the "Done" uibutton, the delete indicators slide of to the left, any other indicators on the right side of the tablecells reappear, the "Delete" uibutton disappears and any uibutton that was on the left side of the navbar reappears. All of this is accomplished for you by executing the $.UIDeleteTableCell method. $.UIDeleteTableCell takes two arguments, the</p>
+
+<p>ChocolateChip-UI uses the $.UIDeletableTableCells array to keep track of any choices the user makes. If there are no choices it disabled the delete uibutton. As soon as the user makes a choice and a value is registered with $.UIDeletableTableCells, the "Delete" uibutton is enabled. When $.UIDeletableTableCells is empty, the "Delete" uibutton is disabled.</p>
+
+<p>In the example deletion list below there are two tablecells with disclosure indicators. I cannot think of a single scenario where you would want to have to deal with the data implications of allowing a user to delete an item in an upper level of navigation. It just seems like a nightmare for data integrity trying to keep track of whatever the user just obliterated down steam in the navigation flow. In case you have some other unique cell indicators, perhaps just an "add", ChocolateChip-UI will automatically slide the indicators out of view when it slides its delete indicators in to view from the left.</p>
+
+<p>There are a number of ways in which you arrange for data to retrieve when a tablecell is deleted. You could give each tablecell a unique id and retrieve that when the "Delete" uibutton is touched. Or you could give each tablecell a <em>ui-value</em> attribute and retrieve that when the deletion occurs. Or you could use a data-set on each tablecell and retrieve that. I've left that up to you to decide. In the examples below I'm getting the tablecell's celltitle text in the first and in the last just the tablecell id.</p>
+
+<p><strong>Notice:</strong> </p>
+
+<p>Since ChocolateChip-UI version 1.0, you pass UIDeleteTableCell and object of options. Three values are required: </p>
+
+<ol>
+<li>The list to enable deletion of items.</li>
+<li>The navbar/toolbar to insert the necessary buttons in.</li>
+<li>A callback to execute when the users selects list items and chooses to delete them.</li>
+</ol>
+
+<p>The other optional values are for the button labels. UIDeleteTableCell expects three values: one for the delete button and two for the edit and done state of the edit button. If these values are not supplied in the object, UIDeleteTableCell will default  to &#8220;Edit/Done&#8221; and &#8220;Delete&#8221; as the labels for the buttons.</p>
+
+<p>The placeholder parameter &#8220;item&#8221; in the callback is a reference for the value of &#8220;this&#8221; when the callback is executed, which would point to the item being deleted. If there are multiple items being deleted, the callback will be execute once for each item.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$(function() {
+    var deleteItem = function(item) {
+        $("#selection_list_response &gt; span").insert(item.lastElementChild.text() + " ");
+    };
+    $.UIDeleteTableCell({selector: "tableview_01", toolbar: "#toolbar_01", callback: deleteItem, editButton: ["Change","Stop"], deleteButton: "Kill");
+});
+</code></pre>
+
+<p>Or you could just as well grab the id of the tablecell and then do something with that:</p>
+
+<pre><code>$(function() {
+    var deleteItem = function(item) {
+        console.log(item.id);
+    };
+    $.UIDeleteTableCell({selector: "#tableview_01", toolbar: "#toolbar_01", callback: deleteItem});
+});
+</code></pre>
+
+<p>Below is the whole process of tablecell deletion:</p>
+
+<p><img src="../screenshots/deletion_list-1.png" alt="Deletion List Ready to Use" />
+<img src="../screenshots/deletion_list-2.png" alt="Deletion List after Pressing Edit" /></p>
+
+<p><img src="../screenshots/deletion_list-3.png" alt="Deletion List with Items Selected for Deletion" />
+<img src="../screenshots/deletion_list-4.png" alt="Deletion List after Items were Deleted" /></p>

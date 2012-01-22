@@ -1,0 +1,66 @@
+<h1>Progress Bar</h1>
+
+<p>Sometimes you need to perform an operation that will take some time to complete. You may want to let the user know this. You can do so by showing an activity indicator. ChocolateChip-UI also allows you to show an animated progress bar. A progress bar consists of a single tag: <em>&lt;progressbar&gt;&lt;/progressbar&gt;</em>. ChocolateChip-UI offers the Element.UIProgressBar() method to make it easy to implement the progress bar you need.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIProgressBar(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>className: a class name which you can use to define a custom background color for the progress bar. This will cause the progress bar to have that color. The default background color is bluish: rgb(56,138,213);</li>
+<li>width: an intiger for the number of pixels for the progress bar's width. The default is 100.</li>
+<li>speed: an integer indicating the number of seconds for the animation to last before it repeats. The default is 5. You can use a decimal value to indicate fractions of a second.</li>
+<li>position: any valid position value that is acceptable by ChocolateChip.js's Element.insert() method. The default is "last". You can use "first" or an integer indicating a position in a child collection. If the integer you provide is greater than the number of child nodes in the container, ChocolateChip.js will simply insert it last.</li>
+<li>margin: a valid CSS definition for margins for the progress bar. The default is: "10px auto". You should make sure to designate a value of <em>auto</em> for the left and right because this will center it properly in its container.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("section").UIProgressBar();
+$("section").UIProgressBar({className : "black", speed: 2.5});
+$("section").UIProgressBar({className : "red", width: 200, speed: 10});
+$("section").UIProgressBar({className : "green", width: 280, speed: 8});
+$("section").UIProgressBar({className : "gold", width: 160, speed: 2});
+</code></pre>
+
+<p>For the instances where we supplied colors for the progress bars above we can define their background colors:</p>
+
+<pre><code>progressbar.black {
+    background-color: rgb(0,0,0);
+}
+progressbar.red {
+    background-color: red;
+}
+progressbar.green {
+    background-color: green;
+}
+progressbar.gold {
+    background-color: gold;
+}
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<p>Here are the best practices for using a progress bar. Before beginning the Ajax call, show the progress bar. When there is a success returned, remove the progress bar then insert the returned data. If an error is returned, remove the progress bar then inform the user however you wish of the problem. If you want to show a progress bar in the navbar of your app, you will need to hide the navbar title and then show it when you remove the progress bar. ChocolateChip-UI provides two methods: Element.UIHideNavBarHeader() and Element.UIShowNavBarHeader() to make this easier. The following code shows how to toggle the appearance of a progress bar in a navbar by binding a click event on a button:</p>
+
+<pre><code>$(".toggleProgressBar").bind("click", function() {
+    if (this.text().trim() == "Show") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIHideNavBarHeader();
+        $("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+
+    } else if (this.text().trim() == "Hide") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIShowNavBarHeader();
+        $("navbar &gt; progressbar").remove();
+    }
+});
+</code></pre>
+
+<p>Notice in the image on the right how we display a progress bar in the navbar.</p>
+
+<p><img src="../screenshots/progressbar-1.png" alt="Progress Bar" />
+<img src="../screenshots/progressbar-2.png" alt="Progress Bar" /></p>

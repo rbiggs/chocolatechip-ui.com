@@ -1,0 +1,80 @@
+<h1 id="popovers">Popovers</h1>
+
+<p>Popovers are iPad specific widgets for presenting the user a set of options that are not intrusive the way modal popups are. A popover could contain a navigation list for presenting granular access to content that will be displayed in the splitview&#8217;s detail pane. It could also contain action buttons in an action sheet, or regular buttons of any type you want to put there. You could create custom icons for special tools to interact with the content in the detail view. A popover can be dispelled by touching anywhere on the screen, otherwise you will need to manage dispelling the popover when the user performs an action.</p>
+
+<p>To setup a popover, you use the $.UIPopover method and pass it an object literal of values.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIPopover(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>triggerElement: A valid CSS selector for the element which when clicked will show the popover. ChocolateChip-UI uses this as the anchor point for the popover when there is a screen resize or orientation change.</li>
+<li>popoverOrientation: At the moment there are only two popover orientations: &#8220;top&#8221; or &#8220;bottom&#8221;.</li>
+<li>pointerOrientation: At the moment there are only three pointer orientations: &#8220;left&#8221;, &#8220;center&#8221; and &#8220;right&#8221;.</li>
+<li>id: An ID for the popover.</li>
+<li>title: An optional value for a title in the popover&#8217;s top toolbar.</li>
+</ul>
+
+<p><strong>Example:</strong> </p>
+
+<pre><code>var popover1 = { 
+    triggerElement : "#showPopover1", 
+    popoverOrientation: "top", 
+    pointerOrientation: "left", 
+    id: "popover1", 
+    title: "Popover One"
+};
+$.UIPopover(popover1);
+</code></pre>
+
+<p>After creating the popover, you&#8217;ll need to populate it with content. You can do this with the Element.insert method. Please be aware that you need to insert the content in the popover&#8217;s scrollpanel. Pay attention to this example:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#popover1 scrollpanel").insert('&lt;tableview ui-kind="grouped"&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item one&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item two&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item three&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item four&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;/ul&gt;');
+</code></pre>
+
+<p>Or:</p>
+
+<pre><code>var popover = $("#popover1");
+popover.find("scrollpanel").insert('&lt;tableview ui-kind="grouped"&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item one&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item two&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item three&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;tablecell&gt;&lt;celltitle&gt;item four&lt;/celltitle&gt;&lt;/tablecell&gt;\
+    &lt;/ul&gt;');
+</code></pre>
+
+<p>After creating a popover you need to be able to show and hide it. $.UIPopover has two methods &#8220;show&#8221; and &#8220;hide&#8221;. To show the popover, you need to do so by binding an event to the element you chose as the trigger for the popover when you set it up. Following the examples above, the code to show that popover would look like the example below. When you show a popover, ChocolateChip-UI also creates transparent mask under the popover that covers the entire screen. When the user touches this mask, it dispels both the mask and the popover.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#showPopover1").bind("click", function() {
+    $.UIPopover.show($("#popover1"));
+});
+</code></pre>
+
+<p>Although $.UIPopover has a show method, you need to use $.UIHidePopover. You simply pass it the ID of the popover. This method will also automatically remove the screen mask for you. You would execute this method in the code that handles any completion task in your popover. Of course, if you want the popover to stay on screen until the user decides to dispel the popover by touching the transparent screen mask, you would not use this in any of your popover&#8217;s handlers.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#popover1").delegate("uibutton", "click", function() {
+    // Code to do stuff here.
+
+    // Hide the popover:
+    $.UIHidePopover("#popover1");
+});
+</code></pre>
+
+<p>Here&#8217;s what this popover would look like:</p>
+
+<p><img src="../screenshots/popover-1.png" alt="popover created from this code" title="" /></p>

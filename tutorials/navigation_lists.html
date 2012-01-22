@@ -1,0 +1,274 @@
+<h1 id="navigation_lists">Navigation Lists</h1>
+
+<p>Navigation to other views in an app is an important way of providing the user with different sets of data and different options for interacting with the data. ChocolateChip-UI provides an easy way to implement navigation using tablecells with href attributes. You would do this on a tablecell with either a disclosure indicator or a detail-disclosure indicator so that the use knows that touching the cell will navigate to another screen. ChocolateChip-UI listens for any touch events on a tablecell with a href. When one occurs, it makes the view with that tablecell&#8217;s href become the current view. ChocolateChip-UI uses a set of three attribute values to handle navigation forward and backward: <strong>ui-navigation-status=&#8221;current&#8221;</strong>, <strong>ui-navigation-status=&#8221;traversed&#8221;</strong>, <strong>ui-navigation-status=&#8221;upcoming&#8221;</strong>. Refer to the documentation in ChUI.js and ChUI.css.</p>
+
+<p>When implementing such drilldown navigation in your app, be sure to provide a navbar with a back uibutton for each successive view. ChocolateChip-UI will use that back uibutton to automatically implement backward navigation to the previous view using its navigation history that it establishes the with the &#8220;#main&#8221; id of the first view at load time. As soon as a user touches a tablecell with a href attribute, ChocolateChip-UI adds it to the queue of navigated views so that it knows where to navigate back to. Also remember that when you navigate to a new view, that views navbar should have a title reflecting the choice the user made to get there. This keeps the user informed about why they are seeing the data or controls that are present in that view.</p>
+
+<p>The navigation list was designed to initiate a navigation event when the user clicks on a list item. Because there is nothing from stopping the user from touching a navigation list item multiple times, ChocolateChip-UI has some built-in surveillance to observe if the user has clicked the same list item already. This is necessary because multiple clicks on the same list item could result in the app navigating forward to a state where there is no current view and no way to get back to a useable state. In most cases ChococlateChip&#8217;s surveilance of navigation list item clicks will prevent this from happening. But if a user bangs in rapid succession on a navigation list, it may be possible to put the app in an unusable state. At the end of each navigation transition, ChocolateChip-UI checks to see if there is a current view. If there is not, it resets the current view to the last current view, along with navigation history so that the user can navigate back as expected. When this reset happens, you may see a sudden jerk where the previous view quickly slides back into view from the left.</p>
+
+<p>To learn more about how this navigation works, read the documentation for <strong>$.UINavigationHistory</strong>, <strong>$.UIBackNavigation</strong> and <strong>$.UINavigationList</strong> in ChUI.js. To learn more about using tablecells with celltitles, cellsubtitles, celldetails and other elements, read the tutorial on Advanced Tableviews.</p>
+
+<p>Below is a working example of navigation list that leads to detail pages about each item in the main tableview list.</p>
+
+<p><em>Example:</em></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;title&gt;Tableviews 1&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;script src="chocolatechip.js"&gt;&lt;/script&gt;
+    &lt;script src="chui.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        $.ready(function() {
+
+        });
+    &lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app ui-background-style="striped"&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Tableview&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview&gt;
+                        &lt;tablecell href="#people_view" ui-implements="detail-disclosure"&gt;
+                            &lt;celltitle&gt;People&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablecell href="#places_view" ui-implements="detail-disclosure"&gt;
+                            &lt;celltitle&gt;Places&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablecell href="#things_view" ui-implements="detail-disclosure"&gt;
+                            &lt;celltitle&gt;Things&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablecell href="#animals_view" ui-implements="detail-disclosure"&gt;
+                            &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablecell href="#food_view" ui-implements="detail-disclosure"&gt;
+                            &lt;celltitle&gt;Food&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="people_view" ui-background-style="striped" ui-navigation-status="upcoming"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-bar-align="left" ui-implements="back"&gt;
+                    &lt;pointer&gt;&lt;/pointer&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;People&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+                        &lt;tableheader&gt;
+                            This is a detail page about people.
+                        &lt;/tableheader&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;
+                                People, what they do
+                            &lt;/celltitle&gt;
+                            &lt;celldetail&gt;
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablefooter&gt;
+                            The summary of what people do for you and those you care about.
+                        &lt;/tablefooter&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="places_view" ui-background-style="striped" ui-tablecell-order="stacked" ui-navigation-status="upcoming"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-bar-align="left" ui-implements="back"&gt;
+                    &lt;pointer&gt;&lt;/pointer&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Places&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-kind="grouped"&gt;
+                        &lt;tableheader&gt;
+                            This is a detail page about places.
+                        &lt;/tableheader&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;
+                                Places, where to go, where not to go
+                            &lt;/celltitle&gt;
+                            &lt;celldetail&gt;
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablefooter&gt;
+                            The summary of what places provide for you and those you care about.
+                        &lt;/tablefooter&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="things_view" ui-background-style="striped" ui-tablecell-order="stacked" ui-navigation-status="upcoming"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-bar-align="left" ui-implements="back"&gt;
+                    &lt;pointer&gt;&lt;/pointer&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Things&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-kind="grouped"&gt;
+                        &lt;tableheader&gt;
+                            This is a detail page about things.
+                        &lt;/tableheader&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;
+                                Things, why are they so confusing?
+                            &lt;/celltitle&gt;
+                            &lt;celldetail&gt;
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablefooter&gt;
+                            The summary of what things mean for you and those you care about.
+                        &lt;/tablefooter&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="animals_view" ui-background-style="striped" ui-tablecell-order="stacked" ui-navigation-status="upcoming"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-bar-align="left" ui-implements="back"&gt;
+                    &lt;pointer&gt;&lt;/pointer&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Animals&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-kind="grouped"&gt;
+                        &lt;tableheader&gt;
+                            This is a detail page about animals.
+                        &lt;/tableheader&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;
+                                Animals, they are out to get you.
+                            &lt;/celltitle&gt;
+                            &lt;celldetail&gt;
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablefooter&gt;
+                            The summary of what animals will do to you and those you care about.
+                        &lt;/tablefooter&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="food_view" ui-background-style="striped" ui-tablecell-order="stacked" ui-navigation-status="upcoming"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-bar-align="left" ui-implements="back"&gt;
+                    &lt;pointer&gt;&lt;/pointer&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Food&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-kind="grouped"&gt;
+                        &lt;tableheader&gt;
+                            This is a detail page about food.
+                        &lt;/tableheader&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;
+                                Food, it just tastes so good.
+                            &lt;/celltitle&gt;
+                            &lt;celldetail&gt;
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                        &lt;tablefooter&gt;
+                            The summary of what food you and those you care about can eat.
+                        &lt;/tablefooter&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="navigation_list_with_a_single_fixed_navbar">Navigation List with a Single Fixed Navbar</h2>
+
+<p>There is a second type of navigation list. If you want a fixed navbar that does not change while the views are being navigated you can do so with a slight modification of the previous layout. To start with you need to let ChocolateChip-UI know about this layout diversion by putting the attribute <strong>ui-kind=&#8221;navigation-with-one-navbar&#8221;</strong> on the app tag itself. Instead of navbars inside each view, you put the one navbar right after the app tag as the first child, followed by all the views that will be navigated. Of course you still need to have the id &#8220;main&#8221; on the first view and give it the attribute <strong>ui-navigation-status=&#8221;current&#8221;</strong>, as well as giving the other views the attribute <strong>ui-navigation-status=&#8221;upcoming&#8221;</strong>. And, because there is a navbar on the page, you still need to give the subviews the attribute <strong>ui-associations=&#8221;withNavBar&#8221;</strong>. Don&#8217;t forget to put a uibutton with <strong>ui-implements=&#8221;back&#8221;</strong> in the navbar. See below:</p>
+
+<p><em>Example:</em></p>
+
+<pre><code>&lt;app ui-kind="navigation-with-one-navbar"&gt;
+    &lt;navbar&gt;
+        &lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+            &lt;label&gt;Back&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;h1&gt;Single Navbar&lt;/h1&gt;
+    &lt;/navbar&gt;
+    &lt;view id="main" ui-background-style="striped" ui-navigation-status="current" ui-subview-navigation="false"&gt;
+        &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+            &lt;scrollpanel&gt;
+                &lt;tableview&gt;
+                    &lt;tableheader&gt;This is an example of a layout with a single navbar and navigation to different views using drilldown list. The Back button is there but hidden when on the main view, thereafter it appears until the user returns to the main view.&lt;/tableheader&gt;
+                    &lt;tablecell href="#item_01_view" ui-implements="disclosure"&gt;
+                        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                    &lt;/tablecell&gt;
+                &lt;/tableview&gt;
+            &lt;/scrollpanel&gt;
+        &lt;/subview&gt;
+    &lt;/view&gt;
+    &lt;view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right"&gt;
+        &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+            &lt;scrollpanel&gt;
+                &lt;tableview ui-tablecell-order="stacked"&gt;
+                    &lt;tablecell href="#item_01_detail_view" ui-implements="detail-disclosure"&gt;
+                        &lt;cellcounter&gt;1&lt;/cellcounter&gt;
+                        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+                    &lt;/tablecell&gt;
+                &lt;/tableview&gt;
+            &lt;/scrollpanel&gt;
+        &lt;/subview&gt;
+    &lt;/view&gt;
+    &lt;view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="squared"&gt;
+        &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+            &lt;scrollpanel&gt;
+                &lt;tableview ui-tablecell-order="stacked"&gt;
+                    &lt;tablecell class="ui-no-hover"&gt;
+                        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+                        &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        &lt;/celldetail&gt;
+                    &lt;/tablecell&gt;
+                &lt;/tableview&gt;
+            &lt;/scrollpanel&gt;
+        &lt;/subview&gt;
+    &lt;/view&gt;
+&lt;/app&gt;
+</code></pre>
+
+<p>Below is an example of a drill down list. The disclosure indicator means that there are more screens to navigate to.</p>
+
+<p><img src="../screenshots/navigation-disclosure-1.png" alt="Drill down list with disclosure indicator" title="" />
+<img src="../screenshots/navigation-disclosure-2.png" alt="Another drill down list with disclosure indicator" title="" /></p>
+
+<p>Below is a navigation list with detail disclosures. These indicate that when the user selects an item, they will arrive on a screen with a full detail about what they selected. The content may be text, images, video, music, or any combination of these. The detail could contain optional tasks through buttons to listen, watch, purchase, share, etc. In general, you wouldn&#8217;t navigate any further than the detail screen. If you need to offer and option for more details than could fit, you could offer the option to flip the subview over to reveal its backside, or use expanders.</p>
+
+<p><img src="../screenshots/navigation-detail-disclosure-1.png" alt="A navigation list with detail disclosures" title="" /></p>

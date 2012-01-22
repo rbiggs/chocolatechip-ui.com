@@ -1,0 +1,286 @@
+<h1>Custom Tints</h1>
+
+<p>Although ChocolateChip-UI provides default styles and some variations for its controls, we also understand the need to allow custom styles for branding and personalization of an app. To accomplish this you can take advantage of custom tints. Using the <em>ui-custom-tint</em> class to override the default style. Custom tints automatically provide hover states for uibuttons. Custom tints work with the following elements:</p>
+
+<ul>
+<li><a href="#navbar_toolbar">navbar</a></li>
+<li><a href="#navbar_toolbar">toolbar</a></li>
+<li><a href="#uibutton_default">uibutton default</a></li>
+<li><a href="#uibutton_segmented_control">uibutton segmented control</a></li>
+<li><a href="#uibutton_action">uibutton action</a></li>
+<li><a href="#uibutton_rounded_rectangle">uibutton rounded rectangle</a></li>
+<li><a href="#popup">popup</a></li>
+<li><a href="#action_sheet">action sheet</a></li>
+<li><a href="#switch_control">switch control</a></li>
+<li><a href="#background_gradients">background gradients</a></li>
+</ul>
+
+<p>The <em>ui-custom-tint</em> class overrides the default gradient on UI elements and replaces it with a gray scale gradient with degrees of opacity. This allows a background color to show through. So, once the <em>ui-custom-tint</em> class is applied to an element, all you have to do is apply a background color.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="navbar_toolbar"></a></p>
+
+<h2>Navbar/Toolbar:</h2>
+
+<p>You can customize the background color of navbars and toolbars using <em>ui-custom-tint</em> and an inline background color or additional class or CSS3 selector. To change the background color on all of the navbars and toolbars in your app, you could do the following:</p>
+
+<p><strong>Example:</strong></p>
+
+<p>navbar.ui-custom-tint,
+toolbar.ui-custom-tint {
+    background-color: lightblue;
+}</p>
+
+<p>Or you might want to use a selector to target a specific navbar/toolbar:</p>
+
+<pre><code>#view_03 &gt; navbar.ui-custom-tint {
+    background-color: #777;
+}
+view:first-of-type &gt; toolbar.ui-custom-tint {
+    background-color: orange;
+}
+view.ui-custom-tint.green {
+    background-color: green;
+}
+</code></pre>
+
+<p>Or you could apply the background-color inline on the bar:</p>
+
+<pre><code>&lt;navbar class="ui-custom-tint" style="background-color: #d3beab;"&gt;
+    &lt;button ui-implements="back"&gt;
+        &lt;label&gt;Back&lt;/label&gt;
+    &lt;/button&gt;
+    &lt;h1&gt;Latest Events&lt;/h1&gt;
+&lt;/navbar&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_default"></a></p>
+
+<h2>UIButton (default):</h2>
+
+<p>Like navbars and toolbars, it's very easy to change the look of the default gradient and background color of uibuttons in navbars and toolbars. Just put the <em>ui-custom-tint</em> class on the uibuttons and give them a background color. You can use any of the methods illustrated above for the navbars/toolbars:</p>
+
+<pre><code>/* An RGBA background color with transparency allowing 
+the background to show through the buttons.*/
+navbar &gt; uibutton.ui-custom-tint {
+    background-color: rgba(211, 17, 19, 0.65); 
+}
+
+#main &gt; toolbar &gt; uibutton[ui-implements=icon].ui-custom-tint {
+    background-color: #6f8000;
+}
+</code></pre>
+
+<p><strong>Note:</strong> If you plan on using a custom tint on a Back or Next uibutton, you'll also need to put a background color on those uibuttons' pointers. The CSS definition below expects that the class <em>ui-custom-tint</em> will come after the <em>ui-implements</em> attribute. If you're not sure about which order your uibuttons will have, provide both orders of values (attribute-class/class-attribute):</p>
+
+<pre><code>uibutton[ui-implements=back].ui-custom-tint,
+uibutton[ui-implements=back].ui-custom-tint &gt; pointer {
+    background-color: #51b3d3;
+}
+
+&lt;button ui-implements="back" class="ui-custom-tint"&gt;
+    &lt;label&gt;Back&lt;/label&gt;
+&lt;/button&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_segmented_control"></a></p>
+
+<h2>UIButon (segmented control):</h2>
+
+<p>The uibuttons in segmented controls can also have their background colors changed using the <em>ui-custom-tint</em> class. Since segmented controls have two default styles: in navbars/toolbars and in a view/subview, you can style your custom colors for both:</p>
+
+<pre><code>navbar &gt; segmentedcontrol &gt; uibutton.ui-custom-tint {
+    background-color: #ffdf7f;
+}
+subview &gt; segmentedcontrol &gt; uibutton.ui-custom-tint {
+    background-color: #c0a290;
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_action"></a></p>
+
+<h2>UIButton (action):</h2>
+
+<p>Action uibuttons are mostly for use in action sheets and popups. ChocolateChip-UI already provides several possible colors for action uibuttons:</p>
+
+<ul>
+<li><em>implements="default"</em>: the default gray</li>
+<li><em>implements="delete"</em>: red</li>
+<li><em>implements="done"</em>: blue</li>
+<li><em>implements="cancel"</em>: black</li>
+<li><em>class="green"</em>: green</li>
+<li><em>class="gold"</em>: gold</li>
+</ul>
+
+<p>Like regular uibuttons, it's easy to create a custom color for action uibuttons using the same techniques as for regular uibuttons. Put a class of <em>ui-custom-tint</em> on the action uibutton, then give it a background color. You can use any of the techniques described for default uibuttons to accomplish this: inline style declaration, additional class definition or a CSS3 selector definition. <strong>Note:</strong> An inline style will always override a class definition. See example below:</p>
+
+<pre><code>uibutton[ui-kind="action"][ui-implements="default"].ui-custom-tint {
+    background-color: #8fc060;
+}
+
+&lt;uibutton ui-kind="action" ui-implements="default" class="ui-custom-tint"&gt;
+    &lt;label&gt;Set Value&lt;/label&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-kind="action" ui-implements="default" class="ui-custom-tint" style="background-color: #ff6666"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/location_pin.svg);"&gt;&lt;/icon&gt;
+    &lt;label&gt;Set Value&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_rounded_rectangle"></a></p>
+
+<h2>UIButton (Rounded Rectangle)</h2>
+
+<p>Rounded rectangle uibuttons can also be customized, even though they don't have background gradients. Maybe you do want them to have a background gradient, or you want to change the font color, border color or background color. You can easily use some class definitions to do this in your document's local stylesheet:</p>
+
+<pre><code>uibutton[ui-kind="rounded-rectangle"].ui-custom-tint {
+    border: red;
+    border-width: 2px;
+    color: gold;
+    background-color: orange
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="popup"></a></p>
+
+<h2>Popup:</h2>
+
+<p>You can customize the look of popups as well, see the section above about action uibuttons for how to customize them. Besides customize the theme of the popup's action uibuttons, you might also want to customs the look of the popup itself. Even the though popup is created dynamically, it's style are in ChUI.css so you can override them. You might want to change the background color to black or something else, or remove the glow behind the popup title. The popup's background is defined for the popup element, the radial gradient is defined for the panel element inside the popup. So to handle both you could do something like this:</p>
+
+<pre><code>popup { 
+background-image: 
+    -webkit-gradient(linear, left top, left bottom,
+        from(rgba(128,0,45,0.5)),
+        to(rgba(98,0,35,0.5)));
+}
+
+popup &gt; panel {
+    background-image: none
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="action_sheet"></a></p>
+
+<h2>Action Sheet:</h2>
+
+<p>Like popups, you can customize the looks of an action sheet's action uibuttons same as for any other action uibuttons. You can also customize the sheet itself. By default it has a bluish tint, but you can at initialization time choose to have it displayed with a black gradients. Refer to the documents in ChUI.js for actionsheet. Maybe you want a totally different color. You can do that by overriding the action in your document's local stylesheet:</p>
+
+<pre><code>/* Define a brown background for the action sheet: */
+actionsheet    {
+    background-image:
+        -webkit-gradient(linear, left top, left bottom,
+            from(#000),
+            color-stop(0.5, #000),
+            color-stop(0.5, rgba(225,225,225,.6)),
+            to(rgba(225,225,225,.6))),
+        -webkit-gradient(linear, left top, left bottom,
+            from(rgba(225,225,225,.5)),
+            color-stop(0.9, rgba(225,225,255,.15)),
+            to(rgba(225,225,225,.015))),
+        -webkit-gradient(linear, left top, left bottom,
+            from(rgba(128,48,0,0.45)),
+            to(rgba(128,48,0,0.65))) !important;
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="switch_control"></a></p>
+
+<h2>Switch Control:</h2>
+
+<p>To customize the "ON" label of a switch control, just add a class to the switch and define a color for it in your document's local stylesheet:</p>
+
+<pre><code>switchcontrol.customSwitchColor &gt; label[ui-implements=on] {
+    border: solid 1px #005800;
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom, 
+            from(#923700), 
+            color-stop(.5, #c04800 ));
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="background_gradients"></a></p>
+
+<h2>Background Gradients:</h2>
+
+<p>ChocolateChip-UI provides the standard iOS vertically striped background gradient, as well as a number of transparent gradient patters to use with any background color you choose. However, you could also take one of the gradient patterns and customize in in your app's local stylesheet to give you app a truly unique appearance. You might want equal width stripes. You might want the pattern to have a translucent color to overlay the background color. You decide.</p>
+
+<p>Here's the slant-right pattern with equal width stripes:</p>
+
+<pre><code>body[ui-background-style=slanted-right] {
+    background-color: #d4e0f3;
+    background-image: 
+    -webkit-gradient(linear, left top, right bottom,
+        color-stop(0.25, rgba(0,0,0,0.1)), 
+        color-stop(.3, transparent),
+        color-stop(0.5, transparent), 
+        color-stop(.5, rgba(0,0,0,0.1)),
+        color-stop(0.75, rgba(0,0,0,0.1)), 
+        color-stop(.8, transparent),
+        to(transparent));
+/* Adjust the background size to change the thickness of the stripes: */
+-webkit-background-size: 15px 15px;
+background-size: 15px 15px;             
+</code></pre>
+
+<p>Here's the slant-left pattern with equal width stripes and a translucent stripe color over the background color:</p>
+
+<p>body[ui-background-style=slanted-right] {
+    background-color: #d4e0f3;
+    background-image: 
+    -webkit-gradient(linear, left top, right bottom,
+        color-stop(0.25, rgba(145,127,255,0.3)), 
+        color-stop(.3, transparent),
+        color-stop(0.5, transparent), 
+        color-stop(.5, rgba(145,127,255,0.3)),
+        color-stop(0.75, rgba(145,127,255,0.3)), 
+        color-stop(.8, transparent),
+        to(transparent));
+-webkit-background-size: 40px 40px;
+background-size: 15px 15px;<br />
+}</p>
+
+<p>&nbsp;</p>
+
+<h2>Customizing Custom Tint</h2>
+
+<p>That's right, you can even customize custom tint. Don't like the way the gradient is, change the stop positions, change the gradient color from black to some other color that will be composited over the background color. If you have design sensibilities or you have a designer at your side, experiment with this and see what you come up with. Be aware that custom tint has a hover state consisting of the same gradient reversed, so if you change the default gradient, you'll probably want to change that one as well. By the way, like all customized styles, copy the original and work on it in your document's local stylesheet, not in ChUI.css.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>navbar &gt; uibutton,
+toolbar &gt; uibutton {
+background-image: 
+    -webkit-gradient(linear, left top, left bottom, 
+        from(rgba(255,255,255,.5)), 
+        color-stop(0.6,rgba(30,30,30,.5)),
+        color-stop(0.6, rgba(0,0,0,.5)), 
+        to(rgba(0,0,0,.75)));
+background-color: orange;
+}
+navbar &gt; uibutton.ui-custom-tint:hover,
+toolbar &gt; uibutton.ui-custom-tint:hover {
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom, 
+            from(rgba(0,0,0,.1)), 
+            color-stop(0.45,rgba(0,0,0,.5)), 
+            color-stop(0.45, rgba(0,0,0,.6)), 
+            to(rgba(255,255,255,.2)));
+}
+</code></pre>

@@ -1,0 +1,74 @@
+<h1>Extending &amp; Subclassing</h1>
+
+<p>Its easy to extend ChocolateChip. There are two ways depending on what you are trying to achieve. If you want the method to act directly on a element, you will want to extend the HTMLElement.prototype. Where possible ChocolateChip.js uses ECMAScript5's Object.defineproperties method to extend the HTMLElement.prototype without polluting it with enumerable properties. Using ChocolateChip.js's extend method, you pass as an argument the HTMLElement.prototype as the target to which you wish to add properties, followed by an object literal defining those properties. All variables and methods defined in this way will require object literal notation.</p>
+
+<pre><code>$.ready(function() {
+    $.extend(HTMLElement.prototype, {
+        attention : function() {
+            this.css("{border: solid 2px red; background-color: yellow;}");
+        }
+    });
+    // From here on out you can use element.attention() on 
+    // any element you want to.
+    $("#alertMsg").attention();
+});
+</code></pre>
+
+<p>If you don't need to do anything directly on an element but want to add some other type of functionality, you can directly extend the $ object.</p>
+
+<pre><code>$.ready(function() {
+    $.extend($, {
+        today : function() {
+            var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            var date = new Date();
+            return days[date.getDay()];
+        }
+    });
+    // From here on out you can use $.today() to get the day.
+    console.log("Today is: " + $.day() + ".");
+});
+</code></pre>
+
+<p>You can also do some interesting things with $.enclose and $.compose methods in ChococlateChip.js. See the documentation on ChocolateChip.js for more information.</p>
+
+<p>If you want to completely override something, copy it into your app's local script tag and change it however you want. A smarter move would be to copy it into your app and then rename it and use that instead of the original. That way you can call the original at any time if you want or need to. Just make sure that whatever you copy is of the same extension type: $ or HTMLElement.prototype.</p>
+
+<p><strong>Subclassing:</strong></p>
+
+<p>If you need to do some subclassing or are wondering how you might do it, here's a simple approach that works reasonably well:</p>
+
+<pre><code>function MainClass(firstName) {
+    this.firstName = firstName;
+    this.sayFirstName = function () {
+        console.log("This is from MainClass: " + this.firstName);
+    };
+}
+
+function SubClass(firstName, lastName) {
+    MainClass.apply(this, arguments);
+    this.lastName = lastName;
+    this.sayLastName = function () {
+        console.log("This is from SubClass: " + this.lastName);
+    };
+}
+function SubSubClass(firstName, lastName, occupation) {
+    SubClass.apply(this, arguments);
+    this.occupation = occupation;
+    this.reportOccupation = function() {
+        console.log("This is from SubSubClass: " + this.occupation);
+    };
+}
+
+var objA = new MainClass("Johny");
+var objB = new SubClass("George", "Washington");
+var objC = new SubSubClass("Abraham", "Lincoln", "President");
+
+objA.sayFirstName(); // Returns: This is from MainClass: Johny
+objB.sayFirstName(); // Returns: This is from MainClass: George
+objB.sayLastName(); // Returns: This is from SubClass: Washington
+objC.sayFirstName(); // Returns: This is from MainClass: Abraham
+objC.sayLastName(); // Returns: This is from SubClass: Lincoln
+objC.reportOccupation(); // Returns: This is from SubSubClass: President
+</code></pre>
+
+<p>The nice thing about the above pattern is that you don't have to worry about the number of arguments because of using apply. Using call would require a comma delimited list of arguments. Notice that even in the sub subclass we can call super methods without jumping through hoops.</p>

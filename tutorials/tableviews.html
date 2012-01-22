@@ -1,0 +1,473 @@
+<h1>Tableviews</h1>
+
+<p>Tableview are the main artifice by which you output data in your app. ChocolateChip provides a number of pre-configured layouts for tableviews making it merely a matter of you deciding which one to use.</p>
+
+<p>There are two ways in which tableview are display: from edge to edge or inset from the sides with rounded corners. The inset style is called "grouped" There is not functional difference between these two styles. It is just a question of taste. Of course, if you have a lot of data that you need to put into a tableview, an edge to edge style would make for since. If your data is sparse you might want to use the grouped style.</p>
+
+<p><strong>Note:</strong> ChocolateChip-UI handles all celltitles and cellsubtitles so that if their content exceeds the available space they get truncated with an ellipsis automatically. You don't have to do anything.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_tableview_with_celltitles"></a></p>
+
+<h2>Basic Tableview with Celltitles:</h2>
+
+<p>The simplest tableview has tablecell with just celltitles</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Things&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce this:</p>
+
+<p><img src="../screenshots/tableview-simple-1.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_grouped_tableview_celltitles">Basic Grouped Tableview with Celltitles</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_tableview_with_indicators"></a></p>
+
+<h2>Basic Tableview with Indicators:</h2>
+
+<p><strong>Disclosure Indicator</strong></p>
+
+<p>Tablecells can have various indicators which signal to the user that touching the cell will cause something to occur. The most common indicator is "disclosure". It looks like a right facing caret. It's purpose is to indicate that touching the tablecell will result in navigation to another screen. To output a disclosure indicator, just put *ui-implements="disclosure" on the tablecell. To learn how to have the disclosure implement navigation to another screen where there are more options for the user to choose from, refer to the tutorial for List Navigation. The disclosure indicator is used to create what are know as drilldown lists because they allow the creation of applications with deeply nested navigation screens.</p>
+
+<p><strong>Detail-disclosure Indicator:</strong></p>
+
+<p>Another type of indicator is the detail-disclosure. This is similar to the disclosure indicator but is surrounded by a circular border. This is used to indicate that touching the tablecell will lead to another screen where there will be a screen of details about the item the user chose.</p>
+
+<p><strong>Add Indicator</strong></p>
+
+<p>There is also an "add" indicator. Touch a sell with this indicator will trigger some mechanism for the user to add something. As a developer its your job to figure out what and how you will add. You'll need to attach an even to any tablecell with an add indicator to trigger the addition. You could use a selector/delegate combo like this:</p>
+
+<pre><code>$("#myTableView").delegate("tablecell[ui-implements=add]", "touchstart", additionFunction);
+</code></pre>
+
+<p><strong>Delete Indicator</strong></p>
+
+<p>The delete indicators get output when enabling deletion of tablecells. Refer to $.UIDeleteTableCell in the documentation of ChUI.js.</p>
+
+<p><strong>Variations on Indicators</strong></p>
+
+<p>ChocolateChip-UI offers some variations on these indicators based on the styles that Apple uses to draw user attention to them. Just add a class of "green" to the tablecell and you will get a green version of the detail-disclosure indicator and add indicator. If you want, you could create a new type of indicator appropriate for your needs or create a variation on these. Refer to the documentation on indicators in ChUI.css. The following markup shows how to implement the common tablecell indicators.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&amp;hellip;&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;This is an example of a very long item that will be truncated because it does fit.&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure" class="green"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="add"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="add" class="green"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-2.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_grouped_tableview_indicators">Basic Grouped Tableview with Indicators</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_tableview_with_icons"></a></p>
+
+<h2>Basic Tableview with Icons</h2>
+
+<p>Another type of tableview layout consists of celltitles with application icons on the left. To indicate that tablecells will display icons, put  <em>ui-usage="icon"</em> on them. The images for an icon should be 29 pixels by 29 pixels. Insert the images for the icons before the celltitle tag as in the code below:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell ui-usage="icon"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&amp;hellip;&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/phone.png"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/mail.png"&gt;
+        &lt;celltitle&gt;This is an example of a very long item that will be truncated because it does not fit.&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="icon"&gt;
+        &lt;img src="images/safari.png"&gt;
+        &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="icon" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/sms.png"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="icon" ui-implements="add"&gt;
+        &lt;img src="images/store.png"&gt;
+        &lt;celltitle&gt;Stuff&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-3.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_grouped_tableview_icons">Basic Grouped Tableview with Icons</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_tableview_with_images"></a></p>
+
+<h2>Basic Tableview with Images:</h2>
+
+<p>Often you may need to display a regular image in a tablecell to display some graphic information about that particular item. To output images in tablecells give the them this attribute: <em>ui-usage="image"</em>. Images should be 55 pixels by 55 pixels. Insert images before the celltitle tag as in the code below.</p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell ui-usage="image"&gt;
+        &lt;img src="images/blues.png"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image"&gt;
+        &lt;img src="images/classical.png"&gt;
+        &lt;celltitle&gt;This is an example of a very long item that will be truncated because it does not fit.&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image"&gt;
+        &lt;img src="images/itunes.png"&gt;
+        &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-usage="image"&gt;
+        &lt;img src="images/killers.png"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-4.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_grouped_tableview_with_images">Basic Grouped Tableview with Images</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_tableview_with_uibuttons"></a></p>
+
+<h2>Basic Tableview with UIButtons in Tablecells:</h2>
+
+<p>You can have UIButtons or switchcontrols in tablecells. Just put <em>ui-usage="uibutton"</em> on the tablecell.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tablecell&gt;
+    &lt;celltitle&gt;People&lt;/celltitle&gt;
+    &lt;switchcontrol class="off" id="sleepSwitch"&gt;
+        &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+        &lt;input type="checkbox" value="ZZZZZZZZ!"&gt;
+    &lt;/switchcontrol&gt;
+&lt;/tablecell&gt;
+&lt;tablecell ui-implements="titleWithuibutton"&gt;
+    &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;switchcontrol class="on" id="eatSwitch"&gt;
+        &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+        &lt;input type="checkbox" value="Yummy!"&gt;
+    &lt;/switchcontrol&gt;
+&lt;/tablecell&gt;
+&lt;tablecell ui-implements="celltitle-with-uibutton"&gt;
+    &lt;celltitle&gt;Things&lt;/celltitle&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;View&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/tablecell&gt;
+&lt;tablecell ui-implements="celltitle-with-uibutton"&gt;
+    &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;See&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/tablecell&gt;
+&lt;tablecell&gt;
+    &lt;celltitle&gt;Food&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-5.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_grouped_tableview_with_uibuttons">Basic Grouped Tableview with uibuttons</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tableheader"></a></p>
+
+<h2>Tableheader</h2>
+
+<p>You can provide a tableview with a tableheader, which can be a title for the table or some introductory information about the tableview. This is an optional tableview element. To provide a tableview with a tableheader, place it as the first element in the tableview.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablehader&gt;
+        A basic tableheader here to announce what this tableview is about.
+    &lt;/tableheader&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Things&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><img src="../screenshots/tableview_with_tableheader.png" alt="tableview with tableheader" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tablefooter"></a></p>
+
+<h2>Tablefooter</h2>
+
+<p>You can provide a tableview with a tablefooter, which can be a summary about the tableview. This is an optional tableview element. To provide a tableview with a tablefooter, place it as the last element in the tableview.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Things&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Animals&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablefooter&gt;
+        A quick summary about all of the items in this list.
+    &lt;/tablefooter&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><img src="../screenshots/tableview_with_tablefooter.png" alt="tableview with tablefooter" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableheader">Tableheader</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_grouped_tableview_celltitles"></a></p>
+
+<h2>Basic Grouped Tableview with Celltitles:</h2>
+
+<p>This is the same structure as the basic tableview with celltitles. The only difference is the addition of the <em>ui-kind="grouped"</em> attribute on the tableview tag:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    ...
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-grouped-1.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_tableview_with_celltitles">Basic Tableview with Celltitles</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_grouped_tableview_indicators"></a></p>
+
+<h2>Basic Grouped Tableview with Indicators:</h2>
+
+<p>This is the same structure as the basic tableview with indicators. The only difference is the addition of the <em>ui-kind="grouped"</em> attribute on the tableview tag:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    ...
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-grouped-2.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_tableview_with_indicators">Basic Tableview with Indicators</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_grouped_tableview_icons"></a></p>
+
+<h2>Basic Grouped Tableview with Icons:</h2>
+
+<p><strong>Example:</strong></p>
+
+<p>This is the same structure as the basic tableview with icons. The only difference is the addition of the <em>ui-kind="grouped"</em> attribute on the tableview tag:</p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    ...
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-grouped-3.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_tableview_with_icons">Basic Tableview with Icons</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_grouped_tableview_with_images"></a></p>
+
+<h2>Basic Grouped Tableview with Images:</h2>
+
+<p>This is the same structure as the basic tableview with images. The only difference is the addition of the <em>ui-kind="grouped"</em> attribute on the tableview tag:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    ...
+&lt;/tableview&gt;
+</code></pre>
+
+<p><img src="../screenshots/tableview-simple-grouped-4.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_tableview_with_images">Basic Tableview with Images</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="basic_grouped_tableview_with_uibuttons"></a></p>
+
+<h2>Basic Grouped Tableview with uibuttons in Tablecells:</h2>
+
+<p>This is the same structure as the basic tableview with uibuttons in tablecells. The only difference is the addition of the <em>ui-kind="grouped"</em> attribute on the tableview tag:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    ...
+&lt;/tableview&gt;
+</code></pre>
+
+<p>This will produce the following:</p>
+
+<p><img src="../screenshots/tableview-simple-grouped-5.png" alt="simple tableview 1" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#basic_tableview_with_uibuttons">Basic Tableview with uibuttons in Tablecells</a></p>
+
+<p><a href="#tableheader">Tablefooter</a></p>
+
+<p><a href="#tablefooter">Tablefooter</a></p>

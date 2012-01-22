@@ -1,0 +1,48 @@
+<h1>Activity Indicator</h1>
+
+<p>An activity indicator is that spinning weel of spokes used to show that the application is busy doing something, like loading data or updating a record. You can create an activity indicator using the $.UIActivityIndicator method. There are two ways in which you can implement an activity indicator. The first is to use $.UIActivityIndicator along with $.UIActivityIndicator.init, $.UIActivityIndicator.animate and $.UIActivityIndicator.stop. Consult the documentation for these in ChocolateChip.js. Using these methods allows you to put an activity indicator wherever you want in whatever you want. You choose when to start its animation and when to stop it. However, in most cases the second option will be more convenient: Element.UIInsertActivityIndicator. You execute it on the container in which you wish to display an activity indicator. It inserts a panel in which the activity indicator will be displayed. This panel gets its dimensions from the options you pass in as arguments:</p>
+
+<ul>
+<li>id: a unique id for the activity indicator. If no id is supplied, it defaults to "UIActivityIndicator."</li>
+<li>color: a hexidecimal or rgb/rgba value for the color of the tines of the activity indicator. If no value is supplied it defaults to "gray."</li>
+<li>shadow: a hexicdecimal or rgb/rgba value for the color of shadow for the tines of the activity indicator. If no value is supplied, the activity indicator will be drawn without any shadow.</li>
+<li>container: a selector indicating the container in which to draw the activity indicator. If no selector is supplied it defaults of the class "UIActivityIndicator". You can add this class dynamically to an element in which you wish to display an activity indicator. <strong>Note:</strong> If you output an activity indicator on a container that already has a background image of type image or gradient, this will be replaced by the activity indicator. So, depending on where you want to show the activity indicator, you may need to inject a new element into the desired area to show the activity indicator if you don't want the main area's background image to be replaced by the activity indicator.</li>
+<li>size: the size for the activity indicator. This can be pixels or percent. If no size is passed, it defaults to 75%. This gets output as the background size for the render canvas image. <strong>Note:</strong> If you set a size for the activity indicator, make sure that the element you are outputting it in is big enough to display it.</li>
+<li>style: a CSS style declaration to insert on the activity indicator's panel. Use this for positioning, margins, etc.</li>
+</ul>
+
+<p>To use this with an Ajax call, you first insert the activity indicator into the place where the content will be placed. Then as part of the Ajax call's successCallback function, remove the activity indicator and insert the content. If you get an error, you can also choose to delete the activity indicator and display an eror message. If you wanted, you could use the optional CSS for the activity indicator to position it on top of any content currently in a container before the Ajax call returns either a success or error. Please refer to Element.xhr in the documentation for ChocolateChip.js for more details about how to do Ajax calls with ChocolateChip-UI. When using this method the activity indicator begins spinning as soon as it is inserted. See example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var content = $("#content");
+// First insert an activity indicator:
+content.UIInsertActivityIndicator({
+    id: "activity_indicator_01", 
+    color: "#fff",
+    container: "navbar &gt; panel",
+    size: "40px",
+    style : "margin: 40px auto 0 auto;"
+});
+// Then make the Ajax call:
+content.xhr("data.html", {
+    successCallback: function() {
+        // If the call is successful, empty the
+        // container to get rid of the activity indicator:
+        content.empty();
+        content.insert($.responseText);
+        $.responseText = null;
+        content.after($.make("&lt;h2&gt;Ajax call was successful.&lt;/h2&gt;"));
+    },
+    errorCallback: function() {
+        // If there was an error, remove activity indicator:
+        content.empty();
+        content.insert("There was an error getting the file.");
+    }
+});
+</code></pre>
+
+<p>Activity Indicator on right side of the navbar:</p>
+
+<p><img src="../screenshots/activity_indicator-1.png" alt="Activity Indicator in Navbar" />
+<img src="../screenshots/activity_indicator-2.png" alt="Activity Indicator in Scroll Panel" /></p>

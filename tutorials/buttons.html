@@ -1,0 +1,379 @@
+<h1>UIButtons</h1>
+
+<p>ChocolateChip-UI provides a number of different types of uibuttons. The most common uibutton is found in the navbars and toolbars. It typically has a bluish gradient and a rounded border.</p>
+
+<p>The uibuttons types are:</p>
+
+<ul>
+<li><a href="#default_uibutton">Default</a></li>
+<li><a href="#navigation_uibuttons">Navigation UIButtons: Back and Next</a></li>
+<li><a href="#uibutton_icon_label">UIButton with Icon and Label</a></li>
+<li><a href="#uibutton_icon_no_label">UIButton with Icon but no Label</a></li>
+<li><a href="#icon_uibutton">UIButton with Icon and no Label or Border</a></li>
+<li><a href="#rounded_rectangle_uibutton">Rounded Rectangle UIButton</a></li>
+<li><a href="#action_uibutton">Action UIButton</a></li>
+</ul>
+
+<p>Here is how these different buttons look. Some of the icons have custom background colors or gradients applied using the techniques described below.</p>
+
+<p><img src="../screenshots/buttons.png" alt="Illustration of Available Buttons" /></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#icon_alignment">Icon Alignment</a></p>
+
+<p><a href="#uibutton_placement">UIButton Placement in Navbars and Toolbars</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="default_uibutton"></a></p>
+
+<h2>Default:</h2>
+
+<p>ChocolateChip-UI's UIButtons is very simple: a uibutton with a label. Even if you create one dynamically, its interaction states for hover and touch are automatically provided by ChocolateChip.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton&gt;
+    &lt;lable&gt;Click Me!&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="navigation_uibuttons"></a></p>
+
+<h2>Navigation UIButtons: Back and Next:</h2>
+
+<p>If you need a "back" or "next" uibutton, give the button the attribute <em>ui-implements="back"</em> or <em>ui-implements="next"</em>. ChocolateChip-UI will automatically create the appropriate pointer for the uibutton.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-implements="back"&gt;
+    &lt;label&gt;Back&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="next"&gt;
+    &lt;label&gt;Next&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_icon_label"></a></p>
+
+<h2>UIButton with Icon and Label:</h2>
+
+<p>ChococlateChip-UI lets you include an icon in your buttons. You do this by putting an icon tag in the button. There are two ways to use and image for an icon: you can use the image as a background image or as an image mask. In the case of a high fidelity pixel image, you can use it as a background image on the icon for best results. To do so you put an inline style directly on the icon. Or, if you prefer, you could put a unique id on the button and create a CSS definition in your document to accomplish the same thing.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-icon-align="right" ui-bar-align="right"&gt;
+    &lt;icon  style="background-image: url(icons/iTunes_icon.png);"&gt;&lt;/icon&gt;
+    &lt;label&gt;iTunes&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>ChocolateChip-UI provides over forty common icons in SVG format for use as image masks. The advantage of these is that they are resolution independent. You can find them in the icons folder. Because they were designed for use as masks, they are black with transparency. By default ChocolateChip-UI sets a white background color on icons with image masks. You you change this in an inline style to whatever color you want, allowing for some interesting effects. As a matter of fact, you could even use a CSS gradient as the background for the image mask. Below are examples of the default, with a background color and with a gradient. To implement the image mask, use the <em>-webkit-mask-image</em> property with a url pointing to the image to use as the mask.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;!-- Default white background for image mask: --&gt;
+&lt;uibutton&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/attachement.svg);"&gt;&lt;/icon&gt;
+    &lt;label&gt;Save&lt;/label&gt;
+&lt;/uibutton&gt;
+&lt;!-- An icon with a custom background color and image mask: --&gt;
+&lt;uibutton&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/add.svg); background-color: #fff5b6;"&gt;&lt;/icon&gt;
+    &lt;label&gt;Add&lt;/label&gt;
+&lt;/uibutton&gt;
+&lt;!-- An icon with a CSS gradient and image mask: --&gt;
+&lt;uibutton&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/cog.svg) background-image: -webkit-gradient(linear, left top, right bottom, from(yellow), to (orange));"&gt;&lt;/icon&gt;
+    &lt;label&gt;Settings&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>Here is an image of all the presently available SVG icons:</p>
+
+<p><img src="../screenshots/svg_icons.png" alt="SVG Icons" /></p>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_icon_no_label"></a></p>
+
+<h2>UIButton with Icon but no Label:</h2>
+
+<p>Sometimes you want your pretty little button to show an icon but no label. ChocolateChip-UI makes this possible by putting the <em>ui-implements="icon"</em> attribute on your button and providing an image mask on the icon. You can use the same techniques for adding background color describe above.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;!-- Default white background for image mask: --&gt;
+&lt;uibutton ui-implements="icon"&gt;
+    &lt;icon style="background-image: url(icons/files.svg);"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+&lt;uibutton  ui-implements="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/add.svg); background-color: #fff5b6;"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-implements="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/cog.svg)" background-color: yellow;"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="icon_uibutton"></a></p>
+
+<h2>UIButton with Icon and no Label or Border:</h2>
+
+<p>A common type of uibutton for toolbars in particular has an icon, but the rest of the uibutton is transparent. This type of button has no label either, it is purely an icon. ChocolateChip-UI makes this type of uibutton possible with the <em>ui-kind="icon"</em> attribute. Remember to leave the labels out. You can use any of the background coloring techniques outlined above.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;!-- Default white background for image mask: --&gt;
+&lt;uibutton ui-kind="icon" class="disabled"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/film.svg);"&gt;
+&lt;/uibutton&gt;
+&lt;!-- An icon with a custom background color and image mask: --&gt;
+&lt;uibutton ui-kind="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/files.svg); background-color: #97611f;"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+&lt;!-- An icon with a CSS gradient and image mask: --&gt;
+&lt;uibutton ui-kind="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/download.svg); background-image: -webkit-gradient(linear, left top, right bottom, from(yellow), to (orange));"&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="rounded_rectangle_uibutton"></a></p>
+
+<h2>Rounded Rectangle UIButton:</h2>
+
+<p>Rounded rectangle uibuttons are the simplest in style: just a plain white background a a simple rounded border. This style of uibutton is common in subview outside of tableviews. By default thiese buttons stretch to the full available width of their container so that they stack up on top of each other.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="rounded-rectangle"&gt;
+    &lt;label&gt;Get Update&lt;/label&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-kind="rounded-rectangle"&gt;
+    &lt;label&gt;Text Message&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>If you want to change the stretching and stacking behavior of the rounded-rectangle uibuttons so that they sit side by side, you can simply put them in a stack container. Since stack has a default box orientation of vertical, you'll need to override that by giving it <em>ui-box="horizontal"</em>.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;stack ui-box="horizontal"&gt;
+    &lt;uibutton ui-kind="rounded-rectangle"&gt;
+        &lt;label&gt;Get Update&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton ui-kind="rounded-rectangle"&gt;
+        &lt;label&gt;Text Message&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/stack&gt;        
+</code></pre>
+
+<p>By default the rounded rectangle uibuttons have bluish text. You could redefine this in you document's stylesheet to whatever you what. ChocolateChip-UI does offer the standard iOS secondary rounded rectangle uibutton alternative using <em>ui-implements="important"</em> to give the rounded rectangle uibutton black text.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="action_uibutton"></a></p>
+
+<h2>Action UIButton</h2>
+
+<p>Action uibuttons are used in action sheets, popups and popovers. Action uibuttons are larger and more colorful than other buttons. They're meant to be larger targets and call out the attention of the user to choose one of several tasks to perform. ChocolateChip offers a number of default styles for action uibuttons:</p>
+
+<ul>
+<li>class="default" - the default gray </li>
+<li>class="cancel" - a charcoal/black</li>
+<li>class="done" - blue</li>
+<li>class="delete" - red</li>
+<li>class="green" - green</li>
+<li>class="gold" - gold</li>
+</ul>
+
+<p>The appearance of an action uibutton is triggered by the <em>ui-kind="action"</em> attribute. You can disable an action uibutton by giving it a class of "disabled".</p>
+
+<pre><code>&lt;uibutton ui-kind="action" ui-implements="default"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="cancel"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="done"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="delete"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="green"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="gold"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="disabled"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><img src="../screenshots/action_buttons.png" alt="Action UIButtons" /></p>
+
+<p>&nbsp;</p>
+
+<h2>Resolution Independence</h2>
+
+<p>The interfaces you create with ChocolateChip-UI's WAML and CSS are resolution independent. You never have to worry about the pixel density on the target device. You can see in the image below how the entire interface including the icons all scale perfectly because ChocolateChip-UI was designed to be perfectly resolution independent. Notice the hover/touch state on the cog icon on the bottom right.</p>
+
+<p><img src="../screenshots/resolution_independent.png" alt="Example of Resolution Independence" /></p>
+
+<p><a name="icon_alignment"></a></p>
+
+<p>&nbsp;</p>
+
+<h2>Icon Alignment:</h2>
+
+<p>You can tell ChococlateChip-UI how to align icons in your uibuttons in relation to their labels using the <em>ui-icon-align</em> attribute. By default all icons get aligned to the left of a uibutton's label. You do not have to do anything. To set the alignment of a uibutton's icon you can choose any of these values:</p>
+
+<ul>
+<li>left</li>
+<li>top</li>
+<li>right</li>
+<li>bottom</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="icon" ui-icon-align="left"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/film.svg);"&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-kind="icon" ui-icon-align="right"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/files.svg); background-color: #97611f;"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-kind="icon" ui-icon-align="top"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/cog.svg);"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+&lt;uibutton ui-kind="icon" ui-icon-align="bottom"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Note:</strong></p>
+
+<p>Generally, when aligning icons on buttons in navbars and toolbars you should stick to left and right alignment. Buttons in the bars do not have enough vertical space to handle vertical alignment of icons. The same goes for segmented controls in navbars and toolbars. Segmented controls placed outside a toolbar directly in a subview and action buttons have enough vertical space to handle top/bottom alignment of icons.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton_placement"></a></p>
+
+<h2>UIButton Placement in Navbars and Toolbars</h2>
+
+<p>You can control the placement of buttons in navbars and toolbars as well.</p>
+
+<p><strong>Navbar Placement</strong></p>
+
+<p>ChocolateChip allows you to control the placement of buttons and segmented controls in a navbar. By default a navbar centers its content. This means that if all you have is an H1 for the title, it gets centered. This also centers any buttons or segmented controls you put in a navbar. This doesn't work if you want a title plus a button on the left or right or both. To place buttons or other items on the sides you can give them the <em>ui-bar-align</em> attribute. See the example below:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;navbar&gt;
+    &lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+        &lt;pointer&gt;&lt;/pointer&gt;
+        &lt;label&gt;Back&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;uibutton ui-implements="next" ui-bar-align="right"&gt;
+        &lt;pointer&gt;&lt;/pointer&gt;
+        &lt;label&gt;Next&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/navbar&gt;
+</code></pre>
+
+<p><strong>Note:</strong> For more information about segmented controls, see the tutorial and consult the documentation.</p>
+
+<p><strong>Toolbar Placement</strong></p>
+
+<p>By default all toolbars arrange their contents evenly spaced. You can override this by using the same <em>ui-bar-align</em> attribute on items in a toolbar. You can also use any of the various box attributes which ChocolateChip-UI provides, such as:</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Toolbar with buttons align to the left and right:
+    <toolbar>
+        <uibutton ui-implements="edit" ui-bar-align="left">
+            <label>Edit</label>
+        </uibutton>
+        <uibutton ui-implements="delete" ui-bar-align="right">
+            <label>Delete</label>
+        </uibutton>
+    </toolbar></p>
+
+<p>Toolbar with all buttons packed to the right:</p>
+
+<pre><code>&lt;toolbar ui-box-pack="end"&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;Click 1&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;Click 2&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;Click 3&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/toolbar&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2>Disabling Buttons:</h2>
+
+<p>It's easy to disable any ChocolateChip-UI button. Just put a class "disabled" on it. This will change the appearance of the button and signal to ChocolateChip-UI that it should not listen for events. Depending on how you've set up your own events, you may need to add in some conditional checks to see if a uibutton has a class of "disabled" to avoid firing and event. This is easy to do.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>$("uibutton.specialKindaGuy").bind("touchstart", function() {</p>
+
+<pre><code>// Check to see if the uibutton is disabled or not.
+if (!this.hasClass("disabled")) {
+    // Do stuff here.
+}
+</code></pre>
+
+<p>})</p>
+
+<p>&nbsp;</p>
+
+<h2>Creating UIButtons Dynamically:</h2>
+
+<p>You can create uibuttons dynamically using several methods. The easiest way is to use the $.insert method. You pass it a string of the button you want to create and insert it in the designated container. You could also use the ECMAScript5 <em>insertAdjacentHTML</em> method.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var myButtons = '&lt;uibutton ui-bar-align="right"&gt;\
+    &lt;icon style="-webkit-mask-image: url(icons/files.svg); \
+    background-color: #97611f;"&gt;&lt;/icon&gt;\
+    &lt;label&gt;Keep&lt;/label&gt;\
+    &lt;/uibutton&gt;';
+
+// Convert string into HTML and insert it in the
+// last position of the third navbar:
+$("#navbar:nth-of-type(3)").insert(myButton, "last");
+</code></pre>
+
+<p><strong>Note:</strong> When composing strings as above, you can use a backslash to add a newline and continue the string without braking it. This makes you string more readable and maintainable.</p>
+
+<p>&nbsp;</p>
+
+<h2>What About the Other Kinds of UIButtons?</h2>
+
+<p>Read the tutorial about segmented controls to learn about its buttons. You can learn about action uibuttons in the tutorials on action sheets and popups.</p>

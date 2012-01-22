@@ -1,0 +1,2134 @@
+<h1 id="chuijs">ChUI.js</h1>
+
+<pre><code>   pO\     
+  6  /\
+    /OO\
+   /OOOO\
+ /OOOOOOOO\
+((OOOOOOOO))
+ \:~=++=~:/ 
+
+ChocolateChip-UI: A framework for mobile Web app development.
+ChUI.js: The magic to make it happen.
+
+Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+License: BSD
+Version 1.0
+
+Includes:
+iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+Released under MIT license, http://cubiq.org/license
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_libraryname">Variable: $.libraryName</h2>
+
+<p>By default ChocolateChip.js always assigns its $ and $$ variables to the global variables $chocolatechip and $$chocolatechip respectively. However, if ChocolateChip sees that the global variable $ already exists and it does not have $.libraryName with a value of &#8220;ChocolateChip&#8221;, it does not assign $ and $$ to the global namespace. This would be the case where you loaded jQuery, Prototype, Mootools, Zepto or some other library that uses $ before ChocolateChip.
+If you want to use another library with ChocolateChip, all you have to do is load in that library first, then the ChocolateChip-UI files and then sandbox your ChocolateChip-UI code. You do that by enclosing ChocolateChip specific code in an anonymous function and passing in $chocolatechip and $$chocolatechip as arguments:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// In this example, jQuery was loaded before chocolatechip.js,
+// so we need to sandbox the ChocolateChip-UI code as follows:
+// ChocolateChip code:
+(function($, $$) {
+    $(function() {
+        $("body").css("border: solid 4px red;");
+        $$("p").forEach(function(p) {
+            p.css("font-weight: bold");
+        });
+    });
+})($chocolatechip, $$chocolatechip);
+
+// Since jQuery was loaded first, you can write jQuery specific
+// code as you normally would:
+$(function() {
+    $("a").css({display: "block", "text-decoration": "none"});
+})
+</code></pre>
+
+<p>If you&#8217;re not sure if you&#8217;re going to use another library with ChocolateChip, or you just want to be safe, sandbox you ChUI code. </p>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_uiexpectedchocolatechipjsversion">Variable: UIExpectedChocolateChipJSVersion</h2>
+
+<p>The version that this version of ChocolateChip-UI requires. Used by UICheckChocolateChipJSVersion to check the currently loaded version of ChocolateChip.js.</p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_uicheckchocolatechipjsversion">Function: UICheckChocolateChipJSVersion</h2>
+
+<p>This method checks the currently loaded version of ChocolateChip.js and check it with the constant UIExpectedChocolateChipJSVersion. If the two are not identical, the method logs and error message to the console informing the developer which version of ChocolateChip.js this version of ChocolateChip-UI requires.</p>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_uiversion">Variable: $.UIVersion</h2>
+
+<p>A variable to return the version number of ChocolateChip-UI.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>if (parseFloat($.UIVersion) &lt; 0.5) {
+    alert("You need to upgrade to a newer version of ChUI.js!");
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_body">Variable: $.body</h2>
+
+<p>This variable holds a reference to the body tag. This is a shortcut for accessing the body tag so you don&#8217;t have to waste processing time getting the body tag with <em>$.(&#8220;body&#8221;)</em>. See below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.body.toggleClass("portrait", "landscape");
+console.log($.body.className);
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_app">Variable: $.app</h2>
+
+<p>This variable holds a reference to the app tag. It is a shortcut for accessing the app tag so you don&#8217;t have to waste processing time getting the body tag with <em>$.(&#8220;app&#8221;)</em>. See below:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.app.delegate("uibutton", "touchstart", executeMyFavFunc);
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_main">Variable: $.main</h2>
+
+<p>This variable holds a reference to the app&#8217;s first view. This is a shortcut for accessing that view so you don&#8217;t have to waste processing time getting it with <em>$.(&#8220;#main&#8221;)</em>. See below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.main.UITabBar();
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_views">Variable: $.views</h2>
+
+<p>This variable holds a reference to all the app&#8217;s views. It is a shortcut for accessing the views so you don&#8217;t have to waste processing time getting them with <em>$$.(&#8220;views&#8221;)</em>. See below:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.views.forEach(function(view) {
+    view.setAttribute("ui-navigation-status", "upcoming");
+};
+$.views[0].setAttribute("ui-navigation-status", "current");
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UIUuidSeed"></a></p>
+
+<h2 id="function_uiuuidseed">Function: $.UIUuidSeed</h2>
+
+<p>A method to generate a set of four random alpha-numeric characters. This method is used by $.UIUuid to create a uuid for use as a unique ID of elements in ChocolateChip-UI. If a seed is passed, you can force $.UIUuidSeed to generate a different number of characters. The default value that it uses is 16, which produces four characters. Passing a seed value of 20 would produce three alpha-numeric characters.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>seed: An integer used to create a set of alpha-numeric values. </li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#AlphaSeed">$.AlphaSeed</a></p>
+
+<p><a href="#UIUuid">$.UIUuid</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="AlphaSeed"></a></p>
+
+<h2 id="function_alphaseed">Function: $.AlphaSeed</h2>
+
+<p>A method to return a random alphabetic character. This will be either lower or upper case. This method is used by $.UIUuid to create the first character of a uuid. This is necessary be by default a true uuid can begin with any alpha-numeric value. Since $.UIUuid is for creating unique IDs for elements, and IDs must beging with an alphabetic character, this method is necessary.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIUuidSeed">$.UIUuidSeed</a></p>
+
+<p><a href="#UIUuid">$.UIUuid</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIUuid"></a></p>
+
+<h2 id="function_uiuuid">Function: $.UIUuid</h2>
+
+<p>A method to create a uuid-like value for unique IDs on elements. This method uses $.UIUuidSeed and $.AlphaSeed to generate a uuid-like value for use as IDs. The value returned has the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. Although this is not a true uuid, the basic format and possibility of a duplicate being generated in an app are extremely unlikely.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// Set a unique ID on each tablecell in the 3rd view:
+$("view:nth-of-type(3) tablecell).forEach(function(cell) {
+    cell.setAttribute("id", $.UIUuid()); 
+});
+</code></pre>
+
+<p>Another useful way of identifying nodes in a collection is to use the Element.UIIdentifyChildNodes method. This identifies each node in a collection with an attribute <em>ui-child-position</em> and a numeric value indicating the nodes position in the collection.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#AlphaSeed">$.AlphaSeed</a></p>
+
+<p><a href="#UIUuidSeed">$.UIUuidSeed</a></p>
+
+<p><a href="#UIIdentifyChildNodes">Element.UIIdentifyChildNodes</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="resetApp"></a></p>
+
+<h2 id="function_resetapp">Function: $.resetApp</h2>
+
+<p>A method to reset the defaults of an app. This clear&#8217;s the app&#8217;s cache if it has one, clears the navigation history and returns the user to the main screen.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.resetApp();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UINavigationHistory">$.UINavigationHistory</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIIdentifyChildNodes"></a></p>
+
+<h2 id="function_elementuiidentifychildnodes">Function: Element.UIIdentifyChildNodes</h2>
+
+<p>A method to identify the position of child nodes in a collection. Often you may find yourself looping through the child nodes of an element looking for which element is the one you need to change a value on based on a particular set of circumstances. To alleviate the need to loop through child nodes, ChocolateChip-UI provides this method that allows you to identify the position of child nodes with <em>ui-child-position</em> and a numeric value starting with 0. This means that you can query a child node&#8217;s <em>ui-child-position</em> attribute to find out what its position is in the collection. This is especially convenient where interaction with one set of elements triggers a reaction on another set of corresponding elements, such as segmented controls and panels. By getting the <em>ui-child-position</em> value to the segmented control&#8217;s segment, we can then hide or show the appropriate corresponding panel in the panel collection. It&#8217;s simple to use, just execute it on the element whose child nodes you want to identify.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// Number all tablecells in the tableview of view "main":
+$("#main tableview").UIIdentifyChildNodes();
+
+$("tablecell", this).bind("touchstart", function() {
+    console.log("This item is at position: " + this.getAttribute("ui-child-position"));
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIUuid">$.UIUuid</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIToggleButtonLabel"></a></p>
+
+<h2 id="function_elementuitogglebuttonlabel">Function: Element.UIToggleButtonLabel</h2>
+
+<p>A method to toggle the label value of a uibutton. There are cases where when implementing a user interaction you want the button&#8217;s label to toggle between two values. You might also want to toggle a class on the button or and <em>ui-implements</em> value as well. To do this you simply pass this method the two label values you wish to toggle. The first value will be the default value of the uibutton&#8217;s label.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>label1: A string defining the default value for the uibutton label.</li>
+<li>label2: A string defining the secondary value for the uibutton label.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$(toolbar + " &gt; uibutton[ui-implements=edit]").bind("click", function() {
+    if ($("label", this).text() === "Edit") {
+        this.UIToggleButtonLabel("Edit", "Done");
+        this.setAttribute("ui-implements", "done");
+    }
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UINavigationHistory"></a></p>
+
+<h2 id="array_uinavigationhistory">Array: UINavigationHistory</h2>
+
+<p>An array to store the ids of views through which the user has navigated. $.UIBackNavigation uses this to store which views the user was on and to pop them out successively for backward navigation. The default value is &#8220;#main&#8221;. This means <strong>the first view of every WAML document must have an id of #main or navigation will not work</strong>.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIBackNavigation"></a></p>
+
+<h2 id="function_uibacknavigation">Function: $.UIBackNavigation</h2>
+
+<p>A method to navigate back to the previous view from whence the user came. This method uses an event delegate on the app tag to listen for clicks on all uibuttons with the attribute &#8216;ui-implements=&#8221;back&#8221;&#8217;. The method gets its destination by popping the value out of the $.UINavigationHistory array. This menu also implements page transitions by changing the ui-navigation-status of the views. The current view will always have a ui-navigation-status of &#8220;current&#8221;. When navigating back, the current view&#8217;s ui-navigation-status is changed to &#8220;upcoming&#8221;, and the previous view&#8217;s ui-navigation-status is changed to current. These changes cause the current view to transition out of view to the right and the previous view to transition into view from the left.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIBackNavigation();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UINavigationHistory">$.UINavigationHistory</a></p>
+
+<p><a href="#UINavigationList">$.UINavigationList</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UINavigationList"></a></p>
+
+<h2 id="uinavigationlist">$.UINavigationList</h2>
+
+<p>A method for implementing drilldown navigation for table lists. This method uses an event delegate on the app tag and listens for a click or touch on a table cell with a href attribute. When a table cell has a href attribute, this method change&#8217;s that view&#8217;s ui-navigation-status from &#8220;upcoming&#8221; to &#8220;current&#8221;, which cause it to slide into view from the right. At the same time, it changes the current view&#8217;s ui-navigation-status to &#8220;traversed&#8221;, causing it to transition out of view to the left.</p>
+
+<p>Because a user may touch a navigation list item several times, $.UINavigationList has built in detection for multiples touches. Most of the time this prevents the navigation from executing too many forward moves. However, occasionally the app may attempt to navigate too many steps ahead, resulting in a state where there is no current view. $.NavigationList can detect such a state and will reset itself to the last valid current view while also resetting the navigation history for back navigation.</p>
+
+<p><strong>See Also</strong></p>
+
+<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_elementuitogglebuttonlabel">Function: Element.UIToggleButtonLabel</h2>
+
+<p>A method to toggle the label of a button between two values.</p>
+
+<p><strong>Syntax:</strong> </p>
+
+<pre><code>Element.UIToggleButtonLabel(name1, name2);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>String: First button name.</li>
+<li>String: Second button name.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#editButton").bind("click", function() {
+    this.UIToggleButtonLabel("Edit", "Done");
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UIScrollers"></a></p>
+
+<h2 id="array_uiscrollers">Array: $.UIScrollers</h2>
+
+<p>This is an array of all current iScroll objects in the app. You you change the content of a subview or view with an AJAX request or some type of DOM manipulation, you can reset the scroller by getting the scrollpanel&#8217;s <em>ui-scroller</em> property and using that value with $.UIScrollers to call iScroll&#8217;s <em>refresh</em> method. (See example below:)</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var updateScroller = $("#secondView &gt; scrollpanel").getAttribute("ui-scroller");
+$.UIScrollers[updateScroller].refresh();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#iScroll">$.iScroll</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="iScroll"></a></p>
+
+<h2 id="function_iscroll">Function: iScroll</h2>
+
+<p>A method to implement scrolling of a container. This is based on iScroll by Matteo Spinelli: <a href="http://cubiq.org">cubiq.org</a>. This is the latest version (4.1.9) from GitHub with a few minor changes. I&#8217;ve added in the option to turn off mouse gestures and mouse wheel tracking on the desktop.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var opts = { hScroll: false, disableMouseWheel: true };
+var scroller = new iScroll($("#myNewScrollPanel", opts);
+</code></pre>
+
+<p>The version of iScroll used here has been modified to include the options to disable mouse wheel interaction and mouse gestures, as well as a slight modification to make sure that form elements such as select boxes, check boxes and radio buttons can get focus. By default mouse wheel and mouse gesture interaction is set to true. If you have a lot of vertical carousels you may want to turn off mouse wheel interaction. You can do this by passing iScroll the parameter <strong>disableMouseWheel: false</strong>. Similarly, to turn off mouse gestures for the desktop pass in this parameter: <strong>mouseGestures: false</strong></p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIEnableScrolling">$.UIEnableScrolling</a></p>
+
+<p><a href="#UIScrollers">$.UIScrollers</a></p>
+
+<p><a href="http://cubiq.org/iscroll-4">iScroll Site</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIEnableScrolling"></a></p>
+
+<h2 id="function_uienablescrolling">Function: $.UIEnableScrolling</h2>
+
+<p>A method to implement automatic scrolling for all scroll panels inside of subviews. This does so by executes iScroll on each scroll panel in the app. By default this executes when the DOMContentLoaded event fires, or when there is a screen resize or orientation change. If you dynamically create a view or subview with a scroll panel and want to implement scrolling on it, you can do so as illustrated in the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.UIEnableScrolling({ desktopCompatibility: true });
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#iScroll">iScroll</a></p>
+
+<p><a href="#UIScrollers">$.UIScrollers</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPaging"></a></p>
+
+<h2 id="function_uipaging">Function: $.UIPaging</h2>
+
+<p>A method to implement horizontal paging through a set of panels in a stack. For this to work the stack must have the attribute <em>ui-implements=&#8221;paging&#8221;</em>. This method is executed automatically at load time when ChocolateChip-UI find a stack with the above attribute, so you don&#8217;t need to do anything but create the structure for the paging control. Because of the limited horizontal space in handheld devices the maximum number of pagable panels is 17. If you need more than that then you should look at using the segmented paging control.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIPaging(selector, options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<p>$.UIPaging gets executed during DOMContentLoaded event and attempts to find a stack tag as follows:</p>
+
+<pre><code>stack[ui-implements=paging]
+</code></pre>
+
+<p>It then executes the function with predefined options:</p>
+
+<pre><code>$.UIPaging("stack[ui-implements=paging] &gt; panel", {
+    snap: true,
+    momentum: false,
+    hScrollbar: false,
+    onScrollEnd: function () {
+        document.querySelector('stack[ui-implements="indicators"] &gt; indicator.active').removeClass('active');
+        document.querySelector('stack[ui-implements="indicators"] &gt; indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
+    }
+});
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;stack ui-implements="paging"&gt;
+    &lt;panel&gt;
+        &lt;stack&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 1&lt;/h4&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 2&lt;/h4&gt;
+                &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 3&lt;/h4&gt;
+                &lt;p&gt;Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 4&lt;/h4&gt;
+                &lt;p&gt; Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem.&lt;/p&gt;
+            &lt;/panel&gt;
+        &lt;/stack&gt;
+    &lt;/panel&gt;
+&lt;/stack&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISegmentedPagingControl">Element.UISegmentedPagingControl</a></p>
+
+<p>A method to implement a paging control with dots along the bottom to indicate page position. This is used for horizontal scrolling with a swipe gesture to navigate through a small collection of panels, not more than 17. If you have a need to navigate through more than 17 you should look into using the <a href="#UISegmentedPagingControl">segmented paging control</a>.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIDeletableTableCells"></a></p>
+
+<h2 id="array_uideletabletablecells">Array: $.UIDeletableTableCells</h2>
+
+<p>An array of table cells chosen for deletion. This array is created and used by $.UIDeleteTableCell. As the user picks cells for deletion, they are added to this cache. </p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDeleteTableCell">$.UIDeleteTableCell</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIDeleteTableCell"></a></p>
+
+<h2 id="function_uideletetablecell">Function: $.UIDeleteTableCell</h2>
+
+<p>A method to enable deletion of table cells. It does this by creating an Edit and Delete uibutton which it inserts into the designated navbar or toolbar. It also creates and inserts delete indicators into each cell of the table. An event is registered on the Edit uibutton. When the user touches it, its name changes to Done and delete indicators are revealed on each table cell. If the user makes no choice and touches the Done uibutton, it hides the delete indicators and changes the Done uibutton back to the Edit uibutton. If a user does chose and item to delete and touches the Done uibutton, the delete indicators are hidden: nothing was done. If the user chooses one or more delete indicators and touches the Delete uibutton, they are deleted. The use can also select and unselect a delete indicator uibutton repeatedly touching it. By default, when the delete indicators are revealed, the Delete uibutton is disabled. As soon as the user selects a delete indicator, the Delete uibutton is enabled. But if the user deselects any selected delete indicator, the Delete uibutton will again be disabled. </p>
+
+<p>This method accepts a callback to be executed when the user has selected deletion disclosures and touches the Delete uibutton, allowing you to update whatever data is relevant to the user&#8217;s choice. The method allows you to reference each deleted item through a parameter of your choice passed into the callback. For example, in the following callback, the parameter cell will automatically refer to every cell chosen for deletion:</p>
+
+<pre><code>var handleCellDeletion = function( cell ) {
+    $.deleteLocalStorage(cell.data("localStorage-key"));
+};
+</code></pre>
+
+<p>$.UIDeleteTableCell uses three internal function to handle its functionality: UIEditExecution, UIDeleteDisclosureSelection, UIDeletionExecution. UIEditExecution handles the user interaction with the Edit uibutton, which includes showing the deletion disclosures and Delete uibutton and changing the Edit uibutton to Done. UIDeleteDisclosureSelection handles selection and deselection of deletion disclosures, including updating the $.UIDeletableTableCells array of deletable cells, as well as enabling and disabling of the Delete uibutton. UIDeletionExecution handles deleting the cells cached in the $.UIDeletableTableCells array.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIDeleteTableCell : function({selector, toolbar, callback, editButton, deleteButton});
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<p>Originally the delete method used these parameters:</p>
+
+<ul>
+<li>selector: A valid CSS selector.</li>
+<li>toolbar: A navbar or toolbar in which to insert the Edit and Delete uibuttons.</li>
+<li>callback: A method to execute when the delete uibutton is touched.</li>
+</ul>
+
+<p>As of version 1.0, this method takes an object literal of options:</p>
+
+<ul>
+<li>selector: A valid CSS selector.</li>
+<li>editButton: An array to two values for the Edit/Done uibutton.</li>
+<li>deleteButton: A string value for the delete uibutton.</li>
+<li>toolbar: A navbar or toolbar in which to inser the Edit and Delete uibuttons.</li>
+<li>callback: A method to execute when the delete uibutton is touched.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// OLD WAY:
+// Implement deletion without a callback:
+$.UIDeleteTableCell(".deletable-items1","#toolbar1");
+
+// Cell deletion with a callback:
+var deleteItem = function(item) {
+    console.log("You've deleted table cell: " + item.id);
+    $.deleteLocalStorage(item.id);
+};
+$.UIDeleteTableCell(".deletable-items1","#toolbar1", deleteItem);
+
+// NEW WAY:
+// Implement deletion without a callback:
+$.UIDeleteTableCell(".deletable-items1","#toolbar1");
+
+// Cell deletion with a callback:
+var deleteItem = function(item) {
+    console.log("You've deleted table cell: " + item.id);
+    $.deleteLocalStorage(item.id);
+};
+$.UIDeleteTableCell({selector: ".deletable-items1", toolbar: "#toolbar1", editButton: ["Change", "Finished"], deleteButton: "Kill", callback: deleteItem});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDeletableTableCells">$.UIDeletableTableCells</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIBlock"></a></p>
+
+<h2 id="function_elementuiblock">Function: Element.UIBlock</h2>
+
+<p>A method to create a translucent cover/mask over the screen of the browser, desktop or mobile device. It checks to see if there is not already a screen cover at this location. The screen cover is created with a ui-visible-state value of &#8220;hidden&#8221; and prevents any interaction with the covered interface. This method is used by $.UIPopUp, $.UIShowActionSheet, $.UIPopover.show and $.UICheckForSplitView.</p>
+
+<p>If for some reason you wanted to cover the screen and show a custom control or message on top of it, you could do so as illustrated in the example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("view:first-of-type").UIBlock();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIUnblock">$.UIUnblock</a></p>
+
+<p><a href="#UIPopUp">$.UIPopUp</a></p>
+
+<p><a href="#UIActionSheet">$.UIActionSheet</a></p>
+
+<p><a href="#UIShowActionSheet">$.UIShowActionSheet</a></p>
+
+<p><a href="#UIHideActionSheet">$.UIHideActionSheet</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIUnblock"></a></p>
+
+<h2 id="function_elementuiunblock">Function: Element.UIUnblock</h2>
+
+<p>A method to remove any mask created by Element.UIBlock(). This gets called by  and $.UIHideActionSheet, $.UIPopover.hide, $.UICheckForSplitView.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIBlock">$.UIBlock</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopUpIsActive"></a></p>
+
+<h2 id="variable_uipopupisactive">Variable: $.UIPopUpIsActive</h2>
+
+<p>A variable to keeping track of whether a popup is displayed or not. This is used by ChocolateChip-UI to know to adjust a popup on orientation change. It is a boolean value: true or false.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopUpIdentifier"></a></p>
+
+<h2 id="variable_uipopupidentifier">Variable: $.UIPopUpIdentifier</h2>
+
+<p>A variable to hold an identifier for the popup. The value is the selector indicating the parent container of the popup to distinguish it from other possible popups. This gets set by the $.UIShowPopUp method and is accessed by the $.UIPositionPopUp and $.UIRepositionPopupOnOrientationChange methods.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopUp"></a></p>
+
+<h2 id="function_uipopup">Function: $.UIPopUp</h2>
+
+<p>A method for construction a popup. It creates both a screen cover and a popup. The popup will have a Cancel and Continue uibutton by default. Both of these will automatically close the popup. It will have a default title of &#8220;Alert!&#8221;. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIPopup(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>options: An object literal with the following possible values:
+<ul>
+<li>selector: A selector for the container into which the popup will be inserted. This allows you to have popups in different areas of your app. If no selector is supplied it defaults to the app tag.</li>
+<li>title: A title for the popup to display. The default is &#8220;Alert!&#8221;.</li>
+<li>message: A message to display under the title. This should be some type of instruction or informative message so the user knows why the popup has appeared and what to do next.</li>
+<li>cancelUIButton: An alternate name for the Cancel uibutton. It&#8217;s default is Cancel.</li>
+<li>continueUIButton: And alternate name for the Continue uibutton. It&#8217;s default is Continue.</li>
+<li>callback: A function to execute when the user touches the Continue uibutton.</li>
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var myOptions = {
+selector: "#main",
+title: 'Attention Viewers!', 
+message: 'This is a message from the sponsors. Please stay seated while we are getting ready. Thank you for your patience.', 
+cancelUIButton: 'Skip', 
+continueUIButton: 'Stay tuned', 
+callback: function() {
+    var popupMessageTarget = document.querySelector('#popupMessageTarget');
+    popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
+    popupMessageTarget.className = "";
+    popupMessageTarget.className = "animatePopupMessage";
+    }
+};
+$.UIPopUp(myOptions);
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowPopUp">$.UIShowPopUp</a></p>
+
+<p><a href="#UIPopUpIsActive">$.UIPopUpIsActive</a></p>
+
+<p><a href="#UIPopUpIdentifier">$.UIPopUpIdentifier</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIShowPopUp"></a></p>
+
+<h2 id="function_uishowpopup">Function: $.UIShowPopUp</h2>
+
+<p>A method to show a popup. It first displays the screen cover, disabling interaction with the interface underneath, and then displays the popup. It does this by setting the ui-visible-state value of both of these to &#8220;visible&#8221;. It also invokes $.UIPositionScreenCover and $.UIPositionPopUp to position the screen cover and popup on the screen properly.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIShowPopUp(selector);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>string: A valid selector for the parent of the tab control. This will be used to find the actual popup, which is a child node of this selector.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#openPopup").bind("click", function() {
+    $.UIShowPopUp("#main");
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIPopUp">$.UIPopUp</a></p>
+
+<p><a href="#UIPositionmask">$.UIPositionScreenCover</a></p>
+
+<p><a href="#UIPositionPopUp">$UIPositionPopUp</a></p>
+
+<p><a href="#UIRepositionPopupOnOrientationChange">$.UIRepositionPopupOnOrientationChange</a></p>
+
+<p><a href="#UIPopUpIsActive">$.UIPopUpIsActive</a></p>
+
+<p><a href="#UIPopUpIdentifier">$.UIPopUpIdentifier</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPositionmask"></a></p>
+
+<h2 id="function_uipositionmask">Function: $.UIPositionmask</h2>
+
+<p>A method to make the screen cover extend the entire width of the document, even if it extends beyond the viewport. We do this by getting the window&#8217;s pageYOffset in case the user has scrolled down a really long document. This method gets invoked by $.UIShowPopUp and $.UIRepositionPopupOnOrientationChange.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowPopUp">$.UIShowPopUp</a></p>
+
+<p><a href="#UIRepositionPopupOnOrientationChange">$.UIRepositionPopupOnOrientationChange</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPositionPopUp"></a></p>
+
+<h2 id="function_uipositionpopup">Function: $.UIPositionPopUp</h2>
+
+<p>A method to center the popup. It does this to the scrollview not the screen in order to accomodate the instances where the document is scrolled down below the original viewport. This gets invoked by $.UIShowPopUp and $.UIRepositionPopupOnOrientationChange.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowPopUp">$.UIShowPopUp</a></p>
+
+<p><a href="#UIRepositionPopupOnOrientationChange">$.UIRepositionPopupOnOrientationChange</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIRepositionPopupOnOrientationChange"></a></p>
+
+<h2 id="function_uirepositionpopuponorientationchange">Function: $.UIRepositionPopupOnOrientationChange</h2>
+
+<p>A method to handle centering the popup when orientation changes or when there is a desktop window resize. It first checks $.UIPopUpIsActive and then invokes $.UIPositionScreenCover and $.UIPositionPopUp.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIPopUpIsActive">$.UIPopUpIsActive</a></p>
+
+<p><a href="#UIPositionPopUp">$.UIPositionPopUp</a></p>
+
+<p><a href="#UIPopUpIdentifier">$.UIPopUpIdentifier</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_elementuiselectionlist">Function: Element.UISelectionList</h2>
+
+<p>A method to initialize a list of single choice options, similar to how a group of radio butons work. It takes as the main argument, a unique selector identifying the view or section where the radio list resides. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UISelectionList(selector);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>function: A valid function as a callback. This is optional. The callback gets passed a reference to the clicked item, so you can access it in your callback function.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.UISelectionList("#buyerOptions");
+   // Output the value of the selected item.
+   // Each tablecell has its value set in the "ui-value" attribute.
+   // We therefore get that value to do whater we need to do with it.
+$("#buyerOptions").UISelectionList(function(item){
+    console.log(item.getAttribute("ui-value"));
+});
+</code></pre>
+
+<p><a name="UICreateSwitchControl"></a></p>
+
+<h2 id="function_elementuicreateswitchcontrol">Function: Element.UICreateSwitchControl</h2>
+
+<p>A method to create a SwitchControl. This widget has been updated to handle the new iOS 5 style switch controls. To get the older version of switches used in iOS 4 and below, you need to pass it a value of <em>ui-kind=traditional</em>. The new switches don&#8217;t use labels requiring localization. Instead they use international standard symbols for state: &#8220;ON&#8221; is a vertical line, &#8220;OFF&#8221; is a circle. You can get a version of this switch control but without the symbols by passing it an argument value of <em>ui-kind=generic</em>.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UICreateSwitchControl(options);
+</code></pre>
+
+<p><strong>Parameters:</strong> </p>
+
+<ul>
+<li>object literal: an object of possible values for the switch control:
+<ul>
+<li>id: and id for the switch control. and id must be supplied.</li>
+<li>kind: an optional value of &#8220;traditional&#8221; for the old style switches, or &#8220;generic&#8221; for a simpler version of the new style.</li>
+<li>status: either &#8220;on&#8221; or &#8220;off&#8221;, the default is &#8220;off&#8221;.</li>
+<li>value: any integer or string value.</li>
+<li>callback: a function to execute when the switch is flipped to the &#8220;on&#8221; position.</li>
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var opts = { 
+    id : "bingo1000",
+    status : "off",
+    value : "$2,000",
+    callback : function() {
+        completeTransation(this.id);
+    }
+}
+
+$("#specialList &gt; tablecell:first-of-type").UICreateSwitchControl(opts);
+
+$("#myListItem").UICreateSwitchControl({
+    id : "switch_001",
+    status : "on",
+    value : 100,
+    callback : function() {
+        // executeTransaction would be defined elsewhere.
+        // Pass in the switch's ID to the method as a reference:
+        executeTransaction(this.id);
+    }
+}
+
+$("#userListItem2").UICreateSwitchControl({
+    id : "userChoice2",
+    status : "off",
+    kind : "traditional"
+    value : "increase the yumminess",
+    callback : function() {
+        postTheRequest(this.id);
+    }
+}
+</code></pre>
+
+<p><strong>Note:</strong> When using a switch control make sure that its parent container has positioning set to either relative or absolute. This is because ChocolateChip-UI uses absolute positioning to place the switch control on the right side of its container. If the container does not have some type of positioning, the switch control will appear placed somewhere towards the top right of the document. Of course, if you know the container already has positioning, you don&#8217;t need to bother setting it. Tablecells already have positioning set. See example below for how to set a container&#8217;s position before injecting a switch control:</p>
+
+<pre><code>var opts = {/* options for switchcontrol */};
+// Make sure the switch control's parent has positioning set:
+$("#menu").css("{position: relative;}");
+$("#menu").UIUICreateSwitchControl(opts);
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICreateSwitchControl">Element.UICreateSwitchControl</a></p>
+
+<p><a href="#UIInitSwitchToggling">Element.UIInitSwitchToggling</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISwitchControl"></a>;</p>
+
+<h2 id="function_elementuiswitchcontrol">Function: Element.UISwitchControl</h2>
+
+<p>A method to toggle the state of an iPhone switch control. This also sets the state of the control&#8217;s &#8220;checked&#8221; value to true or false. This value can be queried to see if it is switch is on or off. This method gets executed by the element.UIInitSwitchToggling method.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UISwitch();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// Toggle the state of the switch control:
+$("#menu").UISwitch();
+</code></pre>
+
+<p><a href="#UISwitchControl">Element.UISwitchControl</a></p>
+
+<p><a href="#UIInitSwitchToggling">Element.UIInitSwitchToggling</a></p>
+
+<p><a name="UIInitSwitchToggling"></a></p>
+
+<h2 id="function_elementuiinitswitchtoggling">Function: Element.UIInitSwitchToggling</h2>
+
+<p>A method to initialize the toggling of switch controls. By default ChococlateChip-UI call this on the app tag. If you create any switch controls dynamically, you&#8217;ll need to initialize their toggling. You can invoke this method on the list that contains them. See example below.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIInitSwitchToggling();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("app").UIInitSwitchToggling();
+// or:
+$$("tableview.withSwitchControls").forEach(table) {
+    table.UIInitSwitchToggling();
+});
+</code></pre>
+
+<p><a href="#UISwitchControl">Element.UISwitchControl</a></p>
+
+<p><a href="#UICreateSwitchControl">Element.UICreateSwitchControl</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UICreateSegmentedControl"></a></p>
+
+<h2 id="function_elementuicreatesegmentedcontrol">Function: Element.UICreateSegmentedControl</h2>
+
+<p>A method to create and insert a segmented control into a container. The segmented control consists of two or more uibuttons joined together. Both ends of the control are rounded. The segmented control can be used to execution actions or to page through several subviews. If a segmented control is inserted into a navbar or toolbar, its uibuttons will have the typical look appropriate to those bars. If the segmented control is inserted into a subview, it has a unique styling. When in a subview, you can choose to have the segmented control collapse to fit its content, or expand the width of the screen with margins on the left and right. When designating values in the options for the segmented control, values for segmented, such as to indicate a selected or disabled segment, start from 1.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UICreateSegmentedControl(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id: an id for the segmented control</li>
+<li>placement: for inserting in a navbar, possible values: &#8220;left&#8221;, &#8220;center&#8221;, &#8220;right&#8221;</li>
+<li>numberOfSegments: anything from 2 on up</li>
+<li>titlesOfSegments: an array of titles for the segmented controls uibuttons [&#8220;One&#8221;, &#8220;Two&#8221;, &#8220;Three&#8221;]. If you want a segment not to have a title, put and empty string &#8220;&#8221; in its place: [&#8220;One&#8221;, &#8220;&#8221;, &#8220;Two&#8221;]</li>
+<li>iconsOfSegments: if you want to add icons to the segmented control&#8217;s uibuttons enter their names here using an array. Use empty strings for uibuttons without icons: [&#8220;&#8221;, &#8220;add&#8221;, &#8220;info&#8221;].</li>
+<li>placementOfIcons: to designate the place of icons pass an array using empty strings for uibuttons were there are no icons: [&#8220;&#8221;, &#8220;right&#8221;, &#8220;&#8221;]. If you have designated icons without indicating their placement, they will be placed by default on the left of the uibutton label.</li>
+<li>selectedSegment: if you wish to designate a segment as selected, enter its position here. Possible numbers start from 1.</li>
+<li>disabledSegment: if you wish to designate a segment as disabled, enter its position here. Possible numbers start from 1.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code> var seg = {
+    id : "segmented_001",
+    placement : "left",
+    fullWidth : "false",
+    numberOfSegments : 3,
+    titlesOfSegments : ["One", "Two", "Three"],
+    iconsOfSegments : ["", "add", "info"],
+    placementOfIcons : ["", "right", ""],
+    selectedSegment : 1,
+    disabledSegment : 3                
+};
+$("#segmentedToolbar").UICreateSegmentedControl(seg, "first");
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISegmentedControl">Element.UISegmentedControl</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISegmentedControl"></a></p>
+
+<h2 id="function_elementuisegmentedcontrol">Function: Element.UISegmentedControl</h2>
+
+<p>A method to handle toggling of a UISegementedControl&#8217;s uibuttons. This get&#8217;s called during the DOMContentLoaded event so that all segmented controls have basic toggling of uibuttons. If you create a segmented control dynamically, you can call this method on it to enable toggling. See example below.</p>
+
+<p>By passing an argument for a container with child nodes you can implement a segmented control that toggles the visibility of corresponding panels, similar to a tab bar. For this to work each panel must correspond to a segment. If there are more panels then segments, the segmented control will only be able to reveal the panels that numerically correspond to the number of segments. If there are more segments than panels, you will get an error. You cannot create a segmented control where some segments toggle the visibility of panels and other segments perform actions. This would be very bad usability anyway. </p>
+
+<p><strong>Synatx:</strong></p>
+
+<pre><code>Element.UISegmentedControl(callback);
+Element.UISegmentedControl(callback, container);
+</code></pre>
+
+<p><strong>Paramters:</strong></p>
+
+<ul>
+<li>callback: A function to execute when a segmented is touched.</li>
+<li>container: An optional container of elements which correspond to each segment of the control.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$$("segmentedcontrol").forEach(function(segmentedcontrol) {
+    segmentedcontrol.UISegmentedControl();
+});    
+
+// A segmented control that toggles the child nodes of a container:
+var logChildPosition = function(item) {
+    console.log("The child position is: " + item.getAttribute("ui-child-position"));
+}
+$("segmentedcontrol").UISegmentedControl(logChildPosition, "#stackpanel_1");
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICreateSegmentedControl">Element.UICreateSegmentedControl</a></p>
+
+<p><a href="#UISegmentedPagingControl">Element.UISegmentedPagingControl</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISegmentedPagingControl"></a></p>
+
+<h2 id="function_elementuisegmentedpagingcontrol">Function: Element.UISegmentedPagingControl</h2>
+
+<p>A method to implement subview paging with a specialized segmented control. To create a segmented control for paging two attributes are required: <em>ui-implements=&#8221;segmented-paging&#8221;</em> and <em>ui-paging</em>, which can have a value of &#8220;vertical&#8221; or &#8220;horizontal&#8221;. When the <em>ui-paging</em> value is &#8220;horizontal&#8221;, the segmented paging control will consist of two segmented buttons with arrows pointing left and right. When the value is &#8220;vertical&#8221;, the arrows will be pointing down and up. When touching the right arrow, subviews slide in from the right. Touching the left arrow slides them out to the left. Touching the up arrow will slide subviews up from below. Touching the down arrow will slide them back down out of view. For either set, the segmented button automatically disables when there are no more subviews to navigate, leaving only the opposite direction as a choice.</p>
+
+<p>This method is executed on the view whose subviews you wish to page through. It identifies the segmented control by the <em>ui-implements=&#8221;segmented-paging&#8221;</em> attribute, then it identifies the subviews that it will page. Based on the value of the <em>ui-paging</em> attribute on the segmented paging control, it sets up CSS transitions for the subviews. This paging control is not like a normal segmented control or tab bar in that it can have any number of subviews to page through.</p>
+
+<p>Normally you will put the segmented paging control a navbar using <em>ui-bar-align=&#8221;right&#8221;</em>. When using vertical paging, subviews slide up and down underneath any navbars, toolbars or tab bars.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICreateSegmentedControl">Element.UICreateSegmentedControl</a></p>
+
+<p><a href="#UISegmentedControl">Element.UISegmentedControl</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UICreateTabBar"></a></p>
+
+<h2 id="function_elementuicreatetabbar">Function: Element.UICreateTabBar</h2>
+
+<p>A method to create a tab bar for toggling a set of subviews. Based on the values passed in as an object literal, the method constructs and tab bar and inserts it into the targeted view. The subviews that it toggles will sit between it and any top navbar or toolbar.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>var opts = {
+    id : "tabbar_001",
+    numberOfTabs : 5,
+    imagePath : "myIcons\/",
+    iconsOfTabs : ["refresh", "add", "info", "downloads", "top_rated"],
+    tabLabels : ["Refresh", "Add", "Info", "Downloads", "Favorite"],
+    selectedTab : 2
+};
+$("#main").UICreateTabBar(opts);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id : a unique id for the tab bar. You could use $.UIUuid if you want or whatever id works for you.</li>
+<li>numberOfTabs : An integer indicating the number of tabs. Please not that on a mobile device in portrait mode the maximum number of tabs that can fit is five.</li>
+<li>imagePath : The path to where the tabs&#8217; icons are. This defaults to &#8220;icons/&#8221; if none is supplied.</li>
+<li>iconsOfTabs : And array of icon names to be used by each tab. You only need to supply the icon name, not the path or the file extension. This expects an SVG icon. By default all ChocolateChip-UI icons are stored in the &#8220;icons&#8221; folder.</li>
+<li>tabLabels : An array of labels that appear below the tab icons.</li>
+<li>selectedTab : An integer indicating a default selected state for the tab bar. By default the first tab and its subview will be selected. Numbering starts from 0. </li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UITabBar">Element.UITabBar</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UITabBar"></a></p>
+
+<h2 id="function_elementuitabbar">Function: Element.UITabBar</h2>
+
+<p>A method for toggling a set of subviews. This method gets executed when a tab bar is created or, if you have created a tab bar manually, you can invoke it on the view where the tab bar resides. It takes no arguments but automatically finds the tab bar in the view and identifies the subviews to toggle.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$("#main").UITabBar();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICreateTabBar">Element.UICreateTabBar</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIActionSheet"></a></p>
+
+<h2 id="function_elementuiactionsheet">Function: Element.UIActionSheet</h2>
+
+<p>Method to create an action sheet. This is a special modal control to present the user with action uibuttons to accomplish a particular task. By default the action sheet has a cancel uibutton. You may add another three uibuttons. It&#8217;s recommended not to exceed four action uibuttons as it becomes difficult to access them in horizontal mode. The action sheet has a default bluish color, but you can choose to instead display it as a translucent black. </p>
+
+<p>$.UIActionSheet uses three methods internally to manage its affairs: hide(), show() and readustActionSheet(). $.UIReadjustActionSheet gets executed automatically when there is an orientation change.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIActionSheet(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id : an id for the action sheet.</li>
+<li>title : A title, such as: &#8220;This is an Annoucement!&#8221;,</li>
+<li>color : &#8220;blue&#8221; or &#8220;black&#8221;, (blue is the default).</li>
+<li>uibuttons : an array of uibuttons properties, each uibutton as a separate object literal:
+<ul>
+<li>[{ title : &#8220;Delete&#8221;, uibuttonImplements : &#8220;delete&#8221;, callback : &#8220;respondToDeleteUIButton&#8221; }, </li>
+<li>{ title : &#8220;Save&#8221;, uibuttonImplements : &#8220;save&#8221;, callback : &#8220;respondToSaveUIButton&#8221;}]</li>
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var opts = {
+    id : "actionsheet_01",
+    title : "This is an Annoucement!",
+    color : "black",
+    uibuttons : [
+        { title : "Delete", uibuttonImplements : "delete", callback : "respondToDeleteUIButton" },
+        { title : "Save", uibuttonImplements : "save", callback : "respondToSaveUIButton"
+        }
+    ]
+};
+$.body.UIActionSheet(opts);
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIScreenCover">$.UIScreenCover</a></p>
+
+<p><a href="#UIShowActionSheet">$.UIShowActionSheet</a></p>
+
+<p><a href="#UIHideActionSheet">$.UIHideActionSheet</a></p>
+
+<p><a href="#UIReadjustActionSheet">$.UIReadjustActionSheet</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIShowActionSheet"></a></p>
+
+<h2 id="function_uishowactionsheet">Function: $.UIShowActionSheet</h2>
+
+<p>A method to show an action sheet. When this method show an action sheet, it also stores a special attribute on the app tag &#8220;ui-action-sheet-id&#8221; to store the id of the displayed action sheet. This value is used by UIReadjustActionSheet when the device orientation changes to know which action sheet is presently displayed.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIShowActionSheet(id);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id: a valid id for an action sheet.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#UIButtonAction").bind("touchstart", function() {
+    $.UIShowActionSheet(actionsheet_01);
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIHideActionSheet">$.UIHideActionSheet</a></p>
+
+<p><a href="#UIReadjustActionSheet">$.UIReadjustActionSheet</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIHideActionSheet"></a></p>
+
+<h2 id="function_uihideactionsheet">Function: $.UIHideActionSheet</h2>
+
+<p>A method to hide an action sheet. This method also removes the id of the action sheet being hidden from the app tag&#8217;s &#8220;ui-action-sheet-id&#8221; attribute. This method get executed automatically by the action sheet&#8217;s Cancel uibutton.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIHideActionSheet(id);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id: a valid id for an action sheet.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#displayActionSheet").bind("click", function() {
+    $.UIShowActionSheet("#Dingo");
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowActionSheet">$.UIShowActionSheet</a></p>
+
+<p><a href="#UIReadjustActionSheet">$.UIReadjustActionSheet</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIReadjustActionSheet"></a></p>
+
+<h2 id="function_uireadjustactionsheet">Function: $.UIReadjustActionSheet</h2>
+
+<p>A method to readjust the positioning of an action sheet after orientation change. You never need to use this function.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>document.addEventListener("orientationchange", function() {
+    $.UIReadjustActionSheet();
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowActionSheet">$.UIShowActionSheet</a></p>
+
+<p><a href="#UIHideActionSheet">$.UIHideActionSheet</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_elementuiexpander">Function: Element.UIExpander</h2>
+
+<p>A method for creating an expander. This was inspired by the WebOS expander control. This is used to allow collapsing and expanding of a vertical section of the app, similar to a typical Web accordion control. Unlike the accordion, the expander is for a single collapsible section. It requires a specialized tag: <strong>expander</strong>. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIExpander(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>options: an object literal of possible options.
+<ul>
+<li>status: &#8220;collapsed&#8221; or &#8220;expanded&#8221;, the default is expanded.</li>
+<li>title: a title for the label, the default is &#8220;Open&#8221;.</li>
+<li>altTitle: a title for when the expander is closed, the default is &#8220;Close&#8221;.</li>
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.ready(function() {
+    var opts = {
+        status: "collapsed",
+        title: "Open",
+        altTitle: "Close"
+    };    
+    $("expander").UIExpander(opts);
+});
+
+&lt;expander&gt;
+    &lt;panel&gt;
+        &lt;tableview ui-kind="grouped"&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Breakfast&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Lunch&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Dinner&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;
+    &lt;/panel&gt;
+&lt;/expander&gt;
+</code></pre>
+
+<p>In the above markup notice that the content is in a panel inside the expander. ChocolateChip-UI will find the expander and create a header tag with a label based on the title/altTitle values you supply, otherwise the label gets the default of &#8220;Open&#8221;/&#8221;Close&#8221;.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UICalculateNumberOfLines"></a></p>
+
+<h2 id="function_elementuicalculatenumberoflines">Function: Element.UICalculateNumberOfLines</h2>
+
+<p>A method to find the number of lines of text that fit in a contain based on the container&#8217;s height and the line-height. For this to work it requires that the container have a designated height. It will not work with a container whose height is set to auto.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UICalculateNumberOfLines();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIParagraphEllipsis">Element.UIParagraphEllipsis</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIParagraphEllipsis"></a></p>
+
+<h2 id="function_elementuiparagraphellipsis">Function: Element.UIParagraphEllipsis</h2>
+
+<p>A method to limit the number of lines of text that appear in a container and clipping it with an ellipsis. This uses the Element.UICalculateNumberOfLines() function to get the number of lines of text that can fit in the container based on its height. The container must have a fixed height, in other words, it cannot be set to &#8220;auto&#8221;. The text will be fine until there is an overflow, at which time the ellipsis clipping will occur. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIParagraphEllipsis();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#clipedParagraph").UIParagraphEllipsis();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICalculateNumberOfLines">Element.UICalculateNumberOfLines</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_elementuiprogressbar">Function: Element.UIProgressBar</h2>
+
+<p>A method to create a progress bar. You execute this method on the container in which you want the progress bar to appear. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIProgressBar(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>options: object literal of possible options.
+<ul>
+<li>className: an optional class name for the progress bar. This is used for to allow changing the default background color of the progress bar. The default color is bluish: rgb(56,138,213).</li>
+<li>width: an integer indicating the width of the progress bar. The default is: 100.</li>
+<li>speed: an integer indicating the speed in seconds for the animation. The default is 5.</li>
+<li>position: an valid flag for the Element.insert method, such as &#8220;before&#8221;, &#8220;after&#8221; or an integer representing a position in a collection of child nodes. The default is &#8220;after&#8221;.</li>
+<li>margin: any valid margin values. In order to center the progress bar be sure to designate the left and right margin values as &#8220;auto&#8221;. The default value is: &#8220;10px auto&#8221;.</li>
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIHideNavBarHeader"></a></p>
+
+<h2 id="function_elementuihidenavbarheader">Function: Element.UIHideNavBarHeader</h2>
+
+<p>This method hides the H1 in a navbar. This is used for the cases where you want to inject a progress bar in the navbar where the header is. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIHideNavBarHeader();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#toggleProgressBar").bind("click", function() {
+    if (this.text().trim() == "Show") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIHideNavBarHeader();
+        $("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+
+    } else if (this.text().trim() == "Hide") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIShowNavBarHeader();
+        $("navbar &gt; progressbar").remove();
+    }
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIShowNavBarHeader">Element.UIShowNavBarHeader</a></p>
+
+<p><a name="UIShowNavBarHeader"></a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_elementuishownavbarheader">Function: Element.UIShowNavBarHeader</h2>
+
+<p>This method shows the title (H1) of the navbar that was hidden by the Element.UIHideNavBarHeader() method.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIShowNavBarHeader();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#toggleProgressBar").bind("click", function() {
+    if (this.text().trim() == "Show") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIHideNavBarHeader();
+        $("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+
+    } else if (this.text().trim() == "Hide") {
+        this.UIToggleButtonLabel("Show", "Hide");
+        $("navbar &gt; h1").UIShowNavBarHeader();
+        $("navbar &gt; progressbar").remove();
+    }
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIHideNavBarHeader">Element.UIHideNavBarHeader</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_uiadjusttoolbartitle">Function: $.UIAdjustToolBarTitle</h2>
+
+<p>A method to adjust the length of a title in a navbar. This method is execute when DOMContentLoad, onorientationchage and window.resize occur. It check the navbar for the title&#8217;s siblings, calculates their widths and determines, based on the current width of the navbar, how much space is left for the title. It then adjust the width of the title. By default the navbar&#8217;s title has a text-overflow value of ellipsis, so when the width of the title is less than the content, the text gets truncated and replaced with an ellipsis. When there is just enough room for only one character and an ellipsis, the method hides the title completely.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIAdjustToolBarTitle();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.UIAdjustToolBarTitle();
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UIActivityIndicator"></a></p>
+
+<h2 id="function_uiactivityindicator">Function: $.UIActivityIndicator</h2>
+
+<p>Method to create an activity indicator using the canvas element. This method is just an empty constructor for the activity indicator. It&#8217;s sub-methods handle creation, animation and deletion of the activity indicator.</p>
+
+<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
+
+<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
+
+<p><a href="#UIActivityIndicator_stop">$.UIActivityIndicator.stop</a></p>
+
+<p><a href="#UIInsertActivityIndicator">Element.UIInsertActivityIndicator</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIActivityIndicator_create"></a></p>
+
+<h2 id="function_uiactivityindicatorcreate">Function: $.UIActivityIndicator.create</h2>
+
+<p>This is created dynamically and redrawn on the background of the designated container. It will spin continuously until the $.UIActivityIndicator.stop() method is executed.</p>
+
+<p>A function to create an activity indicator. It takes an object literal of values to create the activity indicator. By default it draws the activity indicator as a background image on an element of the designated container. If no container is designated, the method will try to output it to a container with the class &#8220;UIActivityIndicator&#8221;, which is already defined in ChUI.css to display a canvas background image.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIActivityIndicator.create(options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>id: a unique id for the activity indicator. If no id is supplied, it defaults to &#8220;UIActivityIndicator.&#8221;</li>
+<li>color: a hexidecimal or rgb/rgba value for the color of the tines of the activity indicator. If no value is supplied it defaults to &#8220;gray.&#8221;</li>
+<li>shadow: a hexicdecimal or rgb/rgba value for the color of shadow for the tines of the activity indicator. If no value is supplied, the activity indicator will be drawn without any shadow.</li>
+<li>container: a selector indicating the container in which to draw the activity indicator. If no selector is supplied it defaults of the class &#8220;UIActivityIndicator&#8221;. You can add this class dynamically to an element in which you wish to display an activity indicator. <strong>Note:</strong> If you output an activity indicator on a container that already has a background image of type image or gradient, this will be replaced by the activity indicator. So, depending on where you want to show the activity indicator, you may need to inject a new element into the desired area to show the activity indicator if you don&#8217;t want the main area&#8217;s background image to be replaced by the activity indicator.</li>
+<li>size: the size for the activity indicator. This can be pixels or percent. If no size is passed, it defaults to 75%. This gets output as the background size for the render canvas image. <strong>Note:</strong> If you set a size for the activity indicator, make sure that the element you are outputting it in is big enough to display it.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var opts = {
+    id : "activityIndicator_01",
+    color : #666,
+    shadow : #ccc,
+    container : ".ajaxUpdateInProgress"
+}
+var activityIndicator = new $.UIActivityIndicator.create(opts);
+</code></pre>
+
+<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
+
+<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
+
+<p><a href="#UIActivityIndicator_stop">$.UIActivityIndicator.stop</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIActivityIndicator_animate"></a></p>
+
+<h2 id="function_uiactivityindicatoranimate">Function: $.UIActivityIndicator.animate</h2>
+
+<p>A method to animate an activity indicator. Before invoking it you need a pointer to an activity indicator (see example below).  This method redraws the activity indicate at intervals of 100 milliseconds.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIActivityIndicator.animate()
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var activityIndicator = new $.UIActivityIndicator.create(opts);
+activityIndicator.animate();
+</code></pre>
+
+<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
+
+<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
+
+<p><a href="#UIActivityIndicator_stop">$,UIActivityIndicator.stop</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIActivityIndicator_stop"></a></p>
+
+<h2 id="function_uiactivityindicatorstop">Function: $.UIActivityIndicator.stop</h2>
+
+<p>A method to stop the animation of an activity indicator.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIActivityIndicator.stop()
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var activityIndicator = new $.UIActivityIndicator.create(opts);
+activityIndicator.animate();
+// Set a delay for when to stop the activity indicator:
+$.delay(activityIndicator.stop(), 2000);
+</code></pre>
+
+<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
+
+<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
+
+<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIInsertActivityIndicator"></a></p>
+
+<h2 id="function_elementuiinsertactivityindicator">Function: Element.UIInsertActivityIndicator</h2>
+
+<p>To make it easier to implement an activity indicator with the previously defined methods, ChocolateChip-UI provides Element.UIInsertActivityIndicator. This allows you to pass the options you want for an activity indicator and inserts it in a panel container inside of an element. It also allows you to pass an optional style declaration that gets inserted inline on the activity indicator&#8217;s panel. This allows you to insert and activity indicator where you need one, in a navbar, toolbar or subview, without worrying about the background canvas image wiping out the background on the parent container. If you were going to use this with an Ajax call, you could first insert the activity indicator into the place where the content will be placed. Then as part of the Ajax call&#8217;s successCallback function, remove the activity indicator and insert the content. Please refer to Element.xhr in the documentation for ChocolateChip.js for more details about how to do Ajax calls with ChocolateChip-UI.</p>
+
+<p>When using this method there is no need to invoke $.UIActivityIndicator.init, $.UIActivityIndicator.animate or $.UIActivityIndicator.stop. The animation begins as soon as the activity indicator is inserted. It is stopped by you removing it when there is a success or error returned by the Ajax call. See example below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var content = $("#content");
+// First insert an activity indicator:
+content.UIInsertActivityIndicator({
+    id: "activity_indicator_01", 
+    color: "#fff",
+    container: "navbar &gt; panel",
+    size: "40px",
+    style : "margin: 40px auto 0 auto;"
+});
+// Then make the Ajax call:
+content.xhr("data.html", {
+    successCallback: function() {
+        // If the call is successful, empty the
+        // container to get rid of the activity indicator:
+        content.empty();
+        content.insert($.responseText);
+        $.responseText = null;
+        content.after($.make("&lt;h2&gt;Ajax call was successful.&lt;/h2&gt;"));
+    },
+    errorCallback: function() {
+        // If there was an error, remove activity indicator:
+        content.empty();
+        content.insert("There was an error getting the file.");
+    }
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UISlider"></a></p>
+
+<h2 id="function_uislider">Function: $.UISlider</h2>
+
+<p>A method to initialize a horizontal slider with thumb. This supports both touch and mouse interaction. This is useful for allowing the user to choose a value from a sliding range of possible values. This method creates two variables on the ChocolateChip object: UICurX and UICurY. These are the current x and y coordinates of the mouse or touch. It also adds the &#8220;ui-slider-length&#8221; attribute to the slider to store its clientWidth for use by the various functions for calculating drag coordinates for moving the slider thumb.</p>
+
+<p>$.UISlider checks for touch support to determine which way to track dragging of the slider thumb. When it is touch-based, it invokes element.UISliderTouch and element.UIUpdateSliderTouch. When it is mouse-based it invokes $.UISliderForMouse, which initializes various functions for mouse interaction. Although this method is executed on a selector for a slider, the method listens for drag events on the slider&#8217;s thumb. For mouse interaction it provides to ways to manage dragging with onDrag and onDragEnd as possible values passed in as options. For the slider to work properly you need to output the width you desire for the slider directly on it using an inline style setting, such as: <em>style=&#8221;width: 186px;&#8221;</em>. This allows you to give each slider a different width depending on your needs. ChocolateChip-UI&#8217;s methods will query this assigned width and use it for dragging the thumb and updating the slider&#8217;s progress track. See examples below. </p>
+
+<p>The method expects the following WAML markup to function:</p>
+
+<p><strong>Markup:</strong></p>
+
+<pre><code>&lt;slider id="slider_001" style="width: 180px;"&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+&lt;/slider&gt;
+</code></pre>
+
+<p>Or an optional class of &#8220;media-player&#8221; for a metallic look:</p>
+
+<pre><code>&lt;slider id="slider_002" class="media-player" style="width: 200px;"&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+&lt;/slider&gt;
+</code></pre>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UISlider(selector, options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>selector: a selector identifying the slider.</li>
+<li>options: an object literal of possible values for the slider:
+<ul>
+- 
+</ul></li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>var updateColorFromSlider = function() {
+    // Code here to execute.
+}
+$.UISlider("#redSlider", { callback: updateColorFromSlider });
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
+
+<p><a href="#UISliderTouch">Element.UISliderTouch</a></p>
+
+<p><a href="#UIUpdateSliderTouch">Element.UIUpdateSliderTouch</a></p>
+
+<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UICurX"></a></p>
+
+<h2 id="variable_uicurx">Variable: $.UICurX</h2>
+
+<p>This is a variable that keeps track of the x coordinate of a mouse or touch move. It&#8217;s default value is null. This variable gets used by $.UISlider, Element.UISliderTouch, Element.UIUpdateSliderTouch and $.UIDrag.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISliderTouch">Element.UISliderTouch</a></p>
+
+<p><a href="#UIUpdateSliderTouch">Element.UIUpdateSliderTouch</a></p>
+
+<p><a href="#UIDrag">$.UIDrag</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UICurY"></a></p>
+
+<h2 id="variable_uicury">Variable: $.UICurY</h2>
+
+<p>This is a variable that keeps track of the y coordinate of a mouse or touch move. It&#8217;s default value is null. This variable is used to determine the constant y coordinate for the slider thumb while it is being dragged.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICurX">$.UICurX</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p><a href="#UIDrag">$.UIDrag</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISliderValue"></a></p>
+
+<h2 id="variable_uislidervalue">Variable: $.UISliderValue</h2>
+
+<p>This is a variable that keeps track of the value of the drag subtracting the thumb width from the slider length. This is the value you would need to read to do something with when the user drags the slider&#8217;s thumb. In contrast, $.UICurX and $.UICurY are used from tracking the positioning of the thumb and slider progress track.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISliderTouch"></a></p>
+
+<h2 id="function_elementuislidertouch">Function: Element.UISliderTouch</h2>
+
+<p>Method to calculate the value of the user&#8217;s finger for updating the left position of the slider thumb and length of the slider&#8217;s track progress bar. By accessing the ui-slider-length property of the slider, the method calculates the current touch position and stores it in the $.UICurX, which will be used by element.UIUpdateSliderTouch to calculatethe position of the slider thumb and the slider track progress indicator. This method gets called by $.UISlider.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICurX">$.UICurX</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p><a href="#UISlider">$.UISlider</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIUpdateSliderTouch"></a></p>
+
+<h2 id="function_elementuiupdateslidertouch">Function: Element.UIUpdateSliderTouch</h2>
+
+<p>Method to update the thumb position and length of the left track progress indicator when the user drags a slider thumb horizontally. The method gets the length of the slider and calculates the distances based on this.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>callback: a function to execute while the thumb is dragged and updates the track progress indicate by accessing the $.UICurX value.</li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UICurX">$.UICurX</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p><a href="#UISlider">$.UISlider</a></p>
+
+<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIDrag"></a></p>
+
+<h2 id="function_uidrag">Function: $.UIDrag</h2>
+
+<p>A method that holds a number of properties and functions to handle mouse-based dragging. Its members are: obj (the object being dragged), init (setup for dragging), start (executed when a drag begins), end (executed when a drag ends), fixE (resolves calculating the x and y coordinates) and updateSliderProgressIndicator (updates the track progress indicator as the slider&#8217;s thumb is dragged).</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
+
+<p><a href="#UICurX">$.UICurX</a></p>
+
+<p><a href="#UICurY">$.UICurY</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIDrag_init"></a></p>
+
+<h2 id="function_uidraginit">Function: $.UIDrag.init</h2>
+
+<p>A method to step up mouse-based dragging. It automatically initializes the slider&#8217;s thumb for dragability. Its parameters are derived automatically from the selector, the slider&#8217;s thumb, the slider&#8217;s length and several predefined values.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDrag">$.UIDrag</a></p>
+
+<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISliderForMouse"></a></p>
+
+<h2 id="function_uisliderformouse">Function: $.UISliderForMouse</h2>
+
+<p>Method to initialize a range slider for mouse interaction. This gets invoke the $.UISlider. It uses $.UIDrag.init to set the slider for mouse dragging. It will also execute any callback passed to $.UISlider. It receives all of its parameters from $.UISlider.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UISliderForMouse(selector, options);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>selector: a selector identifying the slider.</li>
+<li>options: an object literal of possible values for the slider:</li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISlider">$.UISlider</a></p>
+
+<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
+
+<p><a href="#UISliderValue">$.UISliderValue</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISetTranstionType"></a></p>
+
+<h2 id="function_elementuisettranstiontype">Function: Element.UISetTranstionType</h2>
+
+<p>A method to set the type of transition for toggling between two subviews. Possible transitions are flip, pop, fade and spin. Depending on the type of transition, it sets up the appropriate CSS on the view so that the subviews can transition properly. This gets invoked automatically by element.UIFlipSubview, element.UIPopSubview, element.UIFadeSubview. and element.UISpinSubview.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>flip: </li>
+<li>pop: </li>
+<li>fade: </li>
+<li>spin: </li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIFipSubview">Element.UIFipSubview</a></p>
+
+<p><a href="#UIPopSubview">Element.UIPopSubview</a></p>
+
+<p><a href="#UIFadeSubview">Element.UIFadeSubview</a></p>
+
+<p><a href="#UISpinSubview">Element.UISpinSubview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIFipSubview"></a></p>
+
+<h2 id="function_elementuifipsubview">Function: Element.UIFipSubview</h2>
+
+<p>A method for flipping over a subview to reveal another subview, like flipping a card over to see its back. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this flipping of subviews, bind this to the uibutton or other element you want to trigger the action.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>right: Flips the subview over to the right to reveal another subview as its back.</li>
+<li>left: Flips the subview over to the left to reveal another subview as its back.</li>
+<li>top: Flips the subview upwards to reveal another subview as its back.</li>
+<li>bottom: Flips the subview downwards to reveal another subview as its back.</li>
+</ul>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIFlipSubview(direction);
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#flipbutton").UIFlipSubview("bottom");
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISetTranstionType">Element.UISetTranstionType</a></p>
+
+<p><a href="#UIPopSubview">Element.UIPopSubview</a></p>
+
+<p><a href="#UIFadeSubview">Element.UIFadeSubview</a></p>
+
+<p><a href="UISpinSubview">Element.UISpinSubview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopSubview"></a></p>
+
+<h2 id="function_elementuipopsubview">Function: Element.UIPopSubview</h2>
+
+<p>A method for popping up or popping out a subview over the current subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this popping of subviews, bind this to the uibutton or other element you want to trigger the action.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIPopSubview();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#popbutton").UIPopSubview();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISetTranstionType">Element.UISetTranstionType</a></p>
+
+<p><a href="#UIFipSubview">Element.UIFipSubview</a></p>
+
+<p><a href="#UIFadeSubview">Element.UIFadeSubview</a></p>
+
+<p><a href="#UISpinSubview">Element.UISpinSubview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIFadeSubview"></a></p>
+
+<h2 id="function_elementuifadesubview">Function: Element.UIFadeSubview</h2>
+
+<p>A method to implement the fading in and out of a secondary subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this fading of subviews, bind this to the uibutton or other element you want to trigger the action.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UIFadeSubview();
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#fadebutton").UIFadeSubview();
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISetTranstionType">Element.UISetTranstionType</a></p>
+
+<p><a href="#UIFipSubview">Element.UIFipSubview</a></p>
+
+<p><a href="#UIPopSubview">Element.UIPopSubview</a></p>
+
+<p><a href="#UISpinSubview">Element.UISpinSubview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISpinSubview"></a></p>
+
+<h2 id="function_elementuispinsubview">Function: Element.UISpinSubview</h2>
+
+<p>A method to spin in and out a secondary subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this spinning of subviews, bind this to the uibutton or other element you want to trigger the action.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>Element.UISpinSubview(direction);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>left: Will spin the subview in clockwise.</li>
+<li>right: Will spin the subview in counterclockwise.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#spinbutton").UISpinSubview("left");
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UISetTranstionType">Element.UISetTranstionType</a></p>
+
+<p><a href="#UIFipSubview">Element.UIFipSubview</a></p>
+
+<p><a href="#UIPopSubview">Element.UIPopSubview</a></p>
+
+<p><a href="#UIFadeSubview">Element.UIFadeSubview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UISpinner"></a></p>
+
+<h2 id="function_uispinner">Function: $.UISpinner</h2>
+
+<p>A method to create a spinner for a set of values. The values can be a set of strings, such as days or months, or a range of number, such as from 0-9. The method expects the presence of a spinner tag. See examples below. When this method initializes the spinner tag, it also creates a hidden input tag where the values of the spinner are stored. </p>
+
+<p>The method takes a set of options passed as an object literal. The possible values are as follows.</p>
+
+<ul>
+<li>selector: A selector defining the spinner to initialize.</li>
+<li>name: A name for the spinner&#8217;s input.</li>
+<li>range: value: The range.value object is used to pass in a set of strings as values for the spinner. See examples below for how to use it.</li>
+<li>range: Two create a numeric spinner, you can pass in the start and end values using range.start and range.end. See the examples below.</li>
+<li>step: A numerical value by which to increase or decrease the value of the spinner. This is for use with numeric values, allowing you to create a spinner whose numeric value increase by steps.</li>
+<li>defaultValue: If the spinner is numeric, a numeric value should be passed. If the spinner&#8217;s values are strings, a default string value can be passed. If no default value is passed, the spinner will be set to the first value of the array of strings or numbers.</li>
+<li>buttonClass: Any valid class names. Use clases to customize the colors of the spinner&#8217;s increase and decrease buttons.</li>
+<li>indicator: By default the spinner has increase and decrease buttons with up and down arrows. If you want to instead have &#8220;plus&#8221; and &#8220;minus&#8221; symbols, you can pass the value &#8220;plus&#8221;.</li>
+</ul>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UISpinner(options);
+</code></pre>
+
+<p>The markup for this spinner would be:</p>
+
+<pre><code>&lt;spinner id="range2"&gt;&lt;/spinner&gt;
+</code></pre>
+
+<p>You could inject a spinner into a document dynamically using this:</p>
+
+<pre><code>$("#tableview1").insert("&lt;spinner id='spinner1'&gt;&lt;/spinner");
+</code></pre>
+
+<p>Then you could initialize it with $.UISpinner.</p>
+
+<p><strong>Examples:</strong> </p>
+
+<pre><code>$.UISpinner({
+    selector: "#days", 
+    buttonClass: "ui-custom-tint green", 
+    range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']}
+});
+
+$.UISpinner({
+    selector: "#months", 
+    buttonClass: "ui-custom-tint green", 
+    range: {values: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
+    defaultValue: "Mar"
+});
+
+$.UISpinner({
+    selector: "#date", 
+    buttonClass: "ui-custom-tint green", 
+    range: {start: 0, end: 31},
+    defaultValue: 10,
+});
+
+$.UISpinner({
+    selector: "#range1", 
+    range: {start: 0, end: 40},
+    step: 4
+});
+
+$.UISpinner({
+    selector: "#range2", 
+    buttonClass: "ui-custom-tint green", 
+    range: {start: 3, end: 30},
+    defaultValue: 9,
+    step: 3,
+    indicator: "plus"
+});
+
+$.UISpinner({
+    selector: "#range3", 
+    buttonClass: "ui-custom-tint green", 
+    range: {start: 0, end: 96},
+    defaultValue: 24,
+    step: 12,
+    indicator: "plus"
+});
+</code></pre>
+
+<p>Please examine the examples in spinner.html in the examples folder of the source code.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopover"></a></p>
+
+<h2 id="function_uipopover">Function: $.UIPopover</h2>
+
+<p>A method to create the shell of a popover. Popovers are used on tablets to provide a panel for additional user options. This may be in the shape of navigation lists for the displayed content, action lists to toggle through panels of visible content, or action buttons or icon buttons to perform actions or function as tools to interact with the visible content.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>Element trigger: touching this element will open the popover.</li>
+<li>Popover orientation: a value of top or bottom to position the popover from the top of the screen or the bottom.</li>
+<li>Popover pointer orientation: a value of left, center or right for indicating where to position the popover. If the popover has an orientation of top, the pointer will be positioned on the left, center or top of the popover. If it has an orientation of bottom, the pointer will be positioned on the left, center or bottom of the popover. In all cases, these positions are used to point at what element the user clciked on to show the popover.</li>
+<li>Options: an object literal of an id or title for the popover.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$.UIPopover("#showPopover1", "top", "left", {id: "popover1", title: "Popover One"});
+$.UIPopover("#showPopover2", "top", "center", {id: "popover2", title: "Popover Two"});
+$.UIPopover("#showPopover3", "top", "right", {id: "popover3", title: "Popover Three"});
+$.UIPopover("#showPopover4", "bottom", "left", {id: "popover4", title: "Popover Four"});
+$.UIPopover("#showPopover5", "bottom", "center", {id: "popover5", title: "Popover Five"});
+$.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover Six"});
+</code></pre>
+
+<p>To show the popover, see <a href="#UIPopover.show">Element.UIPopover.show</a>.</p>
+
+<p>There are a number of methods involved in managing the positioning and repositioning of popovers when there is a screen resize or orientation change.</p>
+
+<ul>
+<li>UIEnablePopoverScrollpanels</li>
+<li>repositionPopover</li>
+<li>adjustPopoverPosition</li>
+<li>determineMaxPopoverHeight</li>
+<li>determinePopoverWidth</li>
+<li>getPopoverTrigger</li>
+<li>adjustPopoverHeight</li>
+<li>determinePopoverPosition</li>
+</ul>
+
+<p>After creating a popover, you can populate it with whatever you need to. The content could be a tableview, a navigation list, an actionsheet with action buttons, or a toolset. To populate a popover, you need to insert the content into the popover&#8217;s scrollpanel:</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>$("#popover1 scrollpanel").insert('&lt;actionsheet&gt;\
+    &lt;uibutton ui-kind="action"&gt;\
+        &lt;label&gt;Set Value&lt;/label&gt;\
+    &lt;/uibutton&gt;\
+    &lt;uibutton ui-kind="action" ui-implements="cancel"&gt;\
+        &lt;label&gt;Cancel&lt;/label&gt;\
+    &lt;/uibutton&gt;\
+&lt;/actionsheet&gt;');
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIPopover.show">Element.UIPopover.show</a></p>
+
+<p><a href="#UIPopover.hide">Element.UIPopover.show</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopover.show"></a></p>
+
+<h2 id="function_uipopovershow">Function: $.UIPopover.show</h2>
+
+<p>A method to show a popover. When a popover is show, a transparent screen mask is also displayed over the app. Touching it will dispel the popover and also remove the mask.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIPopover.show(popover);
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#showPopover1").bind("click", function() {
+    $.UIPopover.show($("#popover1"));
+});
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIBlock">Element.UIBlock</a></p>
+
+<p><a href="#UIUnblock">Element.UIUnblock</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UIPopover.hide"></a></p>
+
+<h2 id="function_uipopoverhide">Function: $.UIPopover.hide</h2>
+
+<p>A method to hide a popover. This get called automatically when the user touches anywhere outside of the popover.</p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIHide
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$$("popover uibutton[ui-implements=done]").forEach(function(item) { 
+    item.bind("click", function() {
+        var popover = item.ancestor("popover");
+        $.UIHidePopover("#" + popover.id);
+    });
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="UIHidePopover"></a></p>
+
+<h2 id="function_uihidepopover">Function: $.UIHidePopover</h2>
+
+<p>A method to hide a popover. </p>
+
+<p><strong>Syntax:</strong></p>
+
+<pre><code>$.UIHidePopover(popover);
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>popover: A reference to a currently displayed popover.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$("#hidePopover").bind("click", function() {
+    $.UIHidePopover($("#popover1"));
+});
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="function_uisplitview">Function: $.UISplitView</h2>
+
+<pre><code>A method to initialize a split view layout for iPad. There are a number of other methods involved in making the split view work, managing orientation change, screen resize, hiding and showing the root view when the size or orientation of the screen changes. Here are all the methods:
+</code></pre>
+
+<ul>
+<li>UISetSplitviewOrientation</li>
+<li>UIToggleRootView</li>
+<li>UICheckForSplitView</li>
+<li>UICurrentSplitViewDetail</li>
+</ul>
+
+<p>To implement a split view layout, all you need to do is implement the layout with the correct markup and attributes. ChocolateChip-UI will take care of making it all work for you.</p>
+
+<p>If you wish to maintain the visibility of the rootview even in portrait mode, all you have to do is put the class &#8220;SplitViewFixed&#8221; on the body tag:</p>
+
+<pre><code>&lt;body class="SplitViewFixed"&gt;
+    &lt;app&gt;...
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIBlock">Element.UIBlock</a></p>
+
+<p><a href="#UIUnblock">Element.UIUnblock</a></p>
+
+<h2 id="function_uipositionmask">Function: $.UIPositionMask</h2>
+
+<p>A method for repositioning a screen mask. This is use by ChocolateChip to keep the mask positioned properly when there is a screen resize or orientation change.</p>
+
+<p>&nbsp;</p>
+
+<h2 id="function_uialphabeticallist">Function: UIAlphabeticalList</h2>
+
+<p>A method to turn a tableview with the attribute <em>ui-kind=&#8221;titled-list alphabetical&#8221;</em>. This method will create a floating menu of the tableview&#8217;s tableheaders as a clickable index for scrolling to sections of the tableview. All you have to do is provide the tableview with the attribute as displayed above.</p>

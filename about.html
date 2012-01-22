@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" button-content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" button-content="yes">
+	<title>ChocolateChip-UI</title>
+	<link rel="stylesheet" <link rel="stylesheet" href="css/main.css" />
+	<style type="text/css">
+		.primary-section h3 {
+			position: relative;
+		}
+		.primary-section h3 img {
+			float: right;
+			border: solid 2px #9B8660;
+		}
+	</style>
+	<script src="scripts/chocolatechip.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+			var tutorialmenu = $$("#tutorial-menu a");
+		});
+	</script>
+</head>
+<body id="about">
+<div id="header">
+	<div id="header-content">
+		<h1>ChocolateChip-UI</h1>
+		<h2>The Web app development framework</h2>
+		<h3>It's tiny, but delicious</h3>
+		<img id="itbd" src="images/itbd.png" alt="It's tiny, but delicious" width="247" height="79">
+	</div>
+</div>
+<div id="nav">
+	<ul class="menu">
+		<li><a href="index.html" title="This is the way home!">Home</a></li>
+		<li><a href="downloads.html" title="Click here to download ChocolateChip-UI">Downloads</a></li>
+		<li><a href="tutorials.html" title="Learn how to quickly and effeciently create Web apps with ChococlateChip-UI">Tutorials</a></li>
+		<li><a href="documentation.html" title="The lowdown on how all of this works">Documentation</a></li>
+		<li><a href="snippets.html" title="Use these in your IDE to speed up app building.">Snippets</a></li>
+		<li id="chuiAbout" class="selected">About</li>
+	</ul>
+</div>
+<div id="content">
+<div class="primary-section" id="tutorial_container">
+	<h2>About</h2>
+	
+	<h3>That Guy <img src="images/RobertBiggs.png" alt="Robert Biggs" width="126" height="150" /></h3>
+	
+	<p>My name is Robert Biggs. Yeah, I know there's a lot of <a href="http://www.linkedin.com/search/fpsearch?type=people&keywords=robert+biggs&pplSearchOrigin=GLHD&pageKey=fps_results&search=Search">us on LinkedIn</a>. I'm not the Assyrian archeologist, the composer, the banker or the realtor. I'm a Web developer living and working in the Bay Area of Northern California. I do both desktop and mobile.</p>
+	
+	<h3>Hey, Why Did You Just Do That?</h3>
+	<p>This project came about after using various Web app development frameworks. These didn't work as I expected, or wanted or needed. After two years of fighting against them, I had had enough. I decided to create my own framework. I wanted something that would be small, uncomplicated, and easy to maintain, learn, understand, extend and update. And did I say small? Yep, small was the number one reason. But being intuitive and easy to understand were also very high on the list. Easy to figure out and easy to understand means you can get your work done faster. The quality of visual presentation was also way up there. After all, the look and feel of an app can count more than anything else, sort of like Hollywood.</p>
+	
+	<h3>In The Beginning There Was ChocolateChip.</h3>
+	<p>First I created the light weight ChocolateChip JavaScript libarary for mobile Web app development. I didn't bother building in support for ancient browsers like IE6. I built it to support the latest standards for ECMAScript 5. That gives ChocolateChip a lot of advantages over desktop libraries&mdash;it can be small, modern and efficient. Since it's only 12k minified, I think it hit the mark</p>
+	
+	<p>I spent some time trying to find the right name for the project. Sun had Java, Apple had Cocoa. Since some of my coworkers had been holding regular "chocolate tasting" get-togethers at work, I thought, "Well, I like chocolate. Chocolate is pure pleasure. And this framework is really a pleasure to work with and it's really small." Then it hit me like a sack of cocoa beans falling from an airplane: ChocolateChip&mdash;it's tiny, but delicious.</p>
+	
+	<h3>And ChocolateChip Begat ChocolateChip-UI.</h3>
+	<p>On my <a href="http://www.css3wizardry.com">blog about CSS3</a> I was publishing articles about how to reproduce various functions and interface features of iOS using mostly CSS3. When I needed JavaScript, I was using jQuery. That was because I'm very familiar with it and I like it as a library for desktop Web development. But in the back of my head there was this constant questioning about the size of jQuery and all the extra code that was for supporting browsers that I didn't need to support because I was targeting modern mobile devices with Webkit browsers. I looked at several existing mobile JavaScript frameworks that were not dependent on desktop JavaScript frameworks, but they were either not fully developed, or they struck me as over-developed or over-complicated. I wanted simplicity and clarity. I didn't want users to have to learn a new way of writing JavaScript due to object wrappers and layers of obfuscation. I wanted them to be able to switch to straight JavaScript at any time while using my library. And so with all these motivations I came up with ChocolateChip.js.</p>
+	
+	<p>After a lot of time building out proof of concept Web implementations of iOS widgets on my blog, I started thinking that I should gather them together and organize them into a reusable framework. With that the idea for ChocolateChip-UI was born. I've done a lot of development with Microsoft's Silverlight. One of the things I love about it is that when you toss a control into a document, it comes with a certain amount of functionality baked in. Apple does a similar thing with their Cocoa Touch framework for iOS. This led me to build ChocolateChip-UI in such a way as to automate as much functionality as possible. ChocolateChip-UI consists of two core files: ChUI.css and ChUI.js ChUI.js is built on top of ChocolateChip.js.</p>
+	
+	<h3>Can I Borrow Your WAML?</h3>
+	<p>When I first started working on this framework, I was struck by the mass of classes that I needed to create semantic meaning form the divs and spans. It was really hard on my eyes and tiring for my brain squinting at the mass of classes and trying to sort it all out. It was proving to be a challenge to build in the functionality I wanted while depending on classes to describe everything. And the CSS was becoming unmanageable. This got me thinking about Silverlight again, especially its markup language: XAML. It's a version of XML that provides a declarative way of defining the controls and interfaces of Silverlight applications. Then a light lit up in my head and I knew what I would have to do to make the framework easy to understand and manage. I would need to create my own markup language. And so I began writing down the basic tags and attributes I would need to define all the parts and functionality necessary to create Web apps. I spent time reading Apple's documentation for Cocoa Touch&mdash;how the controls worked and what their method calls and parameters were. I thought about what I needed to reproduce those in HTML5, CSS3 and JavaScript. The result was WAML (Web App Markup Language).</p>
+	
+	<p>WAML is just a superset of HTML5. As much as HTML5 improves on HTML4 with semantic tags to make document and Web site creation more intuitive, WAML builds on top of HTML5 to provide a way to clearly define the parts and functionalities of Web apps. Because WAML uses the HTML5 doctype, all markup must be well-formed. All WAML tags should have an opening and closing tag. WAML that is not well-formed will not be rendered properly by the browser. You'll notice right away</p>
+	
+	<p>If you're not satisfied with the functionality of a control, feel free to subclass it. (If you're not sure how to subclass, see the tutorial on subclassing for more details.) Same thing with the styles. Take the CSS and make it yours. I've put a lot of work into making this framework as identical to iOS as was possible. This was based on extensive documentation from Apple, as well as numerous screenshots from application interfaces on iOS devices. I also plan on releasing a version for Android Web apps with a similar level of fidelity, so if you're an Android developer, come back every so often to check on the progress. Or, feel free to fork this and make it do what you need it to now. Take the initiative and break some ground.</p>
+	
+	<h3>Web Apps are People too!</h3>
+	<p>One of the driving forces behind the creation of this framework was the desire to get mobile Web apps out of the "<a href="http://en.wikipedia.org/wiki/Uncanny_valley">uncanny valley</a>". This is the theory that states that when robots reach a certain level of similarity to humans they create a response of revulsion. After crossing that threshold with an increase in human-likeness, the revulsion is replaced with empathy. Mobile Web apps are presently stuck in the depths of the uncanny valley because their appearance and interaction feel clunky, not quite for real and at times out right Webby. Framework authors are contributing to this problem by creating generic themes that look like baubles designed for toddlers to suck on. End users can see the difference right away and therefore perceive the so-called Web apps as cheap, poorly implemented, of little monetary value and probably not very useful. ChocolateChip-UI is an attempt to pull Web apps up out of that valley of revulsion by offering controls and interfaces that are much closer to the look and feel of native apps. This is not to trick the end user but to get past prejudices so that the user can judge the app on its own merits.</p>
+	
+	<p>ChocolateChip-UI is not about providing some basic functionality with a me too cheap plastic look. It's about winning an Oscar, a Grammy, a Pulitzer and a Nobel Prize. It's about looking outstanding and being first of class, like a crisp tuxedo or that gown that sparkles in the eyes of onlookers. It's about being as sleek and polished and as pleasurable to use as iOS itself. ChocolateChip-UI is not just great looking, it's unique in that the interfaces it creates are in high definition and are infinitely scalable.</p>
+	
+	<h3>Peekaboo, I See You.</h3>
+	<p>You can get hold of me through the "Drop Me a Line" link on the right. I'm one guy holding down a day job and working on this project on my spare time late at night (and yes I drink a lot of coffee and still manage to to fall sound a sleep when it's time). As such, I would greatly appreciate any help you'd like to offer in pushing this framework forward. If you find a bug and figure out a fix, please contact me so I can include it in the main source. Or if you'd like to help by adding new features, or themes, or any thing else, let me know.</p>
+	
+	<h3>Offerings To The Goddess Of Chocolate.</h3>
+	<p>Special thanks to <a href="http://www.linkedin.com/profile/view?id=11293003&authType=name&authToken=rTAv&goback=%2Econ">Puja Soto</a>, a dear friend and colleague. Inspired by her love for chocolate and appreciation for ChocolateChip-UI, she created this site's scrumptious design. She also created the SVG images for resolution independent icons in ChocolateChip-UI.</p>
+	
+	<p>By the way, this site uses ChocolateChip.js for managing the menus, performing Ajax calls and other assorted functionality.</p>
+	
+</div>
+<div class="secondary-section">
+	<h2>Links</h2>
+	<ul id="side-menu">
+		<li><a href="https://github.com/rbiggs/chocolatechip">ChocolateChip.js on GitHub</a></li>
+		<li><a href="https://github.com/rbiggs/chocolatechip-ui">ChocolateChip-UI on GitHub</a></li>
+		<li><a href="http://groups.google.com/group/chocolatechip-ui?hl=en">ChocolateChip-UI Forum</a></li>
+		<li><a href="http://www.chocolatechip-mobile.net">ChocolateChip-Mobile.net</a></li>
+		<li><a href="http://www.css3wizardry.com">CSS3Wizardry.com</a></li>
+		<li><a href="mailto:chocolatechipui@gmail.com">Drop Me a Line</a></li>
+	</ul>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<h1>Expander</h1>
+
+<p>ChocolateChip provides the expander as a way to allow collapsing and expanding a vertical section of an app. The look and behavior of the expander were inspired by the expander in WebOS. To implement an expander is really easy. Just put an expander tag in your app with a panel tag inside that. Your content goes inside the panel inside the expander. ChocolateChip will take care of styling the header, etc. The expander has a label that toggles between "Open" and "Close".</p>
+
+<p>To change the defaults of the expander you can use the Element.UIExpander() function. This takes an object literal of various possible values:</p>
+
+<ul>
+<li>status: "expanded" or "collapsed", the default is "expanded".</li>
+<li>title: the label of the expander when it's collapsed, the default is "Open".</li>
+<li>altTitle: the label of the expander when it's expanded, the default is "Close".</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>$(function() {
+    var opts = {
+        status: "collapsed",
+        title: "Show",
+        altTitle: "Hide"
+    };  
+    $("expander").UIExpander(opts);
+});
+
+&lt;expander&gt;
+    &lt;panel&gt;
+        &lt;tableview ui-kind="grouped"&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Breakfast&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Lunch&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Dinner&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;
+    &lt;/panel&gt;
+&lt;/expander&gt;
+</code></pre>
+
+<p>See the documentation for ChUI.css to learn how to customize the look of the expander.</p>
+
+<p><br><br>
+<img src="../screenshots/expander-1.png" alt="Expander Collapsed" />
+<img src="../screenshots/expander-2.png" alt="Expander Open" /></p>

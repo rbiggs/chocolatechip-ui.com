@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" button-content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" button-content="yes">
+	<title>ChocolateChip-UI</title>
+	<link rel="stylesheet" <link rel="stylesheet" href="css/main.css" />
+	<style type="text/css">
+		
+	</style>
+	<script src="scripts/chocolatechip-doc-1.1.0.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+			var tutorialmenu = $$("#side-menu a");
+			$.extend($, {
+				UISelectedTutorialItem : null
+			});
+			var UITutorialContainer = $("#tutorial_container");
+			tutorialmenu.forEach(function(item) {
+				item.bind("click", function(e) {
+					if (item.hasClass("selected")) {
+						e.preventDefault();
+					} else {
+						e.preventDefault();
+						if (!!$.UISelectedTutorialItem) {
+							$($.UISelectedTutorialItem).removeClass("selected");
+						}
+						$.UISelectedTutorialItem = "#" + item.id
+						item.addClass("selected");
+						var snippetChoice = $($.UISelectedTutorialItem).href;
+						snippetChoice = snippetChoice.split("#");
+						snippetChoice = "snippets/" + snippetChoice[1];
+						item.xhr(snippetChoice, {
+							successCallback: function() {
+								UITutorialContainer.empty();
+								UITutorialContainer.insert($.responseText);
+							},
+							errorCallback: function(e) {
+								return e;
+							}
+						})
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body id="snippets">
+<div id="header">
+	<div id="header-content">
+		<h1>ChocolateChip-UI</h1>
+		<h2>The Web app development framework</h2>
+		<h3>It's tiny, but delicious</h3>
+		<img id="itbd" src="images/itbd.png" alt="It's tiny, but delicious" width="247" height="79">
+	</div>
+</div>
+<div id="nav">
+	<ul class="menu">
+		<li><a href="index.html" title="This is the way home!">Home</a></li>
+		<li><a href="downloads.html" title="Click here to download ChocolateChip-UI">Downloads</a></li>
+		<li><a href="tutorials.html" title="Learn how to quickly and effeciently create Web apps with ChococlateChip-UI">Tutorials</a></li>
+		<li><a href="documentation.html" title="The lowdown on how all of this works">Documentation</a></li>
+		<li class="selected">Snippets</li>
+		<li id="chuiAbout" title='The "Why", "When" and "Who done it".'><a href="about.html">About</a></li>
+	</ul>
+</div>
+<div id="content">
+<div class="primary-section" id="tutorial_container">
+	<h2>Snippets</h2>
+	<p>Snippets are a powerful tool to help you build even complex apps quickly. Snippets are provided here and you can download the complete file. Most IDEs have some arrangement for snippets. Just copy and paste these into you IDE. Personally I'm a long time user of BBEdit (10 years), and I also use TextMate, Coda and Espresso. Of these I found that for building Web apps with ChocolateChip-UI, Espresso seems the fasts and most efficient. I has a really great way of outputting snippets into a document, with just snippet marker followed by a tab. You can also link snippets up to <a href="http://code.google.com/p/zen-coding/">Zen Coding</a>. And if you haven't tried Zen Coding to create markup, then you really shouldn't be creating markup. Type less and let snippets and Zen Coding create the markup for you.</p>
+</div>
+<div class="secondary-section">
+	<h2>Snippets</h2>
+	<ul id="side-menu">
+		<li><a id="t_01" href="#snippets_buttons.html">UIButtons</a></li>
+		<li><a id="t_02" href="#snippets_layouts.html">Layouts</a></li>
+		<li><a id="t_03" href="#snippets_tableviews.html">Tableviews</a></li>
+		<li><a id="t_04" href="#snippets_controls.html">Controls</a></li>
+	</ul>
+	
+</div>
+</div>
+
+</body>
+</html>

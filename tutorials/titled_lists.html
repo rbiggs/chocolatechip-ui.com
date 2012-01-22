@@ -1,0 +1,77 @@
+<h1 id="titled_lists">Titled Lists</h1>
+
+<p>Titled lists are an additional type of table view. These are a type of navigation list. Selecting an item in the list will take the user to the next screen. Basically, a titled list is just a single tableview broken up into subsections by tableheaders as titles. The tableview tablecells are like a typical navigation list consisting of tablecells with href values for where the cells lead to. To turn such a navigation list into a titled list, just put  <strong>ui-kind=&#8221;titled-list&#8221;</strong> on the tableview. </p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="titled-list"&gt;
+    &lt;tableheader&gt;Fruits&lt;/tableheader&gt;
+    &lt;tablecell href="apple_detail"&gt;
+        &lt;celltitle&gt;Apple&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="banana_detail"&gt;
+        &lt;celltitle&gt;Banana&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="cherry_detail"&gt;
+        &lt;celltitle&gt;Cherry&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="grape_detail"&gt;
+        &lt;celltitle&gt;Grape&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="orange_detail"&gt;
+        &lt;celltitle&gt;Orange&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Vegetables&lt;/tableheader&gt;
+    &lt;tablecell href="beet_detail"&gt;
+        &lt;celltitle&gt;Beet&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="carrot_detail"&gt;
+        &lt;celltitle&gt;Carrot&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="lettuce_detail"&gt;
+        &lt;celltitle&gt;Lettuce&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="peas_detail"&gt;
+        &lt;celltitle&gt;Peas&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="tomato_detail"&gt;
+        &lt;celltitle&gt;Tomato&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Dairy&lt;/tableheader&gt;
+    &lt;tablecel href="cheese_detail"l&gt;
+        &lt;celltitle&gt;Cheese&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="cream_detail"&gt;
+        &lt;celltitle&gt;Cream&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="butter_detail"&gt;
+        &lt;celltitle&gt;Butter&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="milk_detail"&gt;
+        &lt;celltitle&gt;Milk&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="yogurt_detail"&gt;
+        &lt;celltitle&gt;Yogurt&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Seafood&lt;/tableheader&gt;
+    &lt;tablecell href="lobster_detail"&gt;
+        &lt;celltitle&gt;Lobster&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="oyster_detail"&gt;
+        &lt;celltitle&gt;Oyster&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="tuna_detail"&gt;
+        &lt;celltitle&gt;Tuna&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecel href="salmon_detail"l&gt;
+        &lt;celltitle&gt;Salmon&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="shrimp_detail"&gt;
+        &lt;celltitle&gt;Shrimp&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><img src="../screenshots/titled-list-1.png" alt="A titled list" title="" />
+<br><br>
+<img src="../screenshots/titled-list-2.png" alt="Another titled list" title="" /></p>

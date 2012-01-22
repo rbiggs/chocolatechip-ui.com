@@ -1,0 +1,176 @@
+<h2>Buttons</h2>
+
+<p><strong>Navbar/Toolbar Buttons:</strong></p>
+
+<pre><code>&lt;uibutton&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/button&gt;
+
+&lt;uibutton ui-bar-align="left"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-bar-align="right"&gt;
+    &lt;label&gt;Button&gt;&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="done"&gt;
+    &lt;label&gt;Button&gt;&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="delete"&gt;
+    &lt;label&gt;Button&gt;&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton class="disabled"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.svg);"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-icon-align="left"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon)"&gt;&lt;/icon&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-icon-align="right"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.svg)"&gt;&lt;/icon&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-icon-align="top"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.svg)"&gt;&lt;/icon&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-icon-align="bottom"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.svg)"&gt;&lt;/icon&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Navigation Buttons:</strong></p>
+
+<pre><code>&lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+    &lt;label&gt;Back&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="next" ui-bar-align="right"&gt;
+    &lt;label&gt;Next&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Icon Buttons:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="icon"&gt;
+    &lt;icon style="background-image: url(icons/icon.png);"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.png);"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="icon"&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/icon.png); background-color: red;"&gt;&lt;/icon&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Rounded Rectangle Buttons:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="rounded-rectangle"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="rounded-rectangle"  class="disabled"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="rounded-rectangle" ui-implements="important"&gt;
+    &lt;label&gt;View Account&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Segmented Control Buttons:</strong></p>
+
+<pre><code>&lt;segmentedcontrol&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;Button 1&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton&gt;
+        &lt;label&gt;Button 2&lt;/label&gt;
+   &lt;/uibutton&gt;
+   &lt;uibutton&gt;
+        &lt;label&gt;Button 3&lt;/label&gt;
+   &lt;/uibutton&gt;
+&lt;/segmentedcontrol&gt;
+
+&lt;segmentedcontrol&gt;
+    &lt;uibutton&gt;
+        &lt;icon style="background-image: url(icons/icon.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Button 1&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton&gt;
+        &lt;icon style="background-image: url(icons/icon.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Button 2&lt;/label&gt;
+   &lt;/uibutton&gt;
+   &lt;uibutton&gt;
+        &lt;icon style="background-image: url(icons/icon.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Button 3&lt;/label&gt;
+   &lt;/uibutton&gt;
+&lt;/segmentedcontrol&gt;
+</code></pre>
+
+<p><strong>Action Buttons:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="action" ui-implements="default"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="cancel"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="done"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="delete"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="green"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="gold"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="disabled"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>Custom Tints:</strong></p>
+
+<pre><code>&lt;uibutton class="ui-custom-tint"&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton class="ui-custom-tint" style="background-color: brown;"&gt;
+    &lt;label&gt;Save&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="back" ui-bar-align="left" class="ui-custom-tint" style="background-color: brown;"&gt;
+    &lt;label&gt;Back&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>For the above  back uibutton use the follow CSS for its pointer:</p>
+
+<pre><code>uibutton[style="background-color: brown;"] {
+    background-color: brown;
+}
+</code></pre>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" button-content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" button-content="yes">
+	<title>ChocolateChip-UI</title>
+	<link rel="stylesheet" <link rel="stylesheet" href="css/main.css" />
+	<style type="text/css">
+		.attention {
+			width: 920px;
+			margin: 20px auto;
+			background-color: #fffccd;
+			padding: 10px 20px;
+			border: solid 3px #b50a00;
+			color: #b50a00;
+		}
+		#announcement {
+			width: 920px;
+			margin: 20px auto 0px auto;
+			background-color: #77c4ff;
+			background-color: rgba(119,196,255,0.25);
+			border: dashed 2px rgb(155,134,96);
+			padding: 10px 20px;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+		}
+		#announcement h2 {
+			background: transparent url("images/ccCookie.png") no-repeat left top;
+			margin: 0;
+			padding: 2px 0 6px 30px;
+			border-bottom: solid 6px #a18e80;
+			font-weight: normal;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+	</style>
+	<script src="scripts/chocolatechip-doc-1.1.0.js" type="text/javascript"></script>
+	<script src="scripts/emile.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+			var announcement = $("#announcement");
+			$.delay(function() {
+				announcement.style.overflow = "hidden";
+				emile('announcement', 'height:0px; padding: 0px; border-width: 0px; font-size: 0px; line-height: 0px; opacity: 0;', {
+    				duration: 1000,
+    				after: function(){
+    						emile('announcement', 'margin: 0px;', {
+    							duration: 500
+    						});
+    					}
+    				}
+    			);
+  			}, 20000); 
+		});
+	</script>
+
+</head>
+<body id="main">
+<div id="header">
+	<div id="header-content">
+		<h1>ChocolateChip-UI</h1>
+		<h2>The Web app development framework</h2>
+		<h3>It's tiny, but delicious</h3>
+		<img id="itbd" src="images/itbd.png" alt="It's tiny, but delicious" width="247" height="79">
+	</div>
+</div>
+<div id="nav">
+	<ul class="menu">
+		<li class="selected">Home</li>
+		<li><a href="downloads.html" title="Click here to download ChocolateChip-UI">Downloads</a></li>
+		<li><a href="tutorials.html" title="Learn how to quickly and effeciently create Web apps with ChococlateChip-UI">Tutorials</a></li>
+		<li><a href="documentation.html" title="The lowdown on how all of this works">Documentation</a></li>
+		<li><a href="snippets.html" title="Use these in your IDE to speed up app building.">Snippets</a></li>
+		<li id="chuiAbout" title='The "Why", "When" and "Who done it".'><a href="about.html">About</a></li>
+	</ul>
+</div>
+<!--[if IE lt 9]>
+	<div class="attention">
+		<h2>Attention, Your Browser is Outdated!</h2>
+		<p>This site is about how to build mobile Web apps for the latest mobile devices running iOS, Android, Blackberry OS and WebOS. It therefore expects browsers to support a minimum for current Web standards. Your browser is below that minimum. As such the site's functionality may be crippeled by the limitations of your browser. We recommend you come back using a more modern browser of your choice. Since your current browser is IE, you might want to upgrade to IE9 or greater.</p>
+	</div>
+<![endif]-->
+
+<!-- Beta Announcement -->
+<div id="announcement">
+	<h2>Version 1.0</h2>
+	<p>That's right, folks. This is the big one. Over the past months I've been hard at work to make ChocolateChip-UI an outstanding framework for creating mobile Web apps on the Webkit platform. This release also has optimizations for iOS 5.</p>
+	<h3>jQuery Port Available</h3>
+	<p>There is now a special version of ChocolateChip-UI that works with jQuery.</p>
+	<h3>ChocolateChip-UI comes to Zepto</h3>
+	<p>ChocolateChip-UI can now be used with the micro framework Zepto.</p>
+</div>
+<div id="content">
+<div class="primary-section">
+	<h2>ChocolateChip is now ChUI (pronounced "chewy")</h2>
+	<p>ChocolateChip-UI is a framework that provides layouts and widgets with built-in functionality to enable you to quickly and easily create mobile Web apps. In some cases these require no scripting at all. You create the correct markup and ChocolateChip-UI takes care of adding the functionality, such as navigations lists, back navigation, etc. In other cases you can sometimes initialize a widget with a single line of JavaScript. This leaves you more time to find the best way to provide the data that your app will consume. Because one of our goals is to keep things as small as possible, ChocolateChip-UI uses no images to create its widgets and controls, everything is created from WAML and CSS. Where icons are used for buttons, ChocolateChip-UI uses vector-based SVG images. This means that your Web app will always be resolution independent, always crisp and clean. Enjoy the new, ChUI ChocolateChip.</p>
+	
+	<h3>ChocolateChip-UI on jQuery</h3>
+	<p>ChocolateChip-UI has been ported to jQuery. If your preferred JavaScript library is jQuery, you can now use this version with it. You can download it from Github. After downloading, open the examples to see what's included. If you've already been using the regular version of ChocolateChip-UI and want to switch to the jQuery version, examine the examples carefully because how to access data in some controls' callbacks have changed due to the underlying differences between ChocolateChip and jQuery. You can get the <a href="https://github.com/rbiggs/chocolatechip-ui-jq">jQuery version of ChocolateChip-UI</a> from Github</p>
+	
+	<h3>ChocolateChip-UI on Zepto</h3>
+	<p>ChocolateChip-UI has been ported to Zepto, a JavaScript micro framework. If you like the concept of using a small and focused JavaScript framework for you Mobile needs but need some sort of front end for the look and feel, this could be your solution. ChocolateChip-UI with Zepto constitute a powerful and light way for you to realize your Web app aspirations. You can get the <a href="https://github.com/rbiggs/chocolatechip-ui-zepto">Zepto version of ChocolateChip-UI</a> from Github</p></p>
+<div>
+<br><br>
+	<h2>Some of the Possible Layouts and Controls</h2>
+	<img alt="" src="/screenshots/buttons.png">
+	<img alt="" src="/screenshots/activity_indicator-1.png">
+	<img alt="" src="/screenshots/advanced_tableview-2.png">
+	<img alt="" src="/screenshots/advanced_tableview-4.png">
+	<img alt="" src="/screenshots/advanced_tableview-8.png">
+	<img alt="" src="/screenshots/advanced_tableview-9.png">
+	<img alt="" src="/screenshots/deletion_list-3.png">
+	<img alt="" src="/screenshots/paging_control-2.png">
+	<img alt="" src="/screenshots/SelectList.png">
+	<img alt="" src="/screenshots/actionsheet-2.png">
+	<img alt="" src="/screenshots/popup-2.png">
+	<img alt="" src="/screenshots/switchcontrol.png">
+	<img alt="" src="/screenshots/tabbar-2.png">
+	<img alt="" src="/screenshots/tableview-simple-grouped-3.png">
+	<img alt="" src="/screenshots/tableview-simple-grouped-4.png">
+	<img alt="" src="/screenshots/splitview-2.png">
+	<img alt="" src="/screenshots/splitview-4.png">
+</div>	
+</div>
+<div class="secondary-section">
+    <h2>Localization Efforts</h2>
+    <p>If you speak German, French, Spanish, Italian, Japanese, Chinese or any other language and would like to help translate this site with it's documentation and tutorials into to your language, please <a href="mailto:chocolatechipui@gmail.com">contact me</a>. I will supply you with the material to translate and will make your language available here as an option. Thanks for visiting.</p>
+    <p>&nbsp</p>
+	<h2>Just the basics</h2>
+	<p>ChocolateChip is designed for mobile devices using Webkit-based browsers. Because of this, you can use any Webkit-based browser on the desktop during development. This includes Google Chrome and Apple Safari. ChocolateChip-UI provides a certain level of desktop compatiblity for testing purposes. You can also use emulators. Ultimately you'll want to test on actual devices as there are subtle differences in how desktop browsers and emulators render or react.</p>
+</div>
+</div>
+
+</body>
+</html>

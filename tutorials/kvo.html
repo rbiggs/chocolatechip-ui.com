@@ -1,0 +1,73 @@
+<h1>Data Binding</h1>
+
+<p>&nbsp;</p>
+
+<h2>$.kvo</h2>
+
+<p>ChocolateChip provides a very basic capability for data binding using typical key/value object observers with the $.kvo() method. This is one-way data binding. In most situations where your app is consuming data, the use of Ajax updates using targeted templates should be sufficient. However, if you find that you need to bind the value of one element to that of another elsewhere in your app, you can use $.kvo. If you absolutely need two-way data binding, try binding one way first, and then a second object initialization to bind the other way. $.kvo uses and event to catch any updated values. This works find for normal DOM elements, especially form elements. You can use the events triggered by user interaction with the elements or DOM mutations events.</p>
+
+<p>In the example below we're going to link the value of the label to the value of the checkbox. When you check and uncheck it, the value of the label will update automatically. Basically, the label will be "observing" the value of the checkbox. We'll give the checkbox and id of "checkbox" and the label an id of "result". We first store references to our elements in checkbox and result. Then we create a new instance of kvo.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// References to the two screen elements:
+checkbox = $('#checkbox');
+result = $('#result');
+// Create a new kvo object:
+kvo = new $.kvo();
+</code></pre>
+
+<p>We register and observer that says that result will watch the checked state of the checkbox. Then we define a keyWillUpdate function on the label to indicate what happens when the checkbox's value changes.</p>
+
+<pre><code>// Register the p tag to observe the checked key of the object:
+kvo.registerObserver(result, 'checked');
+// Define what happens when the p tag is informed of an assignment:
+result.keyWillUpdate = function(object, key, currentValue, newValue) {
+    if (newValue) {
+        this.innerHTML = "On";
+    } else {
+        this.innerHTML = "Off";
+    }
+};
+</code></pre>
+
+<p>To make all this happen, we bind a click event on the checkbox to publish its value. That's all there is to it.</p>
+
+<pre><code>// When the button is clicked, set the checked key of the kvo object to true:
+checkbox.bind("click", function() { 
+    kvo.set('checked', this.checked); 
+});
+</code></pre>
+
+<p>Next we're going to bind the value of a label to a text input. As the user types in the text input, the label's text updates simultaneously to that of the input. If we haven'y already created one, we'll need to create a new kvo object and we'll get references to the label and the text input:</p>
+
+<pre><code>// Create a new kvo object:
+kvo = new $.kvo();
+// Bind the text of the label to the value of the input.
+input = $("#textinput");
+label = $("#labeltext");
+</code></pre>
+
+<p>Next we'll register and observer on the label to watch for the text value of the text input. And then we deine the keyWillUpdate function to indicate what will have when the text input's value changes. We set the innerText of the label to the value of the text input.</p>
+
+<pre><code>// Register and observer:
+kvo.registerObserver(label, "text");
+// Define what will happen when the key updates:
+label.keyWillUpdate = function(object, key, currentValue, newValue) {
+    if (newValue) {
+        this.innerText = input.value;
+    } else {
+        this.innerText = currentValue;
+    }
+};
+</code></pre>
+
+<p>To make it all happen we bind a "keyup" event on the text input which publishes its value.</p>
+
+<pre><code>// Bind a keyup event to trigger the updating of the key value to the value of the input.
+input.bind("keyup", function() {
+    kvo.set("text", this.value);
+});
+</code></pre>
+
+<p>Please look at the kvo sample in ChocolateChip's examples folder to see working examples of these.</p>

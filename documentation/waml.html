@@ -1,0 +1,1082 @@
+<h1 id="wamlweb_app_markup_language">WAML&mdash;Web App Markup Language</h1>
+
+<pre><code>   pO\     
+  6  /\
+    /OO\
+   /OOOO\
+ /OOOOOOOO\
+((OOOOOOOO))
+ \:~=++=~:/ 
+
+ChocolateChip-UI: A framework for mobile Web app development.
+WAML: Web App Markup Language
+
+Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+License: BSD
+Version 1.0
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p>WAML introduces a set of new tags for defining and enabling the controls and functionality for creating we  apps. These are a superset of tags for use in and HTML5 document. Browsers will therefore use the HTML5 parsing engine to render the tags. All WAML tags must be well-formed, like XML. Mal-formed markup will cause noticeable rendering problems in the browser. </p>
+
+<p>Because WAML is really uses basic HTML5, you can use other HTML5 features, such as cache manifest, session storage, local storage, client-side sql database storage, and standalone mode on a mobile device. Since these are all well-documented on the Web, we will not attempt to explain how to use these with your Web app.</p>
+
+<p>Because WAML is a superset of tags added on top of HTML5, it will not pass a W3C code validation test. This merely means that the validator does not know about the WAML tags and therefore does not
+how to judge their correctness. Although a validator will not know about WAML tags, browsers all handle unknown markup tags consistently. They will render them as inline tags. Therefore ChocolateChip-UI supplies CSS styles to instruct browsers how to render WAML. Since Web apps are meant for installing on a mobile device&#8217;s home screen, validating code for the Web is not necessary. Installed mobile Web apps will not be crawled by search bots, etc.</p>
+
+<p>ChocolateChip-UI also uses another technique with some of the HTML tags it uses. Besides the regular DOM which a browser exposes for access through CSS and JavaScript, there is also a hidden or shadow DOM which browsers do not expose. For example, elements such as uibutton, select and input have child elements that cannot be accessed by JavaScript and do not appear in the DOM. They&#8217;re there as the shadow DOM. ChocolateChip takes a sledge hammer to the shadow DOM by directly placing new child elements in the uibutton tag. Technically, according to specs, the uibutton tag has no child elements. But because of the shadow DOM, you can give a uibutton a child element and the browser will render it without a problem. You just need to override it&#8217;s default look using <em>-webkit-appearance=&#8221;none&#8221;.</em> It would only depend on your styling of it to look good. Following this course, ChocolateChip provides new tags and old tags used in new ways as well as custom attributes to make the creation of controls for Web apps straightforward and intuitive.</p>
+
+<p>Because a WAML document is just HTML5, it uses the html file extension. A WAML document expects the following basic document structure with links to ChocolateChip.js ChUI.js and ChUI.css. The links for favicon, startup image, etc. would need to be created for your app. Please note the the meta tag for viewport does not have a device-width value. Do not set this but instead use the viewport meta tag as displayed below. Also, if you want to use a cache manifest, you&#8217;d need to create one and change the value in the html tag to match the name of your manifest. Note, a cache manifest always has a file tile of &#8220;.manifest&#8221; and the server where you app resides needs to support this mime-type. Do an online search for &#8220;cache manifest&#8221; if you need to learn more about this feature of HTML5.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" manifest="cache.manifest"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="touchicon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Untitled&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Custom styles for you application go here */
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;
+        // Custom JavaScript for your application goes here.
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;!-- Your application markup in here --&gt;    
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="overriding_default_styles">Overriding default styles</h2>
+
+<p>You can override the styles of any control defined in WAML and ChocolateChip-UI by creating a new class and overriding the default values in ChUI.css, or by taking the selector and attributes from ChUI.css and overriding them in directly in a style declaration in the head of your WAML document. You can also take advantage of a technique which ChocolateChip-UI provides for creating custom tints for controls. Please refer to the documentation for ChUI.css for more information about how to modify a control&#8217;s style.</p>
+
+<p>&nbsp;</p>
+
+<h2 id="waml_block_and_box_elements">WAML block and box elements:</h2>
+
+<p>WAML introduces the following elements for building Web apps: app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, screencover, actionsheet, stack, panel, scrollpanel.</p>
+
+<p>&nbsp;</p>
+
+<h2 id="waml_inline_and_inline_box_elements">WAML inline and inline-box elements:</h2>
+
+<p>WAML introduces the following elements: uibutton, segmentedcontrol, icon, slider, switchcontrol, thumb, thumbprop, checkmark, deletedisclosure.</p>
+
+<p>&nbsp;</p>
+
+<p><a name="app"></a></p>
+
+<h2 id="tag_app">Tag: app</h2>
+
+<p>This is the root of all WAML documents. It is the first child of the body tag. It serves as the root of the ChocolateChip Web app. This tag has only one kind of child element: a view tag.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#view">view</a></p>
+
+<p><a href="#subview">subview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="view"></a></p>
+
+<h2 id="tag_view">Tag: view</h2>
+
+<p>This tag is always a child of the app tag. An app tag can have any number of views. A view holds one screen of content. During navigation of views, these are to the left or right of the screen and positioned into view with animation. This is handled by changing the value of their ui-navigation-status property. When this attribute has a value of &#8220;traversed&#8221;, it is translated off screen to the left. When this has a value of &#8220;current&#8221;, it is translated into view. When it has a value of &#8220;upcoming&#8221; it is translated off screen to the right.</p>
+
+<p>A view can have any number of possible children, such as a navbar, toolbars, subviews, tableviews, stacks, etc. In most cases you will want to include a subview with a scrollpanel to allow for scrolling of content when it overflows the viewport.</p>
+
+<p>You can designate a vertical styling of a view by giving it the following attribute: <em>ui-background-style=&#8221;striped&#8221;</em>.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#app">app</a></p>
+
+<p><a href="#subview">subview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="subview"></a></p>
+
+<h2 id="tag_subview">Tag: subview</h2>
+
+<p>This tag is usually a child of a view. A view could have any number of subviews. These allow you to have various chunks of data in one view through which you can toggle or navigate without leaving the current view. Normally a subview will have a scrollpanel as its first child to allow scrolling of its content.</p>
+
+<p>Usually a subview will inhabit a view with a navbar a toolbar or both. A navbar is always the topmost element in a view. A toolbar could be eight at the top or at the bottom of the screen. In order to fit these possible combinations, ChocolateChip provides the ui-associations attribute for the subview to indicate whether it is with a navbar or toolbar. The usage is as follows.</p>
+
+<p><strong>Ui-associations:</strong></p>
+
+<ul>
+<li>ui-associations=&#8221;withNavBar&#8221;</li>
+<li>ui-associations=&#8221;withTopToolBar&#8221;&#8220;</li>
+<li>ui-associations=&#8221;withNavBar withBottomToolBar&#8221;</li>
+<li>ui-associations=&#8221;withTopToolBar withBottomToolBar&#8221;</li>
+</ul>
+
+<p>A subew can by styled with vertical stipes like a viw with the following attribute: ui-background-style=&#8221;striped&#8221;.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#app">app</a></p>
+
+<p><a href="#view">view</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="box_properties">Box properties:</h2>
+
+<p>ChocolateChip-UI provides a number of box attributes to enable designating different box properties on an element. You can combine some of the box properties to achieve the desired layout effects.</p>
+
+<p><a name="ui_box"></a></p>
+
+<p><strong>Ui-box:</strong></p>
+
+<ul>
+<li>ui-box=&#8221;horizontal&#8221;</li>
+<li>ui-box=&#8221;vertical&#8221;</li>
+</ul>
+
+<p><a name="ui_box_direction"></a></p>
+
+<p><strong>Ui-box-direction:</strong></p>
+
+<ul>
+<li>ui-box-direction=&#8221;normal&#8221;</li>
+<li>ui-box-direction=&#8221;reverse&#8221;</li>
+</ul>
+
+<p><a name="ui_box_pack"></a></p>
+
+<p><strong>Ui-box-pack:</strong></p>
+
+<ul>
+<li>ui-box-pack=&#8221;start&#8221;</li>
+<li>ui-box-pack=&#8221;end&#8221;</li>
+<li>ui-box-pack=&#8221;center&#8221;</li>
+<li>ui-box-pack=&#8221;justify&#8221;</li>
+</ul>
+
+<p><a name="ui_box_align"></a></p>
+
+<p><strong>Ui-box-align:</strong></p>
+
+<ul>
+<li>ui-box-align=&#8221;stretch&#8221;</li>
+<li>ui-box-align=&#8221;center&#8221;</li>
+<li>ui-box-align=&#8221;start&#8221;</li>
+<li>ui-box-align=&#8221;end&#8221;</li>
+</ul>
+
+<p><a name="ui_box_flex"></a></p>
+
+<p><strong>Ui-box-flex:</strong></p>
+
+<p>There is also the box-flex attribure. It can have any value from 0 to 10. When it has a value of 0 it has no effect.</p>
+
+<ul>
+<li>ui-box-flex=0</li>
+<li>ui-box-flex=1</li>
+<li>ui-box-flex=2</li>
+<li>ui-box-flex=3, etc.</li>
+</ul>
+
+<p><a name="ui_box_sizing"></a></p>
+
+<p><strong>Ui-box-sizing:</strong></p>
+
+<p>There is also box sizing, which affects how the browser renders the dimensions of an element.</p>
+
+<ul>
+<li>ui-box-sizing=&#8221;content&#8221; The width and height define the content minus the padding and border width.</li>
+<li>ui-box-sizing=&#8221;border&#8221; The width and height include the padding and border width.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a name="stack"></a></p>
+
+<h2 id="tag_stack_paging_control">Tag: stack (Paging Control)</h2>
+
+<p>A container for hold elements. This element uses and attribute <em>&#8220;ui-kind&#8221;</em> to indicate whether its elements are stacked vertically or horizontally:</p>
+
+<ul>
+<li>ui-kind=&#8221;vertical&#8221;</li>
+<li>ui-kind=&#8221;horizontal&#8221;</li>
+</ul>
+
+<p>A stack can also used to create a paging control. This is done by giving the stack he attribute <em>stack ui-implements=&#8221;paging&#8221;</em> and putting a panel tag inside of it. It bit of nesting is necessary to create the structures to enable the horizontal paging behavior. A stack contains the pnaels that will be paged. Because of the limited horizontal space in portrait mode in a handheld device it is only possible to have up to 17 pagable panels. If you need more then you should use the segmented paging control. See tutorials for how to implement it. ChocolateChip-UI automatically creates a stack underneath it with dots to indicate navigable panels based on the number of panels in your structure. All you have to do to implement the paging control is to use the right markup structure, ChocolateChip-UI will initialize it for you automatically. Here&#8217;s the structure of a typical paging control:</p>
+
+<pre><code>&lt;stack ui-implements="paging"&gt;
+    &lt;panel&gt;
+        &lt;stack&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 1&lt;/h4&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 2&lt;/h4&gt;
+                &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 3&lt;/h4&gt;
+                &lt;p&gt;Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 4&lt;/h4&gt;
+                &lt;p&gt; Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem.&lt;/p&gt;
+            &lt;/panel&gt;
+        &lt;/stack&gt;
+    &lt;/panel&gt;
+&lt;/stack&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="uibutton"></a></p>
+
+<h2 id="tag_uibutton">Tag: uibutton</h2>
+
+<p>In WAML the uibutton tag is a WAML replacement for the HTML uibutton input to avoid conflicts with that tag&#8217;s inherent styles, properties and behaviors. The uibutton can have child nodes. These can be a label or icon.</p>
+
+<p>By default a uibutton tag has a particular appearance and dimensions suited for use in navbars and toolbars. You can indicate different uses of a uibutton with the ui-implements attribute. Possible values for the attribute are:</p>
+
+<p><a name="ui_implements"></a></p>
+
+<p><strong>Ui-implements:</strong></p>
+
+<ul>
+<li>ui-implements=&#8221;done&#8221; The uibutton gets a bluish tint to stand out.</li>
+<li>ui-implements=&#8221;delete&#8221; The uibutton has a reddish background color</li>
+<li>ui-implements=&#8221;back&#8221; The uibutton has a left pointer.</li>
+<li>ui-implements=&#8221;next&#8221; The uibutton has a right pointer.</li>
+<li>ui-implements=&#8221;icon&#8221; The uibutton has no label, it only displays a icon.</li>
+<li>ui-implements=&#8221;cancel&#8221; The uibutton is styled as a Cancel uibutton.</li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#navigation_uibuttons">navigation uibuttons</a></p>
+
+<p><a href="#icon_style_uibutton">icon style uibutton</a></p>
+
+<p><a href="#ui_kind_rounded_rectangle">rounded rectangle uibutton</a></p>
+
+<p><a href="#ui_kind_action">action uibutton</a></p>
+
+<p>You can also indicate a completely different type of uibutton from the navbar/toolbar variety by giving a uibutton a <em>&#8220;ui-kind&#8221;</em> attribute. Here are the possible values:</p>
+
+<p>&nbsp;</p>
+
+<p><a name="ui_kind"></a></p>
+
+<p><strong>Ui-kind:</strong></p>
+
+<ul>
+<li><a href="#icon_style_uibutton">ui-kind=&#8221;icon&#8221;</a> The uibutton frame and background are hidden, revealing only the icon. This type is used in navbars and toolbars.</li>
+<li><a href="#ui_kind_action">ui-kind=&#8221;action&#8221;</a> This is a larger uibutton type usually used in action sheet or popups and popovers.</li>
+<li><a href="#ui_kind_rounded_rectangle">ui-kind=&#8221;rounded-rectangle&#8221;</a> This is the very common uibutton with a simple and plain border and white background.</li>
+</ul>
+
+<p>When outputting an icon in a uibutton, you can indicate the alignment of the icon in relation to the uibuttons label. By default an icon is aligned to the left of the label. You can change that with the ui-icon-align attribute:</p>
+
+<p>&nbsp;</p>
+
+<p><a name="ui_icon_align"></a></p>
+
+<p><strong>Ui-icon-align:</strong></p>
+
+<ul>
+<li>ui-icon-align=&#8221;right&#8221;</li>
+<li>ui-icon-align=&#8221;top&#8221;</li>
+<li>ui-icon-align=&#8221;bottom&#8221;</li>
+</ul>
+
+<p>You can indicate the placement of a uibutton or segmented control in a navbar or toolbar with the <em>ui-bar-align attribute</em>:</p>
+
+<p>&nbsp;</p>
+
+<p><a name="ui_bar_align"></a></p>
+
+<p><strong>Ui-bar-align:</strong></p>
+
+<ul>
+<li>ui-bar-align=&#8221;left&#8221;</li>
+<li>ui-bar-align=&#8221;center&#8221;</li>
+<li>ui-bar-align=&#8221;right&#8221;</li>
+</ul>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#navbar">navbar</a></p>
+
+<p><a href="#toolbar">toolbar</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="icon_style_uibutton"></a></p>
+
+<p><strong>Icon style uibutton:</strong></p>
+
+<p>To display an icon in a uibutton you use an icon tag with an inline style indicating what the background image is:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton&gt;
+    &lt;icon style="background-image: url(icons/add.svg)"&gt;
+    &lt;label&gt;Add&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>When using icons in a uibutton, you can designate whether the icon is simply display in its original color or to use it as a mask. When using as a mask, the icon&#8217;s background colors are revealed in the icon. Using background gradients on an icon with a image mask can create interesting effects. To accomplish this, instead of putting a background image on the icon, you put a <em>-webkit-mask image</em> value in its inline style definition, as illustrated below.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/add.svg)"&gt;
+    &lt;label&gt;Add&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>By default the background color used by the mask is white. If you want to change this, you can output a different background color in the icon&#8217;s inline style by hand or by JavaScript. Using an rgba color value with transparency set will cause the color masked icon to appear in that color. Setting the transparency to 0 will cause no icon to show.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton&gt;
+    &lt;icon style="-webkit-mask-image: url(icons/add.svg); background-color: #ff0000"&gt;
+    &lt;label&gt;Add&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_kind">ui-kind</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="ui_kind_rounded_rectangle"></a></p>
+
+<p><strong>Rounded rectangle uibuttons:</strong></p>
+
+<p>Rounded rectangle uibuttons are used in views and subview to indicate a direct action that the user can accomplish. These uibuttons are very simple: white background with a simple gray border around them. Like other uibuttons, the can have just a label, or a label and an icon. You can change the default look to draw importance by giving the rounded rectangle uibutton by giving it a <em>ui-implements</em> a value of &#8220;&#8221;. By default these uibuttons have their display set to inline-box so that they collapse to fit their content. However you can override that by giving them a class of &#8220;stretch&#8221; which will make them stretch to fill the available horizontal space, stacking on top of each other in the case of multiple uibuttons.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_kind">ui-kind</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="ui_kind_action"></a></p>
+
+<p><strong>Action uibuttons:</strong></p>
+
+<p>uibuttons with the attribute <em>ui-kind</em> set to &#8220;action&#8221; can also have the the class &#8220;stretch&#8221; which will cause them to stretch to the available width of their container. You can also set all action uibuttons to stretch by putting the <em>ui-contains=&#8221;action-uibuttons&#8221;</em> attribute on the element that contains the action uibuttons. This is typically the case with action uibuttons in an action sheet, or with rounded rectangle uibuttons in a subview where they stack on top of each other. You would want to do this where the labels for these uibuttons is more than one word.</p>
+
+<p>uibuttons of kind action have a default gray color. You can change that just like uibuttons in toolbars by giving them a <em>ui-implements</em> value. A value of &#8220;default&#8221; will make a blue action uibutton, &#8220;delete&#8221; will produce a red action uibutton and &#8220;cancel&#8221; will produce a charcoal color. You can also give them any of the following classes for other possible colors: &#8220;green&#8221; or &#8220;gold&#8221;.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-kind="action" class="stretch"&gt;
+    &lt;label&gt;Set Value&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="cancel" class="stretch"&gt;
+    &lt;label&gt;Cancel&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="delete" class="stretch"&gt;
+    &lt;label&gt;Delete&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="green stretch" style="height: 80px;"&gt;
+    &lt;label&gt;Green&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" class="gold stretch" style="height: 100px;"&gt;
+    &lt;label&gt;Gold&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-kind="action" ui-implements="done" class="stretch"&gt;
+    &lt;label&gt;Save&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_implements">ui-implements</a></p>
+
+<p><a href="#ui_kind">ui-kind</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="navigation_uibuttons"></a></p>
+
+<p><strong>Navigation uibuttons:</strong></p>
+
+<p>These are produced by giving a uibutton an appropriate <em>ui-implements</em> value of either &#8220;back&#8221; or &#8220;next&#8221;. You could also designmate it&#8217;s placement in the navbar with a <em>ui-bar-align</em> value of &#8220;left&#8221;, &#8220;center&#8221; or &#8220;right&#8221;.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+    &lt;label&gt;Back&lt;/label&gt;
+&lt;/uibutton&gt;
+
+&lt;uibutton ui-implements="next" ui-bar-align="right"&gt;
+    &lt;label&gt;Next&lt;/label&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#navbar">navbar</a></p>
+
+<p><a href="#ui_bar_align">ui-bar-align</a></p>
+
+<p><a href="#ui_implements">ui-implements</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_segmentedcontrol">Tag: segmentedcontrol</h2>
+
+<p>This tag is actually just a container for a set of two or more uibuttons. A segmented control keeps the uibuttons joined together at their ends and handles automatic toggling of their selected states. It also provides automatic rounding of the two end uibuttons.</p>
+
+<p>A segmented control can be placed in a navbar or toolbar. In such cases you can give it a <em>ui-bar-align</em> attribute of &#8220;left&#8221;, &#8220;center&#8221; or &#8220;right&#8221;. If you are instead inserting the segmented control into a subview or other container, you can allow it to collapse to fit its content or make it stretch to fill the available horizontal space by giving it a class of &#8220;stretch&#8221;.</p>
+
+<p>The uibuttons of a segmented control can accept all the attributes and icon/label techniques of other uibuttons, such as <em>ui-implements</em>, <em>ui-kind</em>, etc.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_implements">ui-implements</a></p>
+
+<p><a href="#ui_kind">ui-kind</a></p>
+
+<p><a href="#ui_icon_align">ui-icon-align</a></p>
+
+<p><a href="#ui_bar_align">ui-bar-align</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="navbar"></a></p>
+
+<h2 id="tag_navbar">Tag: navbar</h2>
+
+<p>A navbar is visually identical to a toolbar. The difference is in what they are used for. The navbar, as the name implies, is usually used for navigation of views or subviews. It will also often have a title indicating to the user what view is current. The navbar handles placement of uibuttons in combination with a uibuttons <a href="#ui_bar_align"><em>ui-bar-align</em> attribute</a>. ChocolateChip-UI implements a feature for automatically assessing the space taken up by uibuttons or segmented controls in a navibar and reduces the width of the title while terminating it with an ellipsis when there is not enough space for the full length of the title. This is accomplished by the $.UIAdjustToolBarTitle method of ChUI.js (See ChUI.js documentation). It is possible to have a navbar with only a title when that is all that you need to show. The navbar title is held by an h1 tag inside of it. Simply give the h1 tag the string you wish the navbar to display.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;navbar&gt;
+    &lt;h1&gt;Action uibuttons in a View&lt;/h1&gt;
+&lt;/navbar&gt;
+
+&lt;navbar&gt;
+    &lt;uibutton ui-implements="back" ui-bar-align="left"&gt;
+        &lt;label&gt;Back&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;uibutton ui-implements="next" ui-bar-align="right"&gt;
+        &lt;label&gt;Next&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/navbar&gt;
+
+&lt;navbar&gt;
+    &lt;uibutton ui-bar-align="left" ui-implements="delete"&gt;
+        &lt;label&gt;Delete&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;h1&gt;uibuttons&lt;/h1&gt;
+    &lt;uibutton ui-icon-align="right"&gt;
+        &lt;label&gt;Edit&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/navbar&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_bar_align">ui-bar-align</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="toolbar"></a></p>
+
+<h2 id="tag_toolbar">Tag: toolbar</h2>
+
+<p>A toolbar, like a navbar, is for holding uibuttons. It, however, is never used for navigation purposes. It instead serves to present the user various uibuttons for accomplishing tasks. A toolbar is therefore task-based. By default all uibuttons in a toolbar a aligned evenly across it using box-packing justified. If you want to override this behavior you can put an appropriate <a href="#ui_box_pack"><em>ui-box-packing</em></a> attribute value on it. See the examples below. Toolbar uibuttons are often displayed as just icons using the <a href="#ui_kind"><em>ui-kind</em></a> attribute set to &#8220;icon&#8221;, but you could also use a regular uibutton with <em>ui-implements=&#8221;icon&#8221;</em> to display a normal toolbar uibutton with just and icon.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;toolbar&gt;
+    &lt;uibutton ui-implements="icon"&gt;
+        &lt;icon style="background-image: url(icons/logo.png);"&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton ui-kind="icon"&gt;
+        &lt;icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton ui-kind="icon"&gt;
+        &lt;icon style="-webkit-mask-image: url(icons/add.svg);"&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton class="disabled"&gt;
+        &lt;label&gt;Add to Favorites&lt;/label&gt;
+    &lt;/uibutton&gt;
+&lt;/toolbar&gt;
+</code></pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#ui_bar_align">ui-bar-align</a></p>
+
+<p><a href="#ui_box_pack">ui-box-pack</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tabbar"></a></p>
+
+<h2 id="tag_tabbar">Tag: tabbar</h2>
+
+<p>The tabbar is an implementation of the iOS tab bar for toggling a corresponding set of subviews. It contains a series of tabs. These tabs are uibuttons with a <em>ui-implements</em> value of &#8220;tab&#8221;. The uibuttons in the tabbar have the attribute <em>ui-implements=&#8221;tab&#8221;</em>. The uibutton has an icon with an image mask set for the icon image to show and a label that gets displayed below the icon. Here&#8217;s an example of a typical tabbar:</p>
+
+<pre><code>&lt;tabbar ui-selected-tab="0"&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/refresh.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Refresh&lt;/label&gt;         
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/add.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Add&lt;/label&gt;  
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/info.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Info&lt;/label&gt;   
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/downloads.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Downloads&lt;/label&gt;                
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/top_rated.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Favorite&lt;/label&gt;                
+    &lt;/uibutton&gt;
+&lt;/tabbar&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="tableview"></a></p>
+
+<h2 id="tag_tableview">Tag: tableview</h2>
+
+<p>The tableview tag is a container element. Of all the tags in WAML, the tableview and its child elements are the most important because these are the primary means for presenting data in the app&#8217;s interface. Most of your data will be presented to the user in some form of tableview.  The tableview is not the same as an HTML table. It is more like a type of list consisting of tablecells and possible a tableheader or tablefooter. Unlike list items, tablecells have several specialized and predefined child elements: celltitle, cellsubtitle, celldetail, celldatetime, cellcounter. When giving a tableview a tableheader, this tag should be the first child of the tableview before any tablecells. Similarly, to give a tableview a tablefooter, it should be the last child of the tableview after all tablecells.</p>
+
+<p>By default a tableview expands to fill the full width of available screen space. This is called &#8220;edge-to-edge&#8221; style. If you want, you can change this to the type where the tableview is inset from all sides with a border and rounded corners. This is done by putting a *ui-kind=&#8221;grouped&#8221; on the tableview. Incidentally, you could put this same attribute on any other container, such as an html ordered or unordered list (ol, ul) to give it that same look.</p>
+
+<p><em>Notice:</em> </p>
+
+<p>A table view is not the same as an HTML table. A tableview corresponds to a database table of data which would result in a list of output. If you need to display tabular data, you should look at using a regular HTML table. If you need to use a tabular table inside of a table view, put it in an empty tablecell tag and style it appropriately. Or you could put it in a celldetail and style it appropriately.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableheader">tableheader</a></p>
+
+<p><a href="#tablefooter">tablefooter</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tableheader"></a></p>
+
+<h2 id="tag_tableheader">Tag: tableheader</h2>
+
+<p>A tableview can have a tableheader which presents some descriptive information about the tableview. This should be the first tag inside the tableview before any tablecell tags.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablefooter">tablefooter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tablefooter"></a></p>
+
+<h2 id="tag_tablefooter">Tag: tablefooter</h2>
+
+<p>A tableview can have a tablefooter for some summary information about the tableview. This should be the last child of the tableview after all the tablecells.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tableheader">tableheader</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="tablecell"></a></p>
+
+<h2 id="tag_tablecell">Tag: tablecell</h2>
+
+<p>This tag is the container for other possible elements:  celltitle, cellsubtitle, celldetail, celldatetime, cellcounter. A tablecell is always the child of a tableview and can have any number of siblings.</p>
+
+<p><a name="tablecell_indicators"></a></p>
+
+<p><strong>Tablecell indicators:</strong></p>
+
+<p>Tablecells can display various types of disclosure indicators. These are all implemented by using the <strong>ui-implements</strong> attribute with appropriate values: &#8220;disclosure&#8221;, &#8220;detail-disclosure&#8221;, &#8220;add&#8221;. You can give special emphasis to an detail disclosure or add indicator by giving it the class &#8220;green&#8221;.</p>
+
+<p>The disclosure indicator signals that touching it will navigate the user to a new view where there will be other possible options. In contrast, the detail-disclosure indicator signals that touching it that tablecell will navigate the user to a view will detail information about the item with that indicator. This is a common scenario for a list of songs where touching one song name will lead the user to a detail screen about it. The green version of the detail-disclosure is to add special emphasis to grab the user&#8217;s attention. Whether you use a disclosure indicator or a detail-disclosure indicator, you need to put a href attribute pointing to the view that the indicator will navigate to. ChococlateChip-UI will automatically enabled the navigation when it sees that there is a tablecell with a href attribute.</p>
+
+<p>The add indicator signals that it will enable adding another item. To enable such addition you will need to bind an event to that cell to implement what you want to happen. The green version serves to grab the user&#8217;s attention to its presence on the screen. You can use a unique id on tablecells that you want to enable add items, or use advanced CSS3 selectors for the same purpose with ChocolateChip&#8217;s $ and $$ methods.</p>
+
+<p>There is also a delete disclosure, but this gets create dynamically on a tableview&#8217;s cell when it is the target of ChocolateChip-UI&#8217;s $.UIDeleteTableCell method. Please see $.UIDeleteTableCell in the ChUI.js documentation for more information.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Places&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure"&gt;
+        &lt;celltitle&gt;Animals.&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure" class="green"&gt;
+        &lt;celltitle&gt;Food&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="add"&gt;
+        &lt;celltitle&gt;Ingredients&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-implements="add" class="green"&gt;
+        &lt;celltitle&gt;Medicine&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>Another possible indicator is the action one which generates and ellipsis after the celltitle. This is used to indicate that touching the tablecell will initiate some type of action. Usually this will initiate some type of message response, such as displaying a popup, action sheet or some other contrivance for messaging. You would also need to bind and event to that tablecell to execute whatever you needed. You might do this by display a popup or by navigating to a special view for choosing what to add.</p>
+
+<p>There are a number of different layouts for tablecells depending on what kind of data you need to display. Some of these are implemented at the tableview level and others at the tablecell level. </p>
+
+<p><strong>Tablecell layouts:</strong></p>
+
+<p>The following layouts were derived from Apple&#8217;s Mobile Human Interface Guidelines.</p>
+
+<ul>
+<li><a href="#simple_celltitle">simple celltitle</a></li>
+<li><a href="#celltitle_with_cellsubtitle">celltitle with cellsubtitle</a></li>
+<li><a href="#celltitle_cellsubtitle_and_celldetail">celltitle, cellsubtitle and celldetail</a></li>
+<li><a href="#tablecell_items_stacked_vertically">tablecell items stacked vertically</a></li>
+<li><a href="#tablecell_items_centered">tablecell items centered</a></li>
+<li><a href="#tablecell_with_an_image">tablecell with an image</a></li>
+<li><a href="#tablecell_with_an_icon">tablecell with an icon</a></li>
+<li><a href="#celltitle_with_uibutton_or_switchcontrol">celltitle with uibutton or switchcontrol</a></li>
+<li><a href="#tablecell_with_celldatetime">tablecell with celldatetime</a></li>
+<li><a href="#tablecell_with_cellcounter">tablecell with cellcounter</a></li>
+</ul>
+
+<p><a name="simple_celltitle"></a></p>
+
+<p><strong>simple celltitle</strong></p>
+
+<p>By default, if you put a celltitle into a tablecell you&#8217;ll get this layout type. The cell title is automatically left aligned.</p>
+
+<p><a name="celltitle_with_cellsubtitle"></a></p>
+
+<p><strong>celltitle with cellsubtitle</strong></p>
+
+<p>If you include a cellsubtitle with a celltitle, the cellsubtitle will be right aligned automatically. This is the default layout for a celltitle and cellsubtitle. You can override this behavior by using the <a href="#tablecell_items_stacked_vertically">vertically stacked tabecell layout</a> with the <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> attribute on the tableview tag. The cellsubtitle is style to be a smaller font size than the celltitle and with a bluish color to make it stand out.</p>
+
+<p><a name="celltitle_cellsubtitle_and_celldetail"></a></p>
+
+<p><strong>celltitle, cellsubtitle and celldetail</strong></p>
+
+<p>To implemente the typical celltitle, cellsubtitle and a celldetail is a fairly common usage. You need to put <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview tag.</p>
+
+<p><a name="tablecell_items_stacked_vertically"></a></p>
+
+<p><strong>tablecell items stacked vertically</strong></p>
+
+<p>To make all the items in a tableview stack vertically, canceling the automatic float right of cellsubtitles, you can put <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview tag.</p>
+
+<p><a name="tablecell_items_centered"></a></p>
+
+<p><strong>tablecell items centered</strong>
+This layout has the celltitle aligned right and the cellsubtitle aligned left so that they are somewhat centered on the screen. In this layout the celltitle has a smaller font size than the cellsubtitle and has a bluish color, like the cellsubtitle would be normally. And the cellsubtitle has a larger font and is black font color. This layout is used to emphasize the cellsubtitles over the celltitles. To implement this layout just put  <em>ui-ui-tablecell-order=&#8221;centered&#8221;</em> on the tableview tag.</p>
+
+<p><a name="tablecell_with_an_image"></a></p>
+
+<p><strong>tablecell with an image</strong></p>
+
+<p>Often you may need to output an image in your tablecells. The image will typically be on the left side of the tablecell with the celltitle, cellsubtitle and celldetail left aligned against it. You can implement this layout by putting <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview tag and <em>ui-usage=&#8221;image&#8221;</em> on each tablecell with where an image will be displayed.</p>
+
+<p><a name="tablecell_with_an_icon"></a></p>
+
+<p><strong>tablecell with an icon</strong></p>
+
+<p>Sometimes you might want to show an application style icon in your tablecell. This is placed on the left like the image layout. Usually you would just have a cell title. Choosing one of these would launch some process. To achieve this layout put <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview tag and <em>ui-usage=&#8221;icon&#8221;</em> on the tablecell.</p>
+
+<p><a name="celltitle_with_uibutton_or_switchcontrol"></a></p>
+
+<p><strong>celltitle with uibutton or switchcontrol</strong></p>
+
+<p>There is a type of layout with a celltitle and a uibutton or switchcontrol on the left side. To implement this just put a cell title, no need to stacking, and put <em>ui-implements=&#8221;celltitle-with-uibutton&#8221;</em> on the tablecell. This will place the uibutton/switchcontrol on the left side of the tablecell.</p>
+
+<p><a name="tablecell_with_celldatetime"></a></p>
+
+<p><strong>tablecell with celldatetime</strong></p>
+
+<p>If you need to output a date or time of any kind, use the celldatetime tag for this. Make sure that the celldatetime is the next tag after the celltitle. This is so that if there is also any type of indicator, such as disclosure, detial-disclosure or add, that the celldatetime tag aligns perfectly with all of them. After the celldatetime tag other tablecell tags can follow. <strong>Please note</strong>, the tableview should have <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em>.</p>
+
+<p><a name="tablecell_with_cellcounter"></a></p>
+
+<p><strong>tablecell with cellcounter</strong></p>
+
+<p>If you need to indicate some numerical value related to the cell, such as how many items will be available by touching it, or any other type of numerical data that you may need to display, you can do so by output that value in the cellcounter tag. This should be the tag right after the celltitle tag. Also, you would need to put <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celltitle"></a></p>
+
+<h2 id="tag_celltitle">Tag: celltitle</h2>
+
+<p>This is normally the largest most noticeable item in a tablecell. A tablecell will normally have at least a celltitle. When the tableview has <em>ui-ui-tablecell-order=&#8221;centered&#8221;</em>, the cell title is rendered as if it where a cellsubtitle and the cellsubtitle is rendered as if it were a celltitle. This is to give more emphasis to the cellsutitle. By default, ChocolateChip-UI manages the width of all celltitles so that if there is not enough room for its text to fit it will be truncated with an ellipsis. You can see this during testing in a browser by pulling the window in to reduce the width until the celltitle&#8217;s width is impacted. </p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="cellsubtitle"></a></p>
+
+<h2 id="tag_cellsubtitle">Tag: cellsubtitle</h2>
+
+<p>By default all cellsubtitles get are a smaller font size than the celltitle and have a bluish color as well as aligned to the right. To override this alignment you can put <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview tag. By default, ChocolateChip-UI manages the width of all cellsubtitles so that if there is not enough room for its text to fit it will be truncated with an ellipsis. You can see this during testing in a browser by pulling the window in to reduce the width until the celltitle&#8217;s width is impacted. </p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celldetail"></a></p>
+
+<h2 id="tag_celldetail">Tag: celldetail</h2>
+
+<p>This tag serves to hold a detail description, usually a paragraph of text. If needed you can insert more than one celldetail or even use it to hold some other content, such as a ranking control. The second celldetail with have six pixels of margin separating it from the one above it. When using a celldetail you&#8217;ll need to use <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="celldatetime"></a></p>
+
+<h2 id="tag_celldatetime">Tag: celldatetime</h2>
+
+<p>The celldatetime tag is used for output any date or time data in a tablecell. Use it with <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview. The celldatetime tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="cellcounter"></a></p>
+
+<h2 id="tag_cellcounter">Tag: cellcounter</h2>
+
+<p>A cellcounter is used for outputting any kind of numerical data related to the tablecell. It should be the first tag immediately after the celltitle tag. It gets positioned on the right side of the tablecell leaving enough room for any type of tablecell indicator.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_popup">Tag: popup</h2>
+
+<p>This tag is the root of the popup control which ChocolateChip-UI provides for presenting the user with a modal dialog. This control has various parts that are all styled and managed directly by ChocolateChip-UI with parameters supplied by the developer. Please refer to popup in the ChUI.js documentation.</p>
+
+<p>The structure of a popup controls is as follows:</p>
+
+<pre><code>&lt;popup ui-visible-state="hidden" style="top: 120px; left: 359px; "&gt;
+    &lt;panel&gt;
+        &lt;toolbar ui-placement="top"&gt;
+            &lt;h1&gt;Attention Viewers!&lt;/h1&gt;&lt;/toolbar&gt;
+            &lt;p&gt;This is a message from the sponsors. Please be seated while we are getting ready. Thank you for your patience.&lt;/p&gt;
+        &lt;toolbar ui-placement="bottom"&gt;
+            &lt;uibutton ui-kind="action" ui-implements="cancel"&gt;
+                &lt;label&gt;Skip&lt;/label&gt;
+            &lt;/uibutton&gt;
+            &lt;uibutton ui-kind="action" ui-implements="continue"&gt;
+                &lt;label&gt;Stay for it&lt;/label&gt;
+            &lt;/uibutton&gt;
+        &lt;/toolbar&gt;
+    &lt;/panel&gt;
+&lt;/popup&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_mask">Tag: mask</h2>
+
+<p>This tag is used to cover the screen of the viewport, hiding the content with a translucent cover and preventing any user interaction with it. It serves as the base over which some other type of user notification/interaction artifice will be presented, such as a popup, action sheet or popover. It gets created by Element.UIBlock and destroyed by Element.UIUnblock. You by default it&#8217;s black with an opacity of 50%. You can control the opacity by passing Element.UIBlock and value. For example, if you wanted it to be translucent and unnoticeable but block the screen, pass Element.UIBlock a value of &#8220;0.01&#8221;:</p>
+
+<pre><code>$.main.UIBlock(".01");
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p><a name="slider"></a></p>
+
+<h2 id="tag_slider">Tag: slider</h2>
+
+<p>The slider tag is used for implementing a draggable value slider. At present ChocolateChip-UI provides only a horizontal slider. This does not yet offer ticks or steps. You will have to calculate the returned values using the methods and values with the $.UISlider and its related methods. For the slider to work properly you need to output the width you desire for the slider directly on it using an inline style setting, such as: <em>style=&#8221;width: 186px;&#8221;</em>. This allows you to give each slider a different width depending on your needs. ChocolateChip-UI&#8217;s methods will query this assigned width and use it for dragging the thumb and updating the slider&#8217;s progress track.  Please refer to the documentation for slider and $.UISlider in ChUI.css and ChUI.js for more information.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#thumb">thumb</a></p>
+
+<p><a href="#thumbprop">thumbprop</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="thumb"></a></p>
+
+<h2 id="tag_thumb">Tag: thumb</h2>
+
+<p>The thumb tag provides an affordance for dragging or switching depending on the control that uses it. Both the switchcontrol and the slider use thumb tags. A thumb tag always has a thumbprop tag as a child element.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#slider">slider</a></p>
+
+<p><a href="#thumbprop">thumbprop</a></p>
+
+<p><a href="#switchcontrol">switchcontrol</a></p>
+
+<p><a name="thumbprop"></a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_thumbprop">Tag: thumbprop</h2>
+
+<p>This tag server merely as a prop for styling rendering on a thumb. Its used for adding great styling depth, such as inner border, shadows or gradients to create a more realistic thumb.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#slider">slider</a></p>
+
+<p><a href="#thumb">thumb</a></p>
+
+<p><a href="#switchcontrol">switchcontrol</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="switchcontrol"></a></p>
+
+<h2 id="tag_switchcontrol">Tag: switchcontrol</h2>
+
+<p>This this control is used to present the user with a single choice situation: on/off, true/false. The structure and its behavior is implemented by ChocolateChip-UI with input for the developer. It has a number of parts that ChocolateChip-UI styles and animates to give it the feel of a switch being flipped. Please refer to <em>switchcontrol</em> in the ChUI.js documentation. </p>
+
+<p><strong>Note:</strong> When using a switch control make sure that its parent container has positioning set to either relative or absolute. This is because ChocolateChip-UI uses absolute positioning to place the switch control on the right side of its container. If the container does not have some type of positioning, the switchcontrol will appear placed somewhere towards the top right of the document. Of course, if you know the container already has positioning, you don&#8217;t need to bother setting it. Tablecells already have positioning set.</p>
+
+<p>The structure of a switchcontrol is as follows:</p>
+
+<pre><code>&lt;switchcontrol class="off" ui-implements="attention" id="breakfastSwtich"&gt;
+    &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+    &lt;thumb&gt;
+        &lt;thumbprop&gt;&lt;/thumbprop&gt;
+    &lt;/thumb&gt;
+    &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+    &lt;input type="checkbox" value="So, what's the first course?"&gt;
+&lt;/switchcontrol&gt;
+</code></pre>
+
+<p>If you want or need to, you can give your switch control a class that allows you to override the default &#8220;on&#8221; color with the color of your choice. Please refer to the documentation for ChUI.css and ChUI.js for more information.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#thumb">thumb</a></p>
+
+<p><a href="#thumbprop">thumbprop</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="splitview"></a></p>
+
+<h2 id="tag_splitview">Tag: splitview</h2>
+
+<p>The splitview is a special layout type for tablets. This type of layout is not for use on mobile devices such as cellphones like the iPhone, Android, Blackberry or devices like the iPod Touch. The layout is optimized for a minimum screen size of 1024 x 768 pixels. It has two child elements: rootview and detailview. The root view is on the left side and provides n area for actionable items or navigation through list to drill down. The detailview show the result of a navigation drill down or the results of an action initiated in the rootview. The splitview layout has automatic readjustment or orientation change. This results in the rootview being hidden in portrait mode with a button in the upper left of the detailview with the same title as the rootview that will toggle the visibility of the rootview. When the device is returned to landscape mode, the rootview will automatically be visible by default.</p>
+
+<p>If you wish the rootview to remain visible even in portrait mode, you can simply put the class &#8220;SplitViewFixed&#8221; on the body tag. This will prevent the rootview from being hidden when the use rotates the device into portrait mode. Instead the rootview remains visible and the detail view resizes to fit in the remaining space.</p>
+
+<pre><code>&lt;body class="SplitViewFixed"&gt;
+    &lt;app&gt;...
+</code></pre>
+
+<p><a href="#rootview">rootview</a></p>
+
+<p><a href="#detailview">detailview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="rootview"></a></p>
+
+<h2 id="tag_rootview">Tag: rootview</h2>
+
+<p>The rootview is the area for navigation and drilldown allowing the user to get to the information to display in the detailview. It can also contain actionable list or uibuttons which offer the user ways to interact with the data in the detail view.</p>
+
+<p><a href="#splitview">splitview</a></p>
+
+<p><a href="#detailview">detailview</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="detailview"></a></p>
+
+<h2 id="tag_detailview">Tag: detailview</h2>
+
+<p>The detailview is the area in the splitview where a user is presented with the result of a navigation choice or action choice.</p>
+
+<p><a href="#splitview">splitview</a></p>
+
+<p><a href="#rootview">rootview</a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_expander">Tag: expander</h2>
+
+<p>The expander tag provides a way to collapse or expand a vertical section of your app. To create an expander you Put an expander tag with a panel tag into your document. The expander&#8217;s panel will contain whatever content you wish to be able to hide and show. ChocolateChip-UI will take care of implementing the hiding and showing for you. Please see the tutorial on UIExpander for options on the expanded state and the expander&#8217;s label titles. Here&#8217;s what an expander looks like:</p>
+
+<pre><code>&lt;expander&gt;
+    &lt;panel&gt;
+        &lt;tableview ui-kind="grouped"&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Breakfast&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Lunch&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+            &lt;tablecell&gt;
+                &lt;celltitle&gt;Dinner&lt;/celltitle&gt;
+            &lt;/tablecell&gt;
+        &lt;/tableview&gt;
+    &lt;/panel&gt;
+&lt;/expander&gt;
+</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_progressbar">Tag: progressbar</h2>
+
+<p>This tag creates an animated progress bar. The defaults are: height: 15px, width: 100px and has its margins set to 10px auto so that it centers in its container. Its background color controls the color of the stripes. The default is rgb(56,138,213). You can change the default color by adding a class to the progress bar and then defining a different background-color for the progress bar. In most cases you&#8217;ll want to create and delete it with JavaScript. Please see the tutorial for UIProgressBar.</p>
+
+<h2 id="tag_spinner">Tag: spinner</h2>
+
+<p>This tag create a spinner for a set of data, which might be strings or integers. The structure of a spinner is so:</p>
+
+<pre><code>&lt;spinner id="days" data-range-value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"&gt;
+    &lt;uibutton class="ui-custom-tint green disabled" ui-implements="icon"&gt;
+        &lt;icon&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+    &lt;label ui-kind="spinner-label"&gt;Sun&lt;/label&gt;
+    &lt;input type="text"&gt;
+    &lt;uibutton class="ui-custom-tint green" ui-implements="icon"&gt;
+        &lt;icon&gt;&lt;/icon&gt;
+    &lt;/uibutton&gt;
+&lt;/spinner&gt;
+</code></pre>
+
+<p>However, to make a spinner all you need to to is put a basic spinner tag in you document and initialize. You can put the spinner tag there by hand coding it, or by injecting it dynamically with JavaScript. You put the tag in your document with a unique identifier, such as an id or class, unless you simply intend to use a complex CSS3 selector to target the spinner. The tag should be like this:</p>
+
+<pre><code>&lt;spinner&gt;&lt;/spinner&gt;
+</code></pre>
+
+<p>You would then init the spinner using the $.UISpinner method while passing in the arguments for the spinner. See the documentation on Chui.js and the Tutorial on spinners for more information about how to initialize a spinner.</p>
+
+<h2 id="tag_popover">Tag: popover</h2>
+
+<p>This tag is used to create the typical iPad modal interface widget. You create a popover with $.UIPopover. Then you can fill it with the content you need by using Element.insert. You show and hide it with $.UIPopover.show and $.UIPopover.hide. A popover can contain navigational lists for your iPad app, an action list to toggle the visible contents in a splitview&#8217;s detail pane, or action buttons or specialized tools to modify or interact with the content in the detail pane. By default, when the user touches anywhere outside the popover, it gets dispelled which doing anything. However, you can also dispel the popover when the user interacts with an action list, action button or other event.</p>

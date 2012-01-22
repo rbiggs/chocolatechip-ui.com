@@ -1,0 +1,24 @@
+<h1>Subview Transitions</h1>
+
+<p>ChocolateChip-UI provides subview transitions as a convenient way to provide extra information for a subview. Subview transitions are for situations where you want to show some additional information about a subview without navigating to another screen. This is analogous to modal popups. Subview transitions allow you to transition in a second subview over the current subview, and then dispel it to reveal the previous subview. The transitions available are: flip, fade, pop and spin. Flip and spin can be modified by parameters. To trigger the transition you use a uibutton in the navbar or toolbar. Best practice dictates that you toggle the label of the uibutton and controls the transition. You can do this easily with Element.UIToggleButtonLabel:</p>
+
+<pre><code>$("#toggleButton").UIToggleButtonLabel("Flip Over", "Flip Back");
+</code></pre>
+
+<p>In order for this subview transition to work, of course, you'll need to have two subviews in the When you initialize the a subview transition, the initialization takes care of preparing them for the various transitions. Below are some typical transitions that could be implemented.</p>
+
+<pre><code>$("#flipbutton").UIFlipSubview("bottom");
+$("#fadebutton").UIFadeSubview();
+$("#popbutton").UIPopSubview();
+$("#spinbutton").UISpinSubview("left");
+</code></pre>
+
+<p>You can define the behavior of UIFlipSubview by passing it any of four possible arguments: "top", "bottom", "left" or "right". Top means the subview flip over from top down; bottom: from bottom up; left: from left to right; right: from right to left. If no parameters is supplied it defaults to flipping to the from left to right. All of these reveal the second subview as if it were the back side of the main subview, just like flipping over a card. Clicking the button in the navbar again will cause the subview to flip back the opposite way. Using UIToggleButtonLabel is a good way to show the user that click the button a second tine will undo the transition.</p>
+
+<p>UIFadeSubview fades the second subview in over the first. Clicking the button in the navbar causes the second subview to fade away.</p>
+
+<p>UIPopSubview pops the second subview up over the first. Clicking the button in the navbar causes the subview to pop back out of view.</p>
+
+<p>UISpinSubview cause the second subview to come spinning in. Clicking the button in the navbar causes the subview to spin back out again. You can must pass this two different arguments: "left" or "right". If left, the second subview spins in clockwise, if right, the second subview spins in counterclockwise. If no argument is passed it default to spinning in clockwise.</p>
+
+<p>The files subview_transitions-1.html and subview_transitions-2.html in examples show how to implement these transitions.</p>

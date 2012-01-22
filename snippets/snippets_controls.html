@@ -1,0 +1,66 @@
+<h2>Controls</h2>
+
+<p><strong>Switch Controls: On State:</strong></p>
+
+<pre><code>&lt;switchcontrol class="on" id="switch_01" ui-value="Value Here"&gt;
+    &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+    &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+&lt;/switchcontrol&gt;
+
+
+&lt;switchcontrol class="on" id="switch_02" ui-value="Value Here!" ui-implements="attention"&gt;
+    &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+    &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+&lt;/switchcontrol&gt;
+</code></pre>
+
+<p><strong>Switch Controls: Off State:</strong></p>
+
+<pre><code>&lt;switchcontrol class="off" id="switch_03" ui-value="Value Here!"&gt;
+    &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+    &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+&lt;/switchcontrol&gt;
+
+
+&lt;switchcontrol class="off" id="switch_04" ui-value="Value Here!" ui-implements="attention"&gt;
+    &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+    &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+&lt;/switchcontrol&gt;
+</code></pre>
+
+<p><strong>Sliders:</strong></p>
+
+<pre><code>&lt;slider id="slider_01" style="width: 255px;"&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+&lt;/slider&gt;
+
+&lt;slider id="slider_02" style="width: 255px;" class="media-player"&gt;
+    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+&lt;/slider&gt;
+</code></pre>
+
+<p><strong>Tab Bar</strong></p>
+
+<pre><code>&lt;tabbar ui-selected-tab="0"&gt;
+    &lt;uibutton implements="tab" class="selected"&gt;
+        &lt;icon style="-webkit-mask-box-image: url(icons/refresh.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Refresh&lt;/label&gt;
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/add.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Add&lt;/label&gt;                
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/info.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Info&lt;/label&gt;                
+    &lt;/uibutton&gt;
+    &lt;uibutton implements="tab"&gt;                
+        &lt;icon style="-webkit-mask-box-image: url(icons/downloads.svg);"&gt;&lt;/icon&gt;
+        &lt;label&gt;Downloads&lt;/label&gt;                
+    &lt;/uibutton&gt;
+&lt;/tabbar&gt;
+</code></pre>

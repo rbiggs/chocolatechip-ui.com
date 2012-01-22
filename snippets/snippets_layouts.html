@@ -1,0 +1,468 @@
+<h2>Layout</h2>
+
+<p><strong>Basic App Layout with Navbar:</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic App Layout with Navbar and Bottom Toolbar:</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar withBottomToolBar"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+            &lt;toolbar ui-placement="bottom"&gt;
+            &lt;/toolbar&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic App Layout with Bottom Toolbar:</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;subview id="subview_01" ui-associations="withBottomToolBar"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+            &lt;toolbar ui-placement="bottom"&gt;
+            &lt;/toolbar&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic App Layout with Top Toolbar</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;toolbar&gt;
+            &lt;/toolbar&gt;
+            &lt;subview id="subview_01" ui-associations="withTopToolBar"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic App Layout with Top Toolbar and Bottom Toolbar:</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;toolbar&gt;
+            &lt;/toolbar&gt;
+            &lt;subview id="subview_01" ui-associations="withTopBar withBottomToolBar"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+            &lt;toolbar ui-placement="bottom"&gt;
+            &lt;/toolbar&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic App Layout with No Navbar or Toolbar:</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;subview id="subview_01"&gt;
+                &lt;scrollpanel&gt;
+
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic Navigation List (Two Levels):</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview&gt;
+                        &lt;tablecell href="#item_01_view" ui-implements="disclosure"&gt;
+                            &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-implements="back"&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-tablecell-order="stacked"&gt;
+                        &lt;tablecell href="#item_01_detail_view"&gt;
+                            &lt;cellcounter&gt;1&lt;/cellcounter&gt;
+                            &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                            &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Basic Navigation List (Three Levels):</strong></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;link rel="apple-touch-startup-image" href="startup.png"&gt;
+    &lt;link rel="apple-touch-icon" href="app-icon.png"/&gt;
+    &lt;link rel="shortcut icon" href="favicon.ico"&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel="stylesheet" href="chui.css"&gt;
+    &lt;style type="text/css"&gt;
+        /* Local Styles Here */
+
+    &lt;/style&gt;
+    &lt;script src="chocolatechip.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        /* Local JavaScript Here */
+        $.ready(function() {
+
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;
+        &lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
+            &lt;navbar&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview&gt;
+                        &lt;tablecell href="#item_01_view" ui-implements="disclosure"&gt;
+                            &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-implements="back"&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-tablecell-order="stacked"&gt;
+                        &lt;tablecell href="#item_01_detail_view" ui-implements="detail-disclosure"&gt;
+                            &lt;cellcounter&gt;1&lt;/cellcounter&gt;
+                            &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                            &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+        &lt;view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="squared"&gt;
+            &lt;navbar&gt;
+                &lt;uibutton ui-implements="back"&gt;
+                    &lt;label&gt;Back&lt;/label&gt;
+                &lt;/uibutton&gt;
+                &lt;h1&gt;Title&lt;/h1&gt;
+            &lt;/navbar&gt;
+            &lt;subview id="subview_01" ui-associations="withNavBar"&gt;
+                &lt;scrollpanel&gt;
+                    &lt;tableview ui-tablecell-order="stacked"&gt;
+                        &lt;tablecell class="ui-no-hover"&gt;
+                            &lt;celltitle&gt;Item&lt;/celltitle&gt;
+                            &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+                            &lt;celldetail&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            &lt;/celldetail&gt;
+                        &lt;/tablecell&gt;
+                    &lt;/tableview&gt;
+                &lt;/scrollpanel&gt;
+            &lt;/subview&gt;
+        &lt;/view&gt;
+    &lt;/app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Current View with Navbar and Subview:</strong></p>
+
+<pre><code>&lt;view id="main"&gt;
+    &lt;navbar&gt;
+        &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;/navbar&gt;
+    &lt;subview ui-associations="withNavBar"&gt;
+        &lt;scrollpanel&gt;
+
+        &lt;/scrollpanel&gt;
+    &lt;/subview&gt;
+&lt;/view&gt;
+</code></pre>
+
+<p><strong>Upcoming View with "Back" Navbar and Subview:</strong></p>
+
+<pre><code>&lt;view id="view_02" ui-navigation-status="upcoming"&gt;
+    &lt;navbar&gt;
+        &lt;uibutton ui-implements="back"&gt;
+            &lt;label&gt;Back&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;/navbar&gt;
+    &lt;subview ui-associations="withNavBar"&gt;
+        &lt;scrollpanel&gt;
+
+        &lt;/scrollpanel&gt;
+    &lt;/subview&gt;
+&lt;/view&gt;
+</code></pre>
+
+<p><strong>Upcoming View with "Back" Navbar, Bottom Toolbar and Subview</strong></p>
+
+<pre><code>&lt;view id="view_02" ui-navigation-status="upcoming"&gt;
+    &lt;navbar&gt;
+        &lt;uibutton ui-implements="back"&gt;
+            &lt;label&gt;Back&lt;/label&gt;
+        &lt;/uibutton&gt;
+        &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;/navbar&gt;
+    &lt;subview ui-associations="withNavBar withBottomToolbar"&gt;
+        &lt;scrollpanel&gt;
+
+        &lt;/scrollpanel&gt;
+    &lt;/subview&gt;
+    &lt;toolbar ui-placement="bottom"&gt;
+
+    &lt;/toolbar&gt;
+&lt;/view&gt;
+</code></pre>

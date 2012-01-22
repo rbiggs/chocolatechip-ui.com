@@ -1,0 +1,579 @@
+<h1>Tableviews</h1>
+
+<p><strong>Basic Tableview:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tableview with Tableheader:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tableheader&gt;
+        Tableview Header.
+    &lt;/tableheader&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tableview with Tablefooter:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablefooter&gt;
+        Tableview Footer.
+    &lt;/tablefooter&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Grouped Tableviews:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped"&gt;
+    &lt;tableheader&gt;
+        Tableview Header.
+    &lt;/tableheader&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablefooter&gt;
+        Tableview Footer.
+    &lt;/tablefooter&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tablecells is Cell Indicators:</strong></p>
+
+<pre><code>&lt;tablecell ui-implements="disclosure"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;celltitle ui-implements="detail-disclosure"&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell ui-implements="detail-disclosure" class="green"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell ui-implements="add"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell ui-implements="add" class="green"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Tablecell with Image:</strong></p>
+
+<pre><code>&lt;tablecell ui-usage="image"&gt;
+    &lt;img src="images/image.png"&gt;
+    &lt;celltitle&gt;Song 1&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+    &lt;img src="images/image.png"&gt;
+    &lt;celltitle&gt;Song 1&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Tablecell with Icon:</strong></p>
+
+<pre><code>&lt;tablecell ui-usage="icon"&gt;
+    &lt;img src="images/image.png"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell ui-usage="icon" ui-implements="disclosure"&gt;
+    &lt;img src="images/image.png"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Tablecell with Button:</strong></p>
+
+<pre><code>&lt;tablecell ui-implements="celltitle-with-button" class="ui-no-hover"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;button&gt;
+        &lt;label&gt;Button&lt;/label&gt;
+    &lt;/button&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Tablecell with Switch Control:</strong></p>
+
+<pre><code>&lt;tablecell class="ui-no-hover"&gt;
+    &lt;celltitle&gt;Item&lt;/celltitle&gt;
+    &lt;switchcontrol class="off" id="switch_01"&gt;
+        &lt;label ui-implements="on"&gt;ON&lt;/label&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;label ui-implements="off"&gt;OFF&lt;/label&gt;
+        &lt;input type="checkbox" value="Put Your Value Here"&gt;
+    &lt;/switchcontrol&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Tablecells with Celltitle:</strong></p>
+
+<pre><code>&lt;tablecell&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;tablecell ui-implements="detail"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;tablecell ui-implements="detail-disclosure" class="green"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;tablecell ui-implements="add"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+
+
+&lt;tablecell&gt;
+    &lt;tablecell ui-implements="add" class="green"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tablecell&gt;
+</code></pre>
+
+<p><strong>Stacked Tablecells:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="detail-disclosure"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="detail-disclosure" class="green"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="add"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-implements="add" class="green"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Stacked Tablecell with Image:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="disclosure"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="detail-disclosure" class="green"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="add"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="image" ui-implements="add" class="green"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Centered Tableview:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="centered"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="centered"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tableview with Celldetail:</strong></p>
+
+<pre><code>&lt;tableview&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Stacked Tableview with Celldetail:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell class="ui-no-hover"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Stacked Tablview with Celldetail and Image:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-usage="image" class="ui-no-hover"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-usage="image" ui-implements="disclosure"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-usage="image" class="ui-no-hover"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-usage="image" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/image.png"&gt;
+        &lt;celltitle&gt;Item&lt;/celltitle&gt;
+        &lt;cellsubtitle&gt;Item Subtitle&lt;/cellsubtitle&gt;
+        &lt;celldetail&gt;Lorem ipsum dolor sit amet.
+        &lt;/celldetail&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tablecell with Datetime Indicator:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="detail-disclosure"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="detail-disclosure" class="green"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="add"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="add" class="green"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell ui-implements="disclosure"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;celldatetime&gt;Monday&lt;/celldatetime&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Tablecells with Cellcounters:</strong></p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="detail-disclosure" class="green"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="add"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="add" class="green"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="disclosure"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+
+
+&lt;tableview ui-kind="grouped" ui-tablecell-order="stacked"&gt;
+    &lt;tablecell  ui-usage="icon" ui-implements="detail-disclosure"&gt;
+        &lt;img src="images/ipod.png"&gt;
+        &lt;celltitle&gt;People&lt;/celltitle&gt;
+        &lt;cellcounter&gt;2&lt;/cellcounter&gt;
+        &lt;cellsubtitle&gt;Your Friends&lt;/cellsubtitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>

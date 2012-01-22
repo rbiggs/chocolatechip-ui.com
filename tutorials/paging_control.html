@@ -1,0 +1,69 @@
+<h1>Paging Control</h1>
+
+<p>ChocolateChip-UI offers the pager control as a way to provide horizontal swipe navigation through a limited set of panels. This is analogous to the iOS paging control with dots beneath it to indicate each page and were the user is in paging progress. Be aware that because of the limited screen width of mobile devices in portrait mode, you should try to fit more than 17 panels in a paging control. If you need to provide paging for more than that then you should use a segmented paging control.</p>
+
+<p>The paging control uses a stack with the attribute <em>ui-implements="paging"</em>. The paging stack contains two nest children: a panel and another stack to hold the paging content. This nesting is required to setup the environment to implement this type of control properly. Each individual section of the paging control is a panel. Below is a typical paging control stack:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;stack ui-implements="paging"&gt;
+    &lt;panel&gt;
+        &lt;stack&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 1&lt;/h4&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 2&lt;/h4&gt;
+                &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 3&lt;/h4&gt;
+                &lt;p&gt;Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.&lt;/p&gt;
+            &lt;/panel&gt;
+            &lt;panel&gt;
+                &lt;h4&gt;Panel 4&lt;/h4&gt;
+                &lt;p&gt; Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem.&lt;/p&gt;
+            &lt;/panel&gt;
+        &lt;/stack&gt;
+    &lt;/panel&gt;
+&lt;/stack&gt;
+</code></pre>
+
+<p>In the above example we also use panels to indicate the scrollable sections of the paging control. These have their styles set by default, but you can override them in your app's local stylesheet. When you app loads, ChocolateChip-UI sees the stack structure above and initializes it to work as a horizontal paging control. It check to see how many pagable panels are in the control and creates a paging indicator beneath it with the appropriate number of dot indicators. As the user swipes left and right, the appropriate page indicator will get highlighted.</p>
+
+<p>If you want to create a different sized paging panel, you can adjust the dimensions here (<em>Note:</em> the if you change the width of the paging stack, you'll also need to make the paging indicators stack the same width):</p>
+
+<pre><code>stack[ui-implements="paging"] &gt; panel &gt; stack &gt; panel {
+    width: 320px; 
+    height: 280px;
+    text-align: center;
+    font-size: 18px;
+}
+stack[ui-implements="indicators"] {
+    width: 320px;
+}
+</code></pre>
+
+<p>To change the default background color of the paging control stack and the paging indicator stack, redefine these values:</p>
+
+<pre><code>stack[ui-implements=paging], stack[ui-implements=indicators] {
+    background-color: #fff !important;
+}
+</code></pre>
+
+<p>To customize the default colors of the paging indicators, change the colors of these in your app's local stylesheet:</p>
+
+<pre><code>stack[ui-implements="indicators"] &gt; indicator {
+    width: 8px; 
+    height: 8px;
+    -webkit-border-radius:4px;
+    background: #ddd;
+}
+stack[ui-implements="indicators"] &gt; indicator.active {
+    background: #888;
+}
+</code></pre>
+
+<p><img src="../screenshots/paging_control-1.png" alt="Paging Control" />
+<img src="../screenshots/paging_control-2.png" alt="Paging Control" /></p>

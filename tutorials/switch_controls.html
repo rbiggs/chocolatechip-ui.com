@@ -1,0 +1,141 @@
+<h1 id="switch_control">Switch Control</h1>
+
+<p>ChocolateChip-UI proves a switch control to allow you to present users with single choice options. These are equivalent to the checkboxes of Web site forms. ChocolateChip allows you to create switch controls both manually and dynamically. </p>
+
+<p>If you created your switch controls manually, you will need to initialize them with the UIInitSwitchToggling method. You attach the method directly to the tableview holding the switch controls. It will search the tableview for any switch controls and initialize them so that they toggle properly.</p>
+
+<p>You can create switch controls dynamically using the UICreateSwitchControl method. You can pass it fives parameters:</p>
+
+<ul>
+<li>id: a unique id for the switch.</li>
+<li>customClass: an optional class which you can use to give the switch a custom style.</li>
+<li>status: either &#8220;on&#8221; or &#8220;off&#8221;.</li>
+<li>value: a value for  when the switch is flipped to on.</li>
+<li>callback: a callback to execute when the user interacts with the switch control.</li>
+</ul>
+
+<p>The id is required. The customClass value is optional. If you give a switch a custom class, you can then provide a style in your document&#8217;s stylesheet to give the &#8220;ON&#8221; label as special look. If you passed in the class &#8220;mySpecialSwitchStyle&#8221;, you could override the default blue with a style definition like this:</p>
+
+<pre><code>switchcontrol.mySpecialSwitchStyle &gt; label[ui-implements=on] {
+    border: solid 1px green;
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom, 
+            from(yellow), 
+            color-stop(.5, green));
+}
+</code></pre>
+
+<p>The parameter &#8220;value&#8221; gets inserted on the switch control as a <em>ui-value</em> attribute. You can get this value when the user toggles the switch. This is an optional arguement.</p>
+
+<p>The callback argument is also optional. If you pass in a callback, you can use a placeholder parameter in the callback to refer to the switchcontrol when the callback gets executed. In the example below, the parameter &#8220;item&#8221; will refer to &#8220;this&#8221; when the callback gets executed, which will be the switch control itself. The code below will output the state of the switch control when the switch is flipped. </p>
+
+<pre><code>$.ready(function() {
+    var switchOpts = {
+        id : "workStatus",
+        customClass : "mySpecialSwitchStyle",
+        status : "on",
+        value : "sort of working",
+        callback : function(item) {
+            var className = item.className;
+            if (/on/.test(className)) {
+                console.log("This is on!");
+            } else {
+                console.log("This is turned off!!!");
+            }
+        }
+    };
+    $("tableview:last-of-type &gt; tablecell").UICreateSwitchControl(switchOpts);
+});
+</code></pre>
+
+<p>Since ChocolateChip-UI reached version 1.0, the default output for a switchcontrol looks like the iOS 5 rounded switchcontrols. To get the previous squarish switchcontrols, you&#8217;d need to pass in an argument for <strong>kind: &#8220;traditional&#8221;</strong>. You can also pass in optional values for the ON and OFF label text using the new labelValue argument: <strong>labelValue: [&#8220;SI&#8221;, &#8220;NO&#8221;]</strong>. Be aware that the switchcontrol does not expand if the label is long, so anything more than three letters will look quite cramped. If you wanted to create traditional switchcontrols without any labels, just pass in an empty string: <strong>labelValue: [&#8220;&#8221;,&#8221;&#8220;]</strong>. Anyway, the iOS 5 style switches are the easiest because the require no localization: one button to rule them all. The initialization of the traditional button would be like this:</p>
+
+<pre><code>$.ready(function() {
+    var switchOpts = {
+        id : "workStatus",
+        customClass : "mySpecialSwitchStyle",
+        namePrefix : "customer",
+        status : "on",
+        kind : "traditional",
+        labelValue : ["ON","OFF"],
+        value : "sort of working",
+        callback : function(item) {
+            var className = item.className;
+            if (/on/.test(className)) {
+                console.log("This is on!");
+            } else {
+                console.log("This is turned off!!!");
+            }
+        }
+    };
+    $("tableview:last-of-type &gt; tablecell").UICreateSwitchControl(switchOpts);
+});
+</code></pre>
+
+<p>The act of creating the switch control automatically executes the UISwitchControl method to enable toggling of the switch&#8217;s state. If you created a switch control manually, you also don&#8217;t have to do anything to enable toggling. At load time ChocolateChip-UI checks for any switch controls and enables toggling for them.</p>
+
+<p><strong>Note:</strong> ChococlateChip-UI uses absolute positioning to place the switch controls on the left side of their container. If you create a switch control dynamically, ChocolateChip-UI checks the container into which you are inserting the switch control to see if it already has absolute positioning. If it does not, it sets relative positioning on the container so that the switch controls can be positioned properly. If you are creating switch controls manually, you will need to make sure that the container you are placing them in has at least relative positioning. Many kinds of WAML containers come with some position already applied. However, you may need to check in your browser&#8217;s DOM inspector to see. If the switch control is not placed were you expected but off somewhere like the upper right of the screen, it means your container needs relative positioning.</p>
+
+<p>In the case of manually created switch controls you would have to bind an event to handle user interaction, as their is no callback like when they are created dynamically. There are several ways you can check the state of a switch control. First and foremost, when the user flips a switch, ChocolateChip-UI registers a &#8220;checked&#8221; value of true on the switch control. You can query the &#8220;checked&#8221; status of the switch control itself. </p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell&gt;
+    &lt;celltitle&gt;Sleep&lt;/celltitle&gt;
+    &lt;switchcontrol class="off" id="sleepSwitch"&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;input type="checkbox" value="ZZZZZZZZ"&gt;
+    &lt;/switchcontrol&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell&gt;
+    &lt;celltitle&gt;Vacation&lt;/celltitle&gt;
+    &lt;switchcontrol class="off" id="vacationSwitch"&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;input type="checkbox" value="Bye-bye!"&gt;
+    &lt;/switchcontrol&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+&lt;tableview ui-kind="grouped"&gt;
+    &lt;tablecell&gt;
+    &lt;celltitle&gt;Breakfast&lt;/celltitle&gt;
+    &lt;switchcontrol class="off" id="breakfastSwtich" ui-implements="attention"&gt;
+        &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
+        &lt;input type="checkbox" value="I'm hungry!"&gt;
+    &lt;/switchcontrol&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p><strong>Example:</strong></p>
+
+<p>Here&#8217;s an example of getting the value of the switch control using its checked value. You could just as easily query the class of the switch control, whether it&#8217;s set to &#8220;on&#8221; or &#8220;off&#8221;.</p>
+
+<pre><code>$$("#tableview_1 switchcontrol").forEach(function(item) {
+    item.bind("click", function () {
+        if (this.hasClass("on")) {
+            // Get the value of the switchcontrol's input checkbox.
+            // Then empty the target and fill it with the value.
+            $("#switchResponse").empty().fill(this.find("input").value);
+        } else {
+            $("#switchResponse").empty();
+        }
+    });
+});
+</code></pre>
+
+<p>I we put a custom class on a traditional switch control we can style its &#8220;ON&#8221; label to have a unique color. Here&#8217;s an example of a style for a green switch control. The image of what this looks like follows.</p>
+
+<pre><code>switchcontrol.custonSwitchStyle &gt; label[ui-implements=on] {
+    border: solid 1px green;
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom, 
+            from(yellow), 
+            color-stop(.5, green));
+}
+</code></pre>
+
+<p>If you want, you can also use the OFF state of the switch control to get a different value. Just put &#8220;ui-off-value&#8221; on the switch control and read that when the switch is in the OFF position.</p>
+<p><img src="../screenshots/switch_control-3.png" alt="Example of a Switch Control" title="" /><img src="../screenshots/switch_control-1.png" alt="Example of a traditional Switch Control" title="" /></p>

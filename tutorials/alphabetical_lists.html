@@ -1,0 +1,75 @@
+<h1 id="alphabetical_lists">Alphabetical Lists</h1>
+
+<p>Alphabetical lists are titled lists with an alphabetical menu of the tableheaders on the right side of the screen. Touching a letter on that menu will scroll that section of the alphabetical list into view. Although this is called and alphabetical list, there is not forced order for the letters. If you don&#8217;t have an entry for a letter, don&#8217;t bother including it in the list. To make a navigation list an alphabetical one, just add <strong>ui-kind=&#8221;titled-list alphabetical&#8221;</strong> to the tableview. When ChocolateChip-UI sees the <strong>alphabetical</strong> value of the titled list, it will scan the tableview&#8217;s tableheaders and create the menu on the right side of the screen automatically. You don&#8217;t have to do anything, not even for the functionality of the menu. ChocolateChip-UI will take care of all the setup for you.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind="titled-list alphabetical"&gt;
+    &lt;tableheader&gt;Fruits&lt;/tableheader&gt;
+    &lt;tablecell href="apple_detail"&gt;
+        &lt;celltitle&gt;Apple&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="banana_detail"&gt;
+        &lt;celltitle&gt;Banana&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="cherry_detail"&gt;
+        &lt;celltitle&gt;Cherry&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="grape_detail"&gt;
+        &lt;celltitle&gt;Grape&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="orange_detail"&gt;
+        &lt;celltitle&gt;Orange&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Vegetables&lt;/tableheader&gt;
+    &lt;tablecell href="beet_detail"&gt;
+        &lt;celltitle&gt;Beet&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="carrot_detail"&gt;
+        &lt;celltitle&gt;Carrot&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="lettuce_detail"&gt;
+        &lt;celltitle&gt;Lettuce&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="peas_detail"&gt;
+        &lt;celltitle&gt;Peas&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="tomato_detail"&gt;
+        &lt;celltitle&gt;Tomato&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Dairy&lt;/tableheader&gt;
+    &lt;tablecel href="cheese_detail"l&gt;
+        &lt;celltitle&gt;Cheese&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="cream_detail"&gt;
+        &lt;celltitle&gt;Cream&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="butter_detail"&gt;
+        &lt;celltitle&gt;Butter&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="milk_detail"&gt;
+        &lt;celltitle&gt;Milk&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="yogurt_detail"&gt;
+        &lt;celltitle&gt;Yogurt&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tableheader&gt;Seafood&lt;/tableheader&gt;
+    &lt;tablecell href="lobster_detail"&gt;
+        &lt;celltitle&gt;Lobster&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="oyster_detail"&gt;
+        &lt;celltitle&gt;Oyster&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="tuna_detail"&gt;
+        &lt;celltitle&gt;Tuna&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecel href="salmon_detail"l&gt;
+        &lt;celltitle&gt;Salmon&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+    &lt;tablecell href="shrimp_detail"&gt;
+        &lt;celltitle&gt;Shrimp&lt;/celltitle&gt;
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+<p><img src="../screenshots/alphabetical-list-1.png" alt="An alphabetical list" title="" />/<p>
+<p><img src="../screenshots/alphabetical-list-2.png" alt="An alphabetical list with its side bar highlighted" title="" /></p>

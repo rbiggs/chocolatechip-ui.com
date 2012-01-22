@@ -1,0 +1,80 @@
+<h1>Forms</h1>
+
+<p>ChocolateChip-UI provides basic support for forms. Because ChococolateChip-UI uses iScroll for scrolling inside the app, there is a problem with focus for select/option controls. Other than that, you may use inputs, textarea, check boxes and radio buttons. If you really, really want a select box, consider using ChocolateChip's select list for now.</p>
+
+<p>It's a good idea to keep your forms simple. Don't try to elicit too much information from your users. In general people do not like having to enter data in complex forms on mobile devices. Presenting a user with a long form to fill out is a sure way to scare the user away from your app.</p>
+
+<p>ChocolateChip gives you $.form2JSON. This method can take two arguments: one required and the second optional. The first argument is a selector for the form you want to process. The second argument is the delimiter you use in your form's elements' names to indicate the JSON objects members. Here is an example of a properly defined form. Notice how we show the relationship of the form's elements to the JSON data structure that we want.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;form id="newUser"&gt; 
+    &lt;input type="text" name="newUser.name.first"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.name.last"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.address.street"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.address.city"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.address.state"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.address.zip"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.phone"&gt;&lt;/input&gt;
+    &lt;input type="text" name="newUser.email"&gt;&lt;/input&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>Processing this form would result in a JSON object like this:</p>
+
+<pre><code>{"newUser":
+    {"name": 
+        {"first": "someValueHere"},
+        {"last": "someValueHere"}
+    },
+    {"address":
+        {"street": "someValueHere"},
+        {"city": "someValueHere"},
+        {"state": "someValueHere"},
+        {"zip": "someValueHere"}
+    },
+    {"phone": "someValueHere" },
+    {"email": "someValueHere"}
+}
+</code></pre>
+
+<p>Once we get the form's data in the form of a JSON object, we can use JSON.stringify to convert the object to a string so that we can send it to wherever we need to with an Ajax call. In the Ajax folder of the examples there's a form file. It takes the values you enter in the form and sends them to another page as a parameter in the url. The destination page takes that parameter from the url and outputs it on the page.</p>
+
+<p>Of course, in real life you would never do that with form data. You will want to use the Ajax post method and send the stringified JSON object in the post body to the server. Depending on the server side language and Web development stack you are using, you will be able to retrieve the JSON object from the post body and do with it whatever you need to.</p>
+
+<p>Please consult the documentation or online forums for your Web development setup for information about how to best processing JSON objects sent through an Ajax post request. Using ChocolateChip's xhr method you would send the JSON something like this:</p>
+
+<p><strong>Example:</strong></p>
+
+<p>In the example below, we will be sending our JSON object as a string to another file (remoteFile.php).</p>
+
+<pre><code>$("#formSubmitButton").bind("click", function() {
+    var data = $.form2JSON("#formID");
+    data = JSON.stringify(data);
+});
+
+$.app.xhr("http://mySite.com/remoteFile.php", {
+    method: "POST",
+    asynch: true,
+    data : data,
+    success : function() {
+        console.log("The data was submitted successfully.");
+    },
+    error: function() {
+        console.log("There was an error sending the data.");
+    }
+});
+</code></pre>
+
+<p><strong>Note:</strong></p>
+
+<p>When putting forms together using table views, remember to disable automatic hovering of tablecells so that the user can more easily interact with the form elements. You can do this by putting the class "ui-no-hover" directly on the table view tag itself:</p>
+
+<pre><code>&lt;form id="subscribe"&gt;
+    &lt;tableview class="ui-no-hover"&gt;
+        &lt;tablecell&gt;
+            &lt;!-- Form elements in here --&gt;
+        &lt;/tablecell&gt;
+    &lt;/tableview&gt;
+&lt;/form&gt;
+</code></pre>

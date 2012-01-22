@@ -1,0 +1,47 @@
+<h1>Selection Lists</h1>
+
+<p>Selection lists provide a way for present users with a group of possible selections only one of which can be selected at any given time. This is functionally equivalent to the groups of radio buttons in forms found on many Web sites. Only one item in the list can be selected. To create this type of selection control you can use a basic tableview with a celltitle. First need to designate the tableview as a selection list with the attribute: <em>ui-implements="selection-list"</em>. Next you need to indicate what value a selection returns by putting a <em>ui-value</em> with the selection value on each tablecell. Then you need to make it selectable with the UISelectionList method. Below is an example of a tableview structure for a selection list:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>&lt;tableview ui-kind=grouped id="activityChoices" ui-implements="selection-list"&gt; 
+    &lt;tableheader&gt;
+        Choose one of the following:
+    &lt;/tableheader&gt;
+    &lt;tablecell ui-value="Go eat something"&gt;
+        &lt;celltitle&gt;Go eat something&lt;/celltitle&gt; 
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-value="Take a nap"&gt;
+        &lt;celltitle&gt;Take a nap&lt;/celltitle&gt; 
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-value="Get some work done"&gt;
+        &lt;celltitle&gt;Get some work done&lt;/celltitle&gt; 
+    &lt;/tablecell&gt;
+    &lt;tablecell ui-value="Play a game"&gt;
+        &lt;celltitle&gt;Play a game&lt;/celltitle&gt; 
+    &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code></pre>
+
+<p>That's it. Now you can make the selection list work by initializing it with UISelectionList.</p>
+
+<h2>UISelectionList:</h2>
+
+<p>UISelectionList is the magic that makes the list selectable. It generates a checkmark in each tablecell of the tableview. The <em>ui-implements="selection-list"</em> attribute tells ChococlateChip-UI to hide the checkmarks until the user makes a choice. To help you decide what to do when the user makes a choice, UISelectionList accepts as its argument a callback. This callback gets executed when the user makes a choice. You can use a reference to the item being selected in your callback so that you can bet the <em>ui-value</em> of the chosen item and do something with it. Using the tableview above, we can hook up the following code to output the user's choice to another container:</p>
+
+<p><strong>Example:</strong></p>
+
+<p>The following code will output the <em>ui-value</em> of the selection list item to a container with the id "#activityChoices". Notice the term "item" passed in as a parameter to the anonymous function passed to UISelectionList. This becomes a reference to "this" or the item being chosen inside the UISelectionList method so that you can define what to do with it in your callback.</p>
+
+<pre><code>$.ready(function() {
+    $("#activityChoices").UISelectionList(function(item){
+        $("#selectionResponse").fill(item.getAttribute("ui-value"));
+    });
+
+});
+</code></pre>
+
+<p>Here is what the above selection list looks like in action:</p>
+
+<p><img src="../screenshots/SelectList.png" alt="Example of Selection List" /></p>
+
