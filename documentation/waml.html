@@ -530,6 +530,13 @@ how to judge their correctness. Although a validator will not know about WAML ta
 &lt;/toolbar&gt;
 </code></pre>
 
+<p>To place a toolbar at the bottom of the screen, use the property <em>ui-placement="bottom"</em></p>
+
+<pre>
+<code>&lt;toolbar ui-placement="bottom"&gt;&lt;/toolbar&gt;
+</code>
+</pre>
+
 <p><strong>See Also:</strong></p>
 
 <p><a href="#ui_bar_align">ui-bar-align</a></p>
@@ -598,6 +605,8 @@ how to judge their correctness. Although a validator will not know about WAML ta
 
 <p><a href="#celldatetime">celldatetime</a></p>
 
+<p><a href="#cellvalue">cellvalue</a></p>
+
 <p><a href="#cellcounter">cellcounter</a></p>
 
 <p>&nbsp;</p>
@@ -634,7 +643,7 @@ how to judge their correctness. Although a validator will not know about WAML ta
 
 <h2 id="tag_tablecell">Tag: tablecell</h2>
 
-<p>This tag is the container for other possible elements:  celltitle, cellsubtitle, celldetail, celldatetime, cellcounter. A tablecell is always the child of a tableview and can have any number of siblings.</p>
+<p>This tag is the container for other possible elements:  celltitle, cellsubtitle, celldetail, celldatetime, cellvalue, cellcounter. A tablecell is always the child of a tableview and can have any number of siblings.</p>
 
 <p><a name="tablecell_indicators"></a></p>
 
@@ -687,6 +696,7 @@ how to judge their correctness. Although a validator will not know about WAML ta
 <li><a href="#tablecell_with_an_icon">tablecell with an icon</a></li>
 <li><a href="#celltitle_with_uibutton_or_switchcontrol">celltitle with uibutton or switchcontrol</a></li>
 <li><a href="#tablecell_with_celldatetime">tablecell with celldatetime</a></li>
+<li><a href="#tablecell_with_cellvalue">tablecell with cellvalue</a></li>
 <li><a href="#tablecell_with_cellcounter">tablecell with cellcounter</a></li>
 </ul>
 
@@ -741,7 +751,16 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <p><strong>tablecell with celldatetime</strong></p>
 
-<p>If you need to output a date or time of any kind, use the celldatetime tag for this. Make sure that the celldatetime is the next tag after the celltitle. This is so that if there is also any type of indicator, such as disclosure, detial-disclosure or add, that the celldatetime tag aligns perfectly with all of them. After the celldatetime tag other tablecell tags can follow. <strong>Please note</strong>, the tableview should have <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em>.</p>
+<p>If you need to output a date or time of any kind, use the celldatetime tag for this. Make sure that the celldatetime is the next tag after the celltitle. This is so that if there is also any type of indicator, such as disclosure, detial-disclosure or add, that the celldatetime tag aligns perfectly with all of them. After the celldatetime tag other tablecell tags can follow. <strong>Please note</strong>, the tableview should have <em>ui-tablecell-order=&#8221;stacked&#8221;</em>.</p>
+
+<p><a name="tablecell_with_cellvalue"></a></p>
+
+<p><strong>tablecell with cellvalue</strong></p>
+
+<p>If you need to output a value, such as currency or some unit value, and would like to format it the same as the datetime tag, use this tag. It will be positioned to flush right in the table cell.</p>
+
+
+
 
 <p><a name="tablecell_with_cellcounter"></a></p>
 
@@ -760,6 +779,8 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 <p><a href="#celldetail">celldetail</a></p>
 
 <p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellvalue">cellvalue</a></p>
 
 <p><a href="#cellcounter">cellcounter</a></p>
 
@@ -783,6 +804,8 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <p><a href="#celldatetime">celldatetime</a></p>
 
+<p><a href="#cellvalue">cellvalue</a></p>
+
 <p><a href="#cellcounter">cellcounter</a></p>
 
 <p>&nbsp;</p>
@@ -804,6 +827,8 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 <p><a href="#celldetail">celldetail</a></p>
 
 <p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellvalue">cellvalue</a></p>
 
 <p><a href="#cellcounter">cellcounter</a></p>
 
@@ -827,6 +852,8 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <p><a href="#celldatetime">celldatetime</a></p>
 
+<p><a href="#cellvalue">cellvalue</a></p>
+
 <p><a href="#cellcounter">cellcounter</a></p>
 
 <p>&nbsp;</p>
@@ -835,7 +862,7 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <h2 id="tag_celldatetime">Tag: celldatetime</h2>
 
-<p>The celldatetime tag is used for output any date or time data in a tablecell. Use it with <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview. The celldatetime tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator.</p>
+<p>The celldatetime tag is used for outputting any date or time data in a tablecell. Use it with <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview. The celldatetime tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator.</p>
 
 <p><strong>See Also:</strong></p>
 
@@ -848,6 +875,34 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 <p><a href="#cellsubtitle">cellsubtitle</a></p>
 
 <p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#cellvalue">cellvalue</a></p>
+
+<p><a href="#cellcounter">cellcounter</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="cellvalue"></a></p>
+
+<h2 id="tag_cellvalue">Tag: cellvalue</h2>
+
+<p>The cellvalue tag is used for outputting any currency or unit value in a tablecell. Use it with <em>ui-ui-tablecell-order=&#8221;stacked&#8221;</em> on the tableview. The cellvalue tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#tableview">tableview</a></p>
+
+<p><a href="#tablecell">tablecell</a></p>
+
+<p><a href="#celltitle">celltitle</a></p>
+
+<p><a href="#cellsubtitle">cellsubtitle</a></p>
+
+<p><a href="#celldetail">celldetail</a></p>
+
+<p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellvalue">cellvalue</a></p>
 
 <p><a href="#cellcounter">cellcounter</a></p>
 
@@ -872,6 +927,8 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 <p><a href="#celldetail">celldetail</a></p>
 
 <p><a href="#celldatetime">celldatetime</a></p>
+
+<p><a href="#cellvalue">cellvalue</a></p>
 
 <p>&nbsp;</p>
 

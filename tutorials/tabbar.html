@@ -1,5 +1,8 @@
 <h1>Tab Bar</h1>
 
+<p class="illustration sidebyside"><img src="screenshots/tabbar-1.png" alt="Default Tab Bar" />
+<img src="screenshots/tabbar-2.png" alt="Tab Bar with Third Tab Selected" /></p>
+
 <p>With ChocolateChip-UI it's really easy to implement a tab bar just like on iOS. For the tab bar to fit with the subviews, you'll need to give the subviews a <em>ui-associations</em> value of "withTabBar". If you want to create the tab bar manually, you can set the default selected tab by giving the tab bar a <em>ui-slected-tab</em> value starting with 0 for the first tab, etc. One thing to bare in mind, because of the limited space in mobile handsets in portrait mode, it is not practical to create a tab bar with more than five tabs. If you are going to implement a tab bar, you will do so with two to five tabs.</p>
 
 <p>The tabs of the tab bar consist of uibuttons with a <em>ui-implements</em> value of "tab". The uibuttons have icon tags with the icon images defined inline on them. They also have a label which gets displayed below the tab icon. Below is a typical tab bar. Remember that each tab should correspond to a subview which will be displayed with that tab is selected:</p>
@@ -56,7 +59,3 @@
 $("#main").UICreateTabBar(opts);
 </code></pre>
 
-<p>Here is what the tab bar looks like in action:</p>
-
-<p><img src="../screenshots/tabbar-1.png" alt="Default Tab Bar" />
-<img src="../screenshots/tabbar-2.png" alt="Tab Bar with Third Tab Selected" /></p>

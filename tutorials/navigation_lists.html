@@ -1,5 +1,5 @@
 <h1 id="navigation_lists">Navigation Lists</h1>
-
+<p class="illustration"><img src="screenshots/navigation-disclosure-1.png" alt="Drill down list with disclosure indicator" title="" /></p>
 <p>Navigation to other views in an app is an important way of providing the user with different sets of data and different options for interacting with the data. ChocolateChip-UI provides an easy way to implement navigation using tablecells with href attributes. You would do this on a tablecell with either a disclosure indicator or a detail-disclosure indicator so that the use knows that touching the cell will navigate to another screen. ChocolateChip-UI listens for any touch events on a tablecell with a href. When one occurs, it makes the view with that tablecell&#8217;s href become the current view. ChocolateChip-UI uses a set of three attribute values to handle navigation forward and backward: <strong>ui-navigation-status=&#8221;current&#8221;</strong>, <strong>ui-navigation-status=&#8221;traversed&#8221;</strong>, <strong>ui-navigation-status=&#8221;upcoming&#8221;</strong>. Refer to the documentation in ChUI.js and ChUI.css.</p>
 
 <p>When implementing such drilldown navigation in your app, be sure to provide a navbar with a back uibutton for each successive view. ChocolateChip-UI will use that back uibutton to automatically implement backward navigation to the previous view using its navigation history that it establishes the with the &#8220;#main&#8221; id of the first view at load time. As soon as a user touches a tablecell with a href attribute, ChocolateChip-UI adds it to the queue of navigated views so that it knows where to navigate back to. Also remember that when you navigate to a new view, that views navbar should have a title reflecting the choice the user made to get there. This keeps the user informed about why they are seeing the data or controls that are present in that view.</p>
@@ -266,9 +266,9 @@
 
 <p>Below is an example of a drill down list. The disclosure indicator means that there are more screens to navigate to.</p>
 
-<p><img src="../screenshots/navigation-disclosure-1.png" alt="Drill down list with disclosure indicator" title="" />
-<img src="../screenshots/navigation-disclosure-2.png" alt="Another drill down list with disclosure indicator" title="" /></p>
+<p class="illustration"><img src="screenshots/navigation-disclosure-1.png" alt="Drill down list with disclosure indicator" title="" />
+<img src="screenshots/navigation-disclosure-2.png" alt="Another drill down list with disclosure indicator" title="" /></p>
 
 <p>Below is a navigation list with detail disclosures. These indicate that when the user selects an item, they will arrive on a screen with a full detail about what they selected. The content may be text, images, video, music, or any combination of these. The detail could contain optional tasks through buttons to listen, watch, purchase, share, etc. In general, you wouldn&#8217;t navigate any further than the detail screen. If you need to offer and option for more details than could fit, you could offer the option to flip the subview over to reveal its backside, or use expanders.</p>
 
-<p><img src="../screenshots/navigation-detail-disclosure-1.png" alt="A navigation list with detail disclosures" title="" /></p>
+<p class="illustration"><img src="screenshots/navigation-detail-disclosure-1.png" alt="A navigation list with detail disclosures" title="" /></p>

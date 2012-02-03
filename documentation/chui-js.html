@@ -22,36 +22,6 @@ Released under MIT license, http://cubiq.org/license
 
 <p>&nbsp;</p>
 
-<h2 id="variable_libraryname">Variable: $.libraryName</h2>
-
-<p>By default ChocolateChip.js always assigns its $ and $$ variables to the global variables $chocolatechip and $$chocolatechip respectively. However, if ChocolateChip sees that the global variable $ already exists and it does not have $.libraryName with a value of &#8220;ChocolateChip&#8221;, it does not assign $ and $$ to the global namespace. This would be the case where you loaded jQuery, Prototype, Mootools, Zepto or some other library that uses $ before ChocolateChip.
-If you want to use another library with ChocolateChip, all you have to do is load in that library first, then the ChocolateChip-UI files and then sandbox your ChocolateChip-UI code. You do that by enclosing ChocolateChip specific code in an anonymous function and passing in $chocolatechip and $$chocolatechip as arguments:</p>
-
-<p><strong>Example:</strong></p>
-
-<pre><code>// In this example, jQuery was loaded before chocolatechip.js,
-// so we need to sandbox the ChocolateChip-UI code as follows:
-// ChocolateChip code:
-(function($, $$) {
-    $(function() {
-        $("body").css("border: solid 4px red;");
-        $$("p").forEach(function(p) {
-            p.css("font-weight: bold");
-        });
-    });
-})($chocolatechip, $$chocolatechip);
-
-// Since jQuery was loaded first, you can write jQuery specific
-// code as you normally would:
-$(function() {
-    $("a").css({display: "block", "text-decoration": "none"});
-})
-</code></pre>
-
-<p>If you&#8217;re not sure if you&#8217;re going to use another library with ChocolateChip, or you just want to be safe, sandbox you ChUI code. </p>
-
-<p>&nbsp;</p>
-
 <h2 id="variable_uiexpectedchocolatechipjsversion">Variable: UIExpectedChocolateChipJSVersion</h2>
 
 <p>The version that this version of ChocolateChip-UI requires. Used by UICheckChocolateChipJSVersion to check the currently loaded version of ChocolateChip.js.</p>
@@ -259,6 +229,10 @@ $("tablecell", this).bind("touchstart", function() {
 
 <p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
 
+<p><a href="#UINavigationList">$.UINavigationList</a></p>
+
+<p><a href="#UINavigateToView">$.UINavigateToView</a></p>
+
 <p>&nbsp;</p>
 
 <p><a name="UIBackNavigation"></a></p>
@@ -278,6 +252,8 @@ $("tablecell", this).bind("touchstart", function() {
 
 <p><a href="#UINavigationList">$.UINavigationList</a></p>
 
+<p><a href="#UINavigateToView">$.UINavigateToView</a></p>
+
 <p>&nbsp;</p>
 
 <p><a name="UINavigationList"></a></p>
@@ -294,28 +270,25 @@ $("tablecell", this).bind("touchstart", function() {
 
 <p>&nbsp;</p>
 
-<h2 id="function_elementuitogglebuttonlabel">Function: Element.UIToggleButtonLabel</h2>
+<p><a name="UINavigateToView"></a></p>
 
-<p>A method to toggle the label of a button between two values.</p>
+<h2 id="uinavigationtoview">$.UINavigateToView</h2>
 
-<p><strong>Syntax:</strong> </p>
+<p>The navigation list allows you to create linear forward and backward navigation for your app. However there will be situations where you need to allow the user to brach off from the navigation to a different view for some task. This method allows you to do so while adding the current view to the navigation stack. Just putting a "Back" button on the destination will allow the user to get back to the previous view. The method takes one argument, the view to which you wish to go to.</p>
 
-<pre><code>Element.UIToggleButtonLabel(name1, name2);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
-<ul>
-<li>String: First button name.</li>
-<li>String: Second button name.</li>
-</ul>
-
-<p><strong>Example:</strong></p>
-
-<pre><code>$("#editButton").bind("click", function() {
-    this.UIToggleButtonLabel("Edit", "Done");
+<pre><code>
+$("#summaryButton").bind("click", function() {
+   $.UINavigateToView("#activitySummaryView");
 });
 </code></pre>
+
+<p><strong>See Also</strong></p>
+
+<p><a href="#UINavigationHistory">$.UINavigationHistory</a></p>
+
+<p><a href="#UINavigationList">$.UINavigationList</a></p>
+
+<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
 
 <p>&nbsp;</p>
 
@@ -455,6 +428,8 @@ var scroller = new iScroll($("#myNewScrollPanel", opts);
 
 <p><a href="#UIDeleteTableCell">$.UIDeleteTableCell</a></p>
 
+<p><a href="#UIResetDeletionList">$.UIResetDeletionList</a></p>
+
 <p>&nbsp;</p>
 
 <p><a name="UIDeleteTableCell"></a></p>
@@ -525,6 +500,35 @@ $.UIDeleteTableCell({selector: ".deletable-items1", toolbar: "#toolbar1", editBu
 <p><strong>See Also:</strong></p>
 
 <p><a href="#UIDeletableTableCells">$.UIDeletableTableCells</a></p>
+
+<p><a href="#UIResetDeletionList">$.UIResetDeletionList</a></p>
+
+
+
+<p><a name="UIResetDeletionList"></a></p>
+
+<h2 id="function_uiresetdeletionlist">Function: $.UIResetDeletionList</h2>
+
+<p>Sometimes you may need to allow the user to switch to some other task on a page where you have a deletion list enabled. For those situations you can use $.UIResetDeletionList to unselect any list items and set the interface back to the way it was. The method takes two arguments: the tableview id and the navbar or toolbar where the "Edit" button was placed.</p>
+
+<pre>
+<code>
+$(function() {
+   $("uibutton[ui-implements=back]").bind('click', function() {
+      $.UIResetDeletionList("#itemsToPurchase","#purchaseView navbar");
+   });
+});
+</code>
+</pre>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UIDeletableTableCells">$.UIDeletableTableCells</a></p>
+
+<p><a href="#UIDeleteTableCell">$.UIDeleteTableCell</a></p>
+
+
+
 
 <p>&nbsp;</p>
 
@@ -2132,3 +2136,41 @@ $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover
 <h2 id="function_uialphabeticallist">Function: UIAlphabeticalList</h2>
 
 <p>A method to turn a tableview with the attribute <em>ui-kind=&#8221;titled-list alphabetical&#8221;</em>. This method will create a floating menu of the tableview&#8217;s tableheaders as a clickable index for scrolling to sections of the tableview. All you have to do is provide the tableview with the attribute as displayed above.</p>
+
+<pre>
+<code>
+&lt;tableview ui-kind="titled-list alphabetical"&gt;
+   &lt;tableheader&gt;A&lt;/tableheader&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Albert&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Allen&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Anton&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tableheader&gt;B&lt;/tableheader&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Bill&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Bob&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tableheader&gt;C&lt;/tableheader&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Charlie&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Craig&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tableheader&gt;D&lt;/tableheader&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Dan&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+   &lt;tablecell&gt;
+      &lt;celltitle&gt;Dave&lt;/celltitle&gt;
+   &lt;/tablecell&gt;
+&lt;/tableview&gt;
+</code>
+</pre>

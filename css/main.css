@@ -195,6 +195,18 @@ ul#side-menu li a:before {
 .secondary-section p a:hover {
 	text-decoration: underline !important;
 }
+.illustration img {
+	display: block;
+	margin: 10px auto;
+}
+.illustration.sidebyside img {
+	display: inline-block;
+	margin-left: 30px;
+}
+.caption {
+	display: block;
+	text-align: center;
+}
 
 /* Documentation Styles */
 #tutorials .secondary-section,

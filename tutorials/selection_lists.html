@@ -1,5 +1,7 @@
 <h1>Selection Lists</h1>
 
+<p class="illustration"><img src="screenshots/SelectList.png" alt="Example of Selection List" /></p>
+
 <p>Selection lists provide a way for present users with a group of possible selections only one of which can be selected at any given time. This is functionally equivalent to the groups of radio buttons in forms found on many Web sites. Only one item in the list can be selected. To create this type of selection control you can use a basic tableview with a celltitle. First need to designate the tableview as a selection list with the attribute: <em>ui-implements="selection-list"</em>. Next you need to indicate what value a selection returns by putting a <em>ui-value</em> with the selection value on each tablecell. Then you need to make it selectable with the UISelectionList method. Below is an example of a tableview structure for a selection list:</p>
 
 <p><strong>Example:</strong></p>
@@ -40,8 +42,3 @@
 
 });
 </code></pre>
-
-<p>Here is what the above selection list looks like in action:</p>
-
-<p><img src="../screenshots/SelectList.png" alt="Example of Selection List" /></p>
-

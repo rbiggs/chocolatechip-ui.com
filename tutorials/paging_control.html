@@ -1,5 +1,8 @@
 <h1>Paging Control</h1>
 
+<p class="illustration sidebyside"><img src="screenshots/paging_control-1.png" alt="Paging Control" />
+<img src="screenshots/paging_control-2.png" alt="Paging Control" /></p>
+
 <p>ChocolateChip-UI offers the pager control as a way to provide horizontal swipe navigation through a limited set of panels. This is analogous to the iOS paging control with dots beneath it to indicate each page and were the user is in paging progress. Be aware that because of the limited screen width of mobile devices in portrait mode, you should try to fit more than 17 panels in a paging control. If you need to provide paging for more than that then you should use a segmented paging control.</p>
 
 <p>The paging control uses a stack with the attribute <em>ui-implements="paging"</em>. The paging stack contains two nest children: a panel and another stack to hold the paging content. This nesting is required to setup the environment to implement this type of control properly. Each individual section of the paging control is a panel. Below is a typical paging control stack:</p>
@@ -64,6 +67,3 @@ stack[ui-implements="indicators"] &gt; indicator.active {
     background: #888;
 }
 </code></pre>
-
-<p><img src="../screenshots/paging_control-1.png" alt="Paging Control" />
-<img src="../screenshots/paging_control-2.png" alt="Paging Control" /></p>

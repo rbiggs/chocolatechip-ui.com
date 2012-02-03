@@ -1,5 +1,7 @@
 <h1>Basic App Shell</h1>
 
+<p class="illustration"><img src="screenshots/basic_shell.png">
+<span class="caption">Basic App Shell with Navbar and Bottom Toolbar</span><p>
 <p>ChocolateChip is designed to use a particular set of markup as the shell of all Web apps. Most of the tags are specialized and unique to WAML, a markup language that ChocolateChip-UI uses to producing functioning applications. ChocolateChip-UI uses HTML5 as the foundation upon which it builds its apps. You will therefore always need to start will a proper HTML5 document. Below is the most basic structure needed to start a Web app:</p>
 
 <pre><code>&lt;!DOCTYPE html&gt;
@@ -21,7 +23,7 @@
     &lt;script src="chui.js" type="text/javascript"&gt;&lt;/script&gt;
     &lt;script type="text/javascript"&gt;
         /* Local JavaScript Here */
-        $.ready(function() {
+        $(function() {
 
         });
 
@@ -54,6 +56,8 @@
 
 <p>It is common for mobile Web apps to have a navbar along the top and possibly a toolbar along the bottom of the screen. ChocolateChip-UI makes these easy to achieve by using the appropriate tags, attributes and layouts. Notice how the subview tag has its <em>ui-associations</em> attribute set to indicate that it has a navbar and a bottom toolbar. This enables ChocolateChip-UI to know how to arrange the navbar, subview and toolbar so that they maintain there relationship are resize properly when there is an orientation change, while allowing the user to access the subview's content by scrolling. including this view inside the template above will give you a basic app shell with some functionality already implemented for you. You would only need to figure out how you want to put data in the subview. As a developer, you could do this with an Ajax call, a data query or a Web service. That's for you to decide.</p>
 
+<p>In the example below, notice the use of <em>ui-placement="bottom"</em> on the toolbar. This is required to make the toolbar stick to the bottom of the screen. If you don't include this, it will nestle under the navbar.
+
 <pre><code>&lt;view id="main" ui-background-style="striped" ui-navigation-status="current"&gt;
     &lt;navbar&gt;
         &lt;h1&gt;Tite&lt;/h1&gt;
@@ -63,10 +67,10 @@
 
         &lt;/scrollpanel&gt;
     &lt;/subview&gt;
-    &lt;toolbar&gt;
+    &lt;toolbar ui-placement="bottom"&gt;
     &lt;/toolbar&gt;
 &lt;/view&gt;
 </code></pre>
 
-<p>To learn more about using subviews ready the tutorial "Accomodating Navbars, etc." and refer to the documentation for ChUI.css and WAML.</p>
+<p>To learn more about using subviews read the tutorial "Accomodating Navbars, etc." and refer to the documentation for ChUI.css and WAML.</p>
 

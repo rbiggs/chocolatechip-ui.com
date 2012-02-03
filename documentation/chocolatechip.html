@@ -13,8 +13,40 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.5
+Version 1.2.0
 </code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="variable_libraryname">Using ChocolateChip with Other Libraries</h2>
+
+<p>By default ChocolateChip.js always assigns its $ and $$ variables to the global variables $chocolatechip and $$chocolatechip respectively. However, if ChocolateChip sees that the global variable $ already exists and it does not have $.libraryName with a value of &#8220;ChocolateChip&#8221;, it does not assign $ and $$ to the global namespace. This would be the case where you loaded jQuery, Prototype, Mootools, Zepto or some other library that uses $ before ChocolateChip.
+If you want to use another library with ChocolateChip, all you have to do is load in that library first, then the ChocolateChip-UI files and then sandbox your ChocolateChip-UI code. You do that by enclosing ChocolateChip specific code in an anonymous function and passing in $chocolatechip and $$chocolatechip as arguments:</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>// In this example, jQuery was loaded before chocolatechip.js,
+// so we need to sandbox the ChocolateChip-UI code as follows:
+// ChocolateChip code:
+(function($, $$) {
+    $(function() {
+        $("body").css("border: solid 4px red;");
+        $$("p").forEach(function(p) {
+            p.css("font-weight: bold");
+        });
+    });
+})($chocolatechip, $$chocolatechip);
+
+// Since jQuery was loaded first, you can write jQuery specific
+// code as you normally would:
+$(function() {
+    $("a").css({display: "block", "text-decoration": "none"});
+})
+</code></pre>
+
+<p>If you&#8217;re not sure if you&#8217;re going to use another library with ChocolateChip, or you just want to be safe, sandbox your ChUI code. </p>
+
+<p>If you need to use jQuery with ChocolateChip, or would rather use Zepto for its minimal size, there are versions of ChocolateChip-UI for both <a href="https://github.com/rbiggs/chocolatechip-ui-jq">jQuery</a> and <a href="https://github.com/rbiggs/chocolatechip-ui-zepto">Zepto.js</a> on Github.
 
 <p>&nbsp;</p>
 

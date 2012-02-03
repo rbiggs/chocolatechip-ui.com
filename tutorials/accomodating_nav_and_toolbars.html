@@ -34,3 +34,11 @@
 <p>Give the subview this attribute: <em>ui-associations="withBottomToolBar"</em>.</p>
 
 <p><strong>Note:</strong> Be sure to put a scrollpanel inside the subveiw to hold your data. That way the user will be able to access data that overflows the available screen dimensions.</p>
+
+<p><strong>Note:</strong> When implementing a bottom toolbar, remember to give it <em>ui-placement="bottom"</em> or it will not stay on the bottom:
+
+<pre>
+	<code>
+&lt;toolbar ui-placement="bottom"&gt;&lt;/toolbar&gt;
+	</code>
+</pre>

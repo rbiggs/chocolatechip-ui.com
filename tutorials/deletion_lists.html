@@ -1,5 +1,11 @@
 <h1>Deletion Lists</h1>
 
+<p class="illustration sidebyside"><img src="screenshots/deletion_list-1.png" alt="Deletion List Ready to Use" />
+<img src="screenshots/deletion_list-2.png" alt="Deletion List after Pressing Edit" /></p>
+
+<p class="illustration sidebyside"><img src="screenshots/deletion_list-3.png" alt="Deletion List with Items Selected for Deletion" />
+<img src="screenshots/deletion_list-4.png" alt="Deletion List after Items were Deleted" /></p>
+
 <p>ChocolateChip offers a way to make a tableview's tablecells deletable. 
 Like selection lists, deletion lists are just simple tableviews wired up by to enable deletion of tablecells. Please note that deletion lists require a navbar or toolbar to display the delete uibutton. So, any tableview that you want to enable for tablecell deletion with also require an adjacent navbar or toolbar. You really want to use the simplest possible tableview: with just a celltitle indicating the item to be deleted.</p>
 
@@ -68,11 +74,3 @@ Like selection lists, deletion lists are just simple tableviews wired up by to e
     $.UIDeleteTableCell({selector: "#tableview_01", toolbar: "#toolbar_01", callback: deleteItem});
 });
 </code></pre>
-
-<p>Below is the whole process of tablecell deletion:</p>
-
-<p><img src="../screenshots/deletion_list-1.png" alt="Deletion List Ready to Use" />
-<img src="../screenshots/deletion_list-2.png" alt="Deletion List after Pressing Edit" /></p>
-
-<p><img src="../screenshots/deletion_list-3.png" alt="Deletion List with Items Selected for Deletion" />
-<img src="../screenshots/deletion_list-4.png" alt="Deletion List after Items were Deleted" /></p>
