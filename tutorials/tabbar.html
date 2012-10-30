@@ -59,3 +59,42 @@
 $("#main").UICreateTabBar(opts);
 </code></pre>
 
+<h1>Tab Bar for Views</h1>
+<p>It is also posible to toggle a set of views along with their navbars using the tab bar control. To do that you need to make the views for toggle and then initalize the toolbar with UITabBarForViews(). Bear in mind that the views will be bound to the tab bar's tabs based on the order in which the views appear in the markup. Also remember that there generally isn't room for more than five tabs on a mobile phone in portrait mode. If you need to toggle more views than that, think about changing how you've got your data or workflow structured.</p>
+<p>Views are marked for toggling by the tab bar with the following attribute: ui-implements="tabbar-panel".</p>
+
+<pre><code>&lt;view <strong>ui-implements="tabbar-panel"</strong> ui-navigation-status="upcoming"&gt;&lt;/view&gt;
+</code></pre>
+
+<p>You can then code out a tab bar for you views as follows. Choose and icon and text label appropriate for what you view's purpose is:</p>
+
+<pre><code>&lt;tabbar ui-implements="tabbar-panel" ui-selected-tab="0"&gt;
+	&lt;uibutton ui-implements="tab"&gt;                
+		&lt;icon style="-webkit-mask-image: url(../icons/refresh.svg);"&gt;&lt;/icon&gt;
+		&lt;label&gt;Refresh&lt;/label&gt;         
+	&lt;/uibutton&gt;
+	&lt;uibutton ui-implements="tab"&gt;                
+		&lt;icon style="-webkit-mask-image: url(../icons/add.svg);"&gt;&lt;/icon&gt;
+		&lt;label&gt;Add&lt;/label&gt;  
+	&lt;/uibutton&gt;
+	&lt;uibutton ui-implements="tab"&gt;                
+		&lt;icon style="-webkit-mask-image: url(../icons/info.svg);"&gt;&lt;/icon&gt;
+		&lt;label&gt;Info&lt;/label&gt;   
+	&lt;/uibutton&gt;
+	&lt;uibutton ui-implements="tab"&gt;                
+		&lt;icon style="-webkit-mask-image: url(../icons/downloads.svg);"&gt;&lt;/icon&gt;
+		&lt;label&gt;Downloads&lt;/label&gt;                
+	&lt;/uibutton&gt;
+	&lt;uibutton ui-implements="tab"&gt;                
+		&lt;icon style="-webkit-mask-image: url(../icons/top_rated.svg);"&gt;&lt;/icon&gt;
+		&lt;label&gt;Favorite&lt;/label&gt;                
+	&lt;/uibutton&gt;
+&lt;/tabbar&gt;
+</code></pre>
+
+<p>Once you have your views marked and your tab bar markup in place, you can initialize the tab bar for your views as follows:</p>
+
+<pre><code>$(function() {
+    $.app.UITabBarForViews();
+});
+</code></pre>

@@ -11,26 +11,15 @@
 ChocolateChip-UI: A framework for mobile Web app development.
 ChUI.js: The magic to make it happen.
 
-Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+Copyright 2012 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.0
+Version 2.0
 
 Includes:
-iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+iScroll v4.2.2 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
 Released under MIT license, http://cubiq.org/license
 </code></pre>
 
-<p>&nbsp;</p>
-
-<h2 id="variable_uiexpectedchocolatechipjsversion">Variable: UIExpectedChocolateChipJSVersion</h2>
-
-<p>The version that this version of ChocolateChip-UI requires. Used by UICheckChocolateChipJSVersion to check the currently loaded version of ChocolateChip.js.</p>
-
-<p>&nbsp;</p>
-
-<h2 id="function_uicheckchocolatechipjsversion">Function: UICheckChocolateChipJSVersion</h2>
-
-<p>This method checks the currently loaded version of ChocolateChip.js and check it with the constant UIExpectedChocolateChipJSVersion. If the two are not identical, the method logs and error message to the console informing the developer which version of ChocolateChip.js this version of ChocolateChip-UI requires.</p>
 
 <p>&nbsp;</p>
 
@@ -183,7 +172,7 @@ $("view:nth-of-type(3) tablecell).forEach(function(cell) {
 <pre><code>// Number all tablecells in the tableview of view "main":
 $("#main tableview").UIIdentifyChildNodes();
 
-$("tablecell", this).bind("touchstart", function() {
+$("tablecell", this).on("touchstart", function() {
     console.log("This item is at position: " + this.getAttribute("ui-child-position"));
 });
 </code></pre>
@@ -209,7 +198,7 @@ $("tablecell", this).bind("touchstart", function() {
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$(toolbar + " &gt; uibutton[ui-implements=edit]").bind("click", function() {
+<pre><code>$(toolbar + " &gt; uibutton[ui-implements=edit]").on("click", function() {
     if ($("label", this).text() === "Edit") {
         this.UIToggleButtonLabel("Edit", "Done");
         this.setAttribute("ui-implements", "done");
@@ -276,8 +265,7 @@ $("tablecell", this).bind("touchstart", function() {
 
 <p>The navigation list allows you to create linear forward and backward navigation for your app. However there will be situations where you need to allow the user to brach off from the navigation to a different view for some task. This method allows you to do so while adding the current view to the navigation stack. Just putting a "Back" button on the destination will allow the user to get back to the previous view. The method takes one argument, the view to which you wish to go to.</p>
 
-<pre><code>
-$("#summaryButton").bind("click", function() {
+<pre><code>$("#summaryButton").on("click", function() {
    $.UINavigateToView("#activitySummaryView");
 });
 </code></pre>
@@ -514,7 +502,7 @@ $.UIDeleteTableCell({selector: ".deletable-items1", toolbar: "#toolbar1", editBu
 <pre>
 <code>
 $(function() {
-   $("uibutton[ui-implements=back]").bind('click', function() {
+   $("uibutton[ui-implements=back]").on('click', function() {
       $.UIResetDeletionList("#itemsToPurchase","#purchaseView navbar");
    });
 });
@@ -659,7 +647,7 @@ $.UIPopUp(myOptions);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#openPopup").bind("click", function() {
+<pre><code>$("#openPopup").on("click", function() {
     $.UIShowPopUp("#main");
 });
 </code></pre>
@@ -768,6 +756,7 @@ $("#buyerOptions").UISelectionList(function(item){
 <ul>
 <li>id: and id for the switch control. and id must be supplied.</li>
 <li>kind: an optional value of &#8220;traditional&#8221; for the old style switches, or &#8220;generic&#8221; for a simpler version of the new style.</li>
+<li>implements: an optional value of &#8220;attention&#8221; that gives the switch contorl a bright orange background.</li>
 <li>status: either &#8220;on&#8221; or &#8220;off&#8221;, the default is &#8220;off&#8221;.</li>
 <li>value: any integer or string value.</li>
 <li>callback: a function to execute when the switch is flipped to the &#8220;on&#8221; position.</li>
@@ -790,6 +779,7 @@ $("#specialList &gt; tablecell:first-of-type").UICreateSwitchControl(opts);
 $("#myListItem").UICreateSwitchControl({
     id : "switch_001",
     status : "on",
+    implements: 'attention',
     value : 100,
     callback : function() {
         // executeTransaction would be defined elsewhere.
@@ -1011,6 +1001,7 @@ $("#main").UICreateTabBar(opts);
 <p><strong>See Also:</strong></p>
 
 <p><a href="#UITabBar">Element.UITabBar</a></p>
+<p><a href="#UITabBarForViews">Element.UITabBarForViews</a></p>
 
 <p>&nbsp;</p>
 
@@ -1028,6 +1019,42 @@ $("#main").UICreateTabBar(opts);
 <p><strong>See Also:</strong></p>
 
 <p><a href="#UICreateTabBar">Element.UICreateTabBar</a></p>
+<p><a href="#UITabBarForViews">Element.UITabBarForViews</a></p>
+
+<p>&nbsp;</p>
+
+<p><a name="UITabBarForViews"></a></p>
+
+<h2 id="function_elementuitabbarforviews">Function: Element.UITabBarForViews</h2>
+
+<p>A method for toggling a set of views. This method works with a manually coded tab bar and a set of views which you wish to toggle. Since views are being toggled, this will also toggle a view&#8217;s navbar. You need to indicate which views will be toggled by giving the views an attribute of  <code>ui-implements="tabbar-panel"</code>. The views will be bound to the tab bar's tabs in the order in which the views appear in the markup.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>
+$(function() {
+    $.app.UITabBarForViews();
+});
+</code></pre>
+
+<h4>Markup for the view</h4>
+<pre><code>
+&lt;view <strong>ui-implements="tabbar-panel"</strong> ui-navigation-status="upcoming"&gt;&lt;/view&gt;
+</code></pre>
+
+<p>When you bind views to a tab bar for display, that binding overrides the devault sliding animation of navigation lists and instead hides and show the views abruptly. The sliding transition of the navigation list is to give the user a sense of drilling down into the application. The tab bar is not used to drill down but to simply show alternate views of the same data or related data. As such it eskews the navigation transitions.</p>
+
+<p>To initialize a tab bar for views, just execute this method on the app tag. It will look for the marked views and make them togglable.</p>
+
+<p>Bear in mind that on cell phones there is normally only room for five tabs in portrait mode. If you need to toggle more than five views, or less than three, you should really reconsider how you are presenting your data to use a simpler approach for the end user.</p>
+
+<p>To see a working example of a tab bar with views, look for <strong>tabbar-views.html</strong> in the examples folder.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#UITabBar">Element.UITabBar</a></p>
+<p><a href="#UICreateTabBar">Element.UICreateTabBar</a></p>
+
 
 <p>&nbsp;</p>
 
@@ -1103,7 +1130,7 @@ $.body.UIActionSheet(opts);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#UIButtonAction").bind("touchstart", function() {
+<pre><code>$("#UIButtonAction").on("touchstart", function() {
     $.UIShowActionSheet(actionsheet_01);
 });
 </code></pre>
@@ -1135,7 +1162,7 @@ $.body.UIActionSheet(opts);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#displayActionSheet").bind("click", function() {
+<pre><code>$("#displayActionSheet").on("click", function() {
     $.UIShowActionSheet("#Dingo");
 });
 </code></pre>
@@ -1191,7 +1218,7 @@ $.body.UIActionSheet(opts);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$.ready(function() {
+<pre><code>$(function() {
     var opts = {
         status: "collapsed",
         title: "Open",
@@ -1299,7 +1326,7 @@ $.body.UIActionSheet(opts);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#toggleProgressBar").bind("click", function() {
+<pre><code>$("#toggleProgressBar").on("click", function() {
     if (this.text().trim() == "Show") {
         this.UIToggleButtonLabel("Show", "Hide");
         $("navbar &gt; h1").UIHideNavBarHeader();
@@ -1332,7 +1359,7 @@ $.body.UIActionSheet(opts);
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#toggleProgressBar").bind("click", function() {
+<pre><code>$("#toggleProgressBar").on("click", function() {
     if (this.text().trim() == "Show") {
         this.UIToggleButtonLabel("Show", "Hide");
         $("navbar &gt; h1").UIHideNavBarHeader();
@@ -1366,154 +1393,71 @@ $.body.UIActionSheet(opts);
 <pre><code>$.UIAdjustToolBarTitle();
 </code></pre>
 
+
 <p>&nbsp;</p>
 
 <p><a name="UIActivityIndicator"></a></p>
 
 <h2 id="function_uiactivityindicator">Function: $.UIActivityIndicator</h2>
 
-<p>Method to create an activity indicator using the canvas element. This method is just an empty constructor for the activity indicator. It&#8217;s sub-methods handle creation, animation and deletion of the activity indicator.</p>
-
-<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
-
-<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
-
-<p><a href="#UIActivityIndicator_stop">$.UIActivityIndicator.stop</a></p>
-
-<p><a href="#UIInsertActivityIndicator">Element.UIInsertActivityIndicator</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIActivityIndicator_create"></a></p>
-
-<h2 id="function_uiactivityindicatorcreate">Function: $.UIActivityIndicator.create</h2>
-
-<p>This is created dynamically and redrawn on the background of the designated container. It will spin continuously until the $.UIActivityIndicator.stop() method is executed.</p>
-
 <p>A function to create an activity indicator. It takes an object literal of values to create the activity indicator. By default it draws the activity indicator as a background image on an element of the designated container. If no container is designated, the method will try to output it to a container with the class &#8220;UIActivityIndicator&#8221;, which is already defined in ChUI.css to display a canvas background image.</p>
+
+<p>When you launch a modal activity indicator, ChocolateChip-UI automatically create a screen cover like actionsheets, popups and popovers.
 
 <p><strong>Syntax:</strong></p>
 
-<pre><code>$.UIActivityIndicator.create(options);
+<pre><code>Element.UIActivityIndicator(options);
 </code></pre>
 
 <p><strong>Parameters:</strong></p>
 
 <ul>
-<li>id: a unique id for the activity indicator. If no id is supplied, it defaults to &#8220;UIActivityIndicator.&#8221;</li>
-<li>color: a hexidecimal or rgb/rgba value for the color of the tines of the activity indicator. If no value is supplied it defaults to &#8220;gray.&#8221;</li>
-<li>shadow: a hexicdecimal or rgb/rgba value for the color of shadow for the tines of the activity indicator. If no value is supplied, the activity indicator will be drawn without any shadow.</li>
-<li>container: a selector indicating the container in which to draw the activity indicator. If no selector is supplied it defaults of the class &#8220;UIActivityIndicator&#8221;. You can add this class dynamically to an element in which you wish to display an activity indicator. <strong>Note:</strong> If you output an activity indicator on a container that already has a background image of type image or gradient, this will be replaced by the activity indicator. So, depending on where you want to show the activity indicator, you may need to inject a new element into the desired area to show the activity indicator if you don&#8217;t want the main area&#8217;s background image to be replaced by the activity indicator.</li>
-<li>size: the size for the activity indicator. This can be pixels or percent. If no size is passed, it defaults to 75%. This gets output as the background size for the render canvas image. <strong>Note:</strong> If you set a size for the activity indicator, make sure that the element you are outputting it in is big enough to display it.</li>
+<li>color: a valid color for the activity indicator</li>
+<li>size: a valid size using length indicators (px, em, etc) for the length of the tines of the indicator</li>
+<li>position: a value of 'right' or 'left'. This is for positioning the activity indicator in a navbar or toolbar. It uses the <em>ui-bar-align</em> property.</li>
+<li>modal: if set as 'true', the activity indicator will be output in a modal dialog.</li>
+<li>message: A string message to output with the activity indicator when it's modal.</li>
+<li>duration: an value in milliseconds or second to describe the amount of time for one revolution of the activity indicator.</li>
 </ul>
 
 <p><strong>Example:</strong></p>
 
-<pre><code>var opts = {
-    id : "activityIndicator_01",
-    color : #666,
-    shadow : #ccc,
-    container : ".ajaxUpdateInProgress"
-}
-var activityIndicator = new $.UIActivityIndicator.create(opts);
+<pre><code>$('#busy1').UIActivityIndicator({'color':'rgba(200,0,0,0.75)', 'duration': '1.25s', 'size': '50px'});
+
+$('#busy5').UIActivityIndicator({color: '#ddd', size:'50px'});
+
+$('navbar').UIActivityIndicator({size: '20px', color:'#fff', position: 'right'});
+
+$('app').UIActivityIndicator({modal:true, modalMessage:'Loading...'});
 </code></pre>
 
-<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
+<p><strong>See Also:</strong></p>
 
-<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
+<p><a href="#RemoveUIAcitivityIndicator">Element.RemoveUIAcitivityIndicator</a></p>
 
-<p><a href="#UIActivityIndicator_stop">$.UIActivityIndicator.stop</a></p>
 
 <p>&nbsp;</p>
 
-<p><a name="UIActivityIndicator_animate"></a></p>
+<p><a name="RemoveUIAcitivityIndicator"></a></p>
 
-<h2 id="function_uiactivityindicatoranimate">Function: $.UIActivityIndicator.animate</h2>
+<h2 id="function_uiremoveactivityindicator">Function: Element.RemoveUIAcitivityIndicator</h2>
 
-<p>A method to animate an activity indicator. Before invoking it you need a pointer to an activity indicator (see example below).  This method redraws the activity indicate at intervals of 100 milliseconds.</p>
+<p>A method to remove an activity indicator. You execute the method on the element containing the activity indicator. If the the acitivy indicator is modal, it will remove both the modal dialog and the accompanying mask.</p>
 
 <p><strong>Syntax:</strong></p>
 
-<pre><code>$.UIActivityIndicator.animate()
+<pre><code>Element.RemoveUIAcitivityIndicator();
 </code></pre>
 
 <p><strong>Example:</strong></p>
 
-<pre><code>var activityIndicator = new $.UIActivityIndicator.create(opts);
-activityIndicator.animate();
+<pre><code>$('app').RemoveUIAcitivityIndicator();
 </code></pre>
 
-<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
+<p><strong>See Also:</strong></p>
 
-<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
+<p><a href="#UIActivityIndicator">Element.UIActivityIndicator</a></p>
 
-<p><a href="#UIActivityIndicator_stop">$,UIActivityIndicator.stop</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIActivityIndicator_stop"></a></p>
-
-<h2 id="function_uiactivityindicatorstop">Function: $.UIActivityIndicator.stop</h2>
-
-<p>A method to stop the animation of an activity indicator.</p>
-
-<p><strong>Syntax:</strong></p>
-
-<pre><code>$.UIActivityIndicator.stop()
-</code></pre>
-
-<p><strong>Example:</strong></p>
-
-<pre><code>var activityIndicator = new $.UIActivityIndicator.create(opts);
-activityIndicator.animate();
-// Set a delay for when to stop the activity indicator:
-$.delay(activityIndicator.stop(), 2000);
-</code></pre>
-
-<p><a href="#UIActivityIndicator">$.UIActivityIndicator</a></p>
-
-<p><a href="#UIActivityIndicator_create">$.UIActivityIndicator.create</a></p>
-
-<p><a href="#UIActivityIndicator_animate">$.UIActivityIndicator.animate</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIInsertActivityIndicator"></a></p>
-
-<h2 id="function_elementuiinsertactivityindicator">Function: Element.UIInsertActivityIndicator</h2>
-
-<p>To make it easier to implement an activity indicator with the previously defined methods, ChocolateChip-UI provides Element.UIInsertActivityIndicator. This allows you to pass the options you want for an activity indicator and inserts it in a panel container inside of an element. It also allows you to pass an optional style declaration that gets inserted inline on the activity indicator&#8217;s panel. This allows you to insert and activity indicator where you need one, in a navbar, toolbar or subview, without worrying about the background canvas image wiping out the background on the parent container. If you were going to use this with an Ajax call, you could first insert the activity indicator into the place where the content will be placed. Then as part of the Ajax call&#8217;s successCallback function, remove the activity indicator and insert the content. Please refer to Element.xhr in the documentation for ChocolateChip.js for more details about how to do Ajax calls with ChocolateChip-UI.</p>
-
-<p>When using this method there is no need to invoke $.UIActivityIndicator.init, $.UIActivityIndicator.animate or $.UIActivityIndicator.stop. The animation begins as soon as the activity indicator is inserted. It is stopped by you removing it when there is a success or error returned by the Ajax call. See example below.</p>
-
-<p><strong>Example:</strong></p>
-
-<pre><code>var content = $("#content");
-// First insert an activity indicator:
-content.UIInsertActivityIndicator({
-    id: "activity_indicator_01", 
-    color: "#fff",
-    container: "navbar &gt; panel",
-    size: "40px",
-    style : "margin: 40px auto 0 auto;"
-});
-// Then make the Ajax call:
-content.xhr("data.html", {
-    successCallback: function() {
-        // If the call is successful, empty the
-        // container to get rid of the activity indicator:
-        content.empty();
-        content.insert($.responseText);
-        $.responseText = null;
-        content.after($.make("&lt;h2&gt;Ajax call was successful.&lt;/h2&gt;"));
-    },
-    errorCallback: function() {
-        // If there was an error, remove activity indicator:
-        content.empty();
-        content.insert("There was an error getting the file.");
-    }
-});
-</code></pre>
 
 <p>&nbsp;</p>
 
@@ -1521,204 +1465,24 @@ content.xhr("data.html", {
 
 <h2 id="function_uislider">Function: $.UISlider</h2>
 
-<p>A method to initialize a horizontal slider with thumb. This supports both touch and mouse interaction. This is useful for allowing the user to choose a value from a sliding range of possible values. This method creates two variables on the ChocolateChip object: UICurX and UICurY. These are the current x and y coordinates of the mouse or touch. It also adds the &#8220;ui-slider-length&#8221; attribute to the slider to store its clientWidth for use by the various functions for calculating drag coordinates for moving the slider thumb.</p>
+<p>This has been deprecated in favor of native HTML5 range input. See <a href='#range_input'>onchange event</a> below.</p>
 
-<p>$.UISlider checks for touch support to determine which way to track dragging of the slider thumb. When it is touch-based, it invokes element.UISliderTouch and element.UIUpdateSliderTouch. When it is mouse-based it invokes $.UISliderForMouse, which initializes various functions for mouse interaction. Although this method is executed on a selector for a slider, the method listens for drag events on the slider&#8217;s thumb. For mouse interaction it provides to ways to manage dragging with onDrag and onDragEnd as possible values passed in as options. For the slider to work properly you need to output the width you desire for the slider directly on it using an inline style setting, such as: <em>style=&#8221;width: 186px;&#8221;</em>. This allows you to give each slider a different width depending on your needs. ChocolateChip-UI&#8217;s methods will query this assigned width and use it for dragging the thumb and updating the slider&#8217;s progress track. See examples below. </p>
 
-<p>The method expects the following WAML markup to function:</p>
+<p>&nbsp;</p>
 
-<p><strong>Markup:</strong></p>
+<p><a name="range_input"></a></p>
 
-<pre><code>&lt;slider id="slider_001" style="width: 180px;"&gt;
-    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
-&lt;/slider&gt;
-</code></pre>
+<h2 id="function_uislider">Function: onchange (for range input)</h2>
 
-<p>Or an optional class of &#8220;media-player&#8221; for a metallic look:</p>
-
-<pre><code>&lt;slider id="slider_002" class="media-player" style="width: 200px;"&gt;
-    &lt;thumb&gt;&lt;thumbprop&gt;&lt;/thumbprop&gt;&lt;/thumb&gt;
-&lt;/slider&gt;
-</code></pre>
-
-<p><strong>Syntax:</strong></p>
-
-<pre><code>$.UISlider(selector, options);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
-<ul>
-<li>selector: a selector identifying the slider.</li>
-<li>options: an object literal of possible values for the slider:
-<ul>
-- 
-</ul></li>
-</ul>
+<p>To capture the value of the range input as the user interacts with it by either dragging its thumb or clicking/touching its track, you just need to attach an onchange event to the input.</p>
 
 <p><strong>Example:</strong></p>
 
-<pre><code>var updateColorFromSlider = function() {
-    // Code here to execute.
-}
-$.UISlider("#redSlider", { callback: updateColorFromSlider });
-</code></pre>
+<pre><code>$('#rangeControl1').on('change', function() {
+	console.log($(this).val());
+});
+</code></pre> 
 
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
-
-<p><a href="#UISliderTouch">Element.UISliderTouch</a></p>
-
-<p><a href="#UIUpdateSliderTouch">Element.UIUpdateSliderTouch</a></p>
-
-<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UICurX"></a></p>
-
-<h2 id="variable_uicurx">Variable: $.UICurX</h2>
-
-<p>This is a variable that keeps track of the x coordinate of a mouse or touch move. It&#8217;s default value is null. This variable gets used by $.UISlider, Element.UISliderTouch, Element.UIUpdateSliderTouch and $.UIDrag.</p>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UISliderTouch">Element.UISliderTouch</a></p>
-
-<p><a href="#UIUpdateSliderTouch">Element.UIUpdateSliderTouch</a></p>
-
-<p><a href="#UIDrag">$.UIDrag</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UICurY"></a></p>
-
-<h2 id="variable_uicury">Variable: $.UICurY</h2>
-
-<p>This is a variable that keeps track of the y coordinate of a mouse or touch move. It&#8217;s default value is null. This variable is used to determine the constant y coordinate for the slider thumb while it is being dragged.</p>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UICurX">$.UICurX</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p><a href="#UIDrag">$.UIDrag</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UISliderValue"></a></p>
-
-<h2 id="variable_uislidervalue">Variable: $.UISliderValue</h2>
-
-<p>This is a variable that keeps track of the value of the drag subtracting the thumb width from the slider length. This is the value you would need to read to do something with when the user drags the slider&#8217;s thumb. In contrast, $.UICurX and $.UICurY are used from tracking the positioning of the thumb and slider progress track.</p>
-
-<p>&nbsp;</p>
-
-<p><a name="UISliderTouch"></a></p>
-
-<h2 id="function_elementuislidertouch">Function: Element.UISliderTouch</h2>
-
-<p>Method to calculate the value of the user&#8217;s finger for updating the left position of the slider thumb and length of the slider&#8217;s track progress bar. By accessing the ui-slider-length property of the slider, the method calculates the current touch position and stores it in the $.UICurX, which will be used by element.UIUpdateSliderTouch to calculatethe position of the slider thumb and the slider track progress indicator. This method gets called by $.UISlider.</p>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UICurX">$.UICurX</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p><a href="#UISlider">$.UISlider</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIUpdateSliderTouch"></a></p>
-
-<h2 id="function_elementuiupdateslidertouch">Function: Element.UIUpdateSliderTouch</h2>
-
-<p>Method to update the thumb position and length of the left track progress indicator when the user drags a slider thumb horizontally. The method gets the length of the slider and calculates the distances based on this.</p>
-
-<p><strong>Syntax:</strong></p>
-
-<p><strong>Parameters:</strong></p>
-
-<ul>
-<li>callback: a function to execute while the thumb is dragged and updates the track progress indicate by accessing the $.UICurX value.</li>
-</ul>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UICurX">$.UICurX</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p><a href="#UISlider">$.UISlider</a></p>
-
-<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIDrag"></a></p>
-
-<h2 id="function_uidrag">Function: $.UIDrag</h2>
-
-<p>A method that holds a number of properties and functions to handle mouse-based dragging. Its members are: obj (the object being dragged), init (setup for dragging), start (executed when a drag begins), end (executed when a drag ends), fixE (resolves calculating the x and y coordinates) and updateSliderProgressIndicator (updates the track progress indicator as the slider&#8217;s thumb is dragged).</p>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
-
-<p><a href="#UICurX">$.UICurX</a></p>
-
-<p><a href="#UICurY">$.UICurY</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UIDrag_init"></a></p>
-
-<h2 id="function_uidraginit">Function: $.UIDrag.init</h2>
-
-<p>A method to step up mouse-based dragging. It automatically initializes the slider&#8217;s thumb for dragability. Its parameters are derived automatically from the selector, the slider&#8217;s thumb, the slider&#8217;s length and several predefined values.</p>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UIDrag">$.UIDrag</a></p>
-
-<p><a href="#UISliderForMouse">$.UISliderForMouse</a></p>
-
-<p>&nbsp;</p>
-
-<p><a name="UISliderForMouse"></a></p>
-
-<h2 id="function_uisliderformouse">Function: $.UISliderForMouse</h2>
-
-<p>Method to initialize a range slider for mouse interaction. This gets invoke the $.UISlider. It uses $.UIDrag.init to set the slider for mouse dragging. It will also execute any callback passed to $.UISlider. It receives all of its parameters from $.UISlider.</p>
-
-<p><strong>Syntax:</strong></p>
-
-<pre><code>$.UISliderForMouse(selector, options);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
-<ul>
-<li>selector: a selector identifying the slider.</li>
-<li>options: an object literal of possible values for the slider:</li>
-</ul>
-
-<p><strong>See Also:</strong></p>
-
-<p><a href="#UISlider">$.UISlider</a></p>
-
-<p><a href="#UIDrag_init">$.UIDrag.init</a></p>
-
-<p><a href="#UISliderValue">$.UISliderValue</a></p>
 
 <p>&nbsp;</p>
 
@@ -1877,80 +1641,77 @@ $.UISlider("#redSlider", { callback: updateColorFromSlider });
 
 <p>&nbsp;</p>
 
-<p><a name="UISpinner"></a></p>
+<p><a name="UIStepper"></a></p>
 
-<h2 id="function_uispinner">Function: $.UISpinner</h2>
+<h2 id="function_uispinner">Function: $.UIStepper</h2>
 
-<p>A method to create a spinner for a set of values. The values can be a set of strings, such as days or months, or a range of number, such as from 0-9. The method expects the presence of a spinner tag. See examples below. When this method initializes the spinner tag, it also creates a hidden input tag where the values of the spinner are stored. </p>
+<p>A method to create a stepper for a set of values. The values can be a set of strings, such as days or months, or a range of number, such as from 0-9. The method expects the presence of a stepper tag. See examples below. When this method initializes the stepper tag, it also creates a hidden input tag where the values of the stepper are stored. </p>
 
 <p>The method takes a set of options passed as an object literal. The possible values are as follows.</p>
 
 <ul>
-<li>selector: A selector defining the spinner to initialize.</li>
-<li>name: A name for the spinner&#8217;s input.</li>
-<li>range: value: The range.value object is used to pass in a set of strings as values for the spinner. See examples below for how to use it.</li>
-<li>range: Two create a numeric spinner, you can pass in the start and end values using range.start and range.end. See the examples below.</li>
-<li>step: A numerical value by which to increase or decrease the value of the spinner. This is for use with numeric values, allowing you to create a spinner whose numeric value increase by steps.</li>
-<li>defaultValue: If the spinner is numeric, a numeric value should be passed. If the spinner&#8217;s values are strings, a default string value can be passed. If no default value is passed, the spinner will be set to the first value of the array of strings or numbers.</li>
-<li>buttonClass: Any valid class names. Use clases to customize the colors of the spinner&#8217;s increase and decrease buttons.</li>
-<li>indicator: By default the spinner has increase and decrease buttons with up and down arrows. If you want to instead have &#8220;plus&#8221; and &#8220;minus&#8221; symbols, you can pass the value &#8220;plus&#8221;.</li>
+<li>selector: A selector defining the stepper to initialize.</li>
+<li>name: A name for the stepper&#8217;s input.</li>
+<li>range: value: The range.value object is used to pass in a set of strings as values for the stepper. See examples below for how to use it.</li>
+<li>range: Two create a numeric stepper, you can pass in the start and end values using range.start and range.end. See the examples below.</li>
+<li>step: A numerical value by which to increase or decrease the value of the stepper. This is for use with numeric values, allowing you to create a stepper whose numeric value increase by steps.</li>
+<li>defaultValue: If the stepper is numeric, a numeric value should be passed. If the stepper&#8217;s values are strings, a default string value can be passed. If no default value is passed, the stepper will be set to the first value of the array of strings or numbers.</li>
+<li>buttonClass: Any valid class names. Use clases to customize the colors of the stepper&#8217;s increase and decrease buttons.</li>
+<li>indicator: By default the stepper has increase and decrease buttons with up and down arrows. If you want to instead have &#8220;plus&#8221; and &#8220;minus&#8221; symbols, you can pass the value &#8220;plus&#8221;.</li>
 </ul>
 
 <p><strong>Syntax:</strong></p>
 
-<pre><code>$.UISpinner(options);
+<pre><code>$.UIStepper(options);
 </code></pre>
 
-<p>The markup for this spinner would be:</p>
+<p>The markup for this stepper would be:</p>
 
-<pre><code>&lt;spinner id="range2"&gt;&lt;/spinner&gt;
+<pre><code>&lt;stepper id="range2"&gt;&lt;/stepper&gt;
 </code></pre>
 
-<p>You could inject a spinner into a document dynamically using this:</p>
+<p>You could inject a stepper into a document dynamically using this:</p>
 
-<pre><code>$("#tableview1").insert("&lt;spinner id='spinner1'&gt;&lt;/spinner");
+<pre><code>$("#tableview1").insert("&lt;stepper id='stepper1'&gt;&lt;/stepper");
 </code></pre>
 
-<p>Then you could initialize it with $.UISpinner.</p>
+<p>Then you could initialize it with $.UIStepper.</p>
 
 <p><strong>Examples:</strong> </p>
 
-<pre><code>$.UISpinner({
+<pre><code>$.UIStepper({
     selector: "#days", 
-    buttonClass: "ui-custom-tint green", 
     range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']}
 });
 
-$.UISpinner({
+$.UIStepper({
     selector: "#months", 
-    buttonClass: "ui-custom-tint green", 
     range: {values: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
     defaultValue: "Mar"
 });
 
-$.UISpinner({
+$.UIStepper({
     selector: "#date", 
-    buttonClass: "ui-custom-tint green", 
     range: {start: 0, end: 31},
     defaultValue: 10,
 });
 
-$.UISpinner({
+$.UIStepper({
     selector: "#range1", 
     range: {start: 0, end: 40},
     step: 4
 });
 
-$.UISpinner({
+$.UIStepper({
     selector: "#range2", 
-    buttonClass: "ui-custom-tint green", 
+    buttonClass: "ui-custom-tint", 
     range: {start: 3, end: 30},
     defaultValue: 9,
     step: 3,
     indicator: "plus"
 });
 
-$.UISpinner({
+$.UIStepper({
     selector: "#range3", 
     buttonClass: "ui-custom-tint green", 
     range: {start: 0, end: 96},
@@ -1960,7 +1721,7 @@ $.UISpinner({
 });
 </code></pre>
 
-<p>Please examine the examples in spinner.html in the examples folder of the source code.</p>
+<p>Please examine the examples in stepper.html in the examples folder of the source code. Notice that you can pass in a custom class for the stepper's buttons. You can use these classes to style the background color of the buttons to suit your branding needs.</p>
 
 <p>&nbsp;</p>
 
@@ -2039,7 +1800,7 @@ $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#showPopover1").bind("click", function() {
+<pre><code>$("#showPopover1").on("click", function() {
     $.UIPopover.show($("#popover1"));
 });
 </code></pre>
@@ -2066,7 +1827,7 @@ $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover
 <p><strong>Example:</strong></p>
 
 <pre><code>$$("popover uibutton[ui-implements=done]").forEach(function(item) { 
-    item.bind("click", function() {
+    item.on("click", function() {
         var popover = item.ancestor("popover");
         $.UIHidePopover("#" + popover.id);
     });
@@ -2094,7 +1855,7 @@ $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#hidePopover").bind("click", function() {
+<pre><code>$("#hidePopover").on("click", function() {
     $.UIHidePopover($("#popover1"));
 });
 </code></pre>

@@ -1,0 +1,40 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf320
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww11320\viewh14200\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 Added new array methods:\
+eq: when used with an array of nodes return by $$, it returns the array index equal to the argument passed. Numbering starts at 0.\
+is: returns an array of all indexes matching the argument passed. Possible filters are tag, class or attribute.\
+has: returns an array of all indexes whose children match the argument. Possible filters are tag, class or attribute.\
+not: returns an array of all indexes not matching the argument passed. Possible filters are tag, class or attribute.\
+\
+Added new element methods:\
+is: returns the element if it matches the argument passed.\
+not: returns  the element if it does not match the argument passed.\
+has: returns  the element if it child nodes match the argument passed.\
+hasNot: returns  the element if it child nodes do not match the argument passed.\
+prependTo: when executed on an array of nodes, it prepends them sequentially to the node passed as an argument.\
+appendTo: when executed on an array of nodes, it appends them sequentially to the node passed as an argument.\
+noop: a "no operation performed" or empty array for passing as an argument where a function is expected.\
+concat: takes the arguments and returns them as a single string. The argument can be an array of elements, or a comma separated series of strings passed as arguments.\
+childElements: returns the child nodes of an element. If no argument is passed, it returns all child nodes, otherwise it returns child nodes that match the argument passed. Possible filters are tag, class or attribute.\
+kids: alias for childElements.\
+siblings: returns the siblings of an element. If no argument is passed, it returns all siblings, otherwise it returns the siblings based on matches with the argument passed. Possible filters are tag, class or attribute.\
+closest: alias for ancestor, to match jQuery/Zepto function of the same name.\
+\
+- $.uuidNum: a function to return a unique uuid for use by the cache system.\
+- $.makeUuid: uses $.uuidNum to create a unique id for elements that don't have an id to identify them to the cache system.\
+- $.uuid: this is used to increase the uuid each time a new id is required.\
+- $.chch_cache: this is the cache\
+- $.chch_cache.data: this member holds the keys and values of the cache.\
+- $.chch_cache.data.keys: the keys hold ids of nodes that have caches stored.\
+- $.chch_cache.data.values: the values corresponding to keys associated with nodes. Values can be a variable, string, array, boolean, object or function.\
+- $.chch_cache.data.set: a method to set a key and value for a node.\
+- $.chch_cache.data.get: a method to return the value of a key.\
+- $.chch_cache.data.keyExists: a method that returns a boolean 'true' if the key exists.\
+- $.chch_cache.data.hasData: a method that returns a boolean 'true' if the key has a corresponding value.\
+- $.chch_cache.data.delete: a method that removes a key and its value from the cache.\
+- Element.cache: a method that allows you to set a key/value pair for a node or to retrieve the cache value for a node.\
+- Element.uncache: a method that deletes the key/value associated with a node.}
