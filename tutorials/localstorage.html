@@ -32,7 +32,7 @@ $.deleteLocalItem("clientLastName");
 
 <p>This method deletes the domain's entire localStorage. This does not affect localStorage for other domains.</p>
 
-<pre><code>$.ready(function() {
+<pre><code>$(function() {
     if (!$.localItem("agreement") {
         $.clearLocalItems();
     }
@@ -54,7 +54,7 @@ $.localItem("timestamp", timestamp);
 
 // Next time the app launches:
 
-$.ready(function() {
+$(function() {
     var presentTime = new Date();
     presentTime = presentTime.getTime();
     var expiration = $.localTime("timestamp");
@@ -88,7 +88,7 @@ $.localItem("savedCache", docCache);</p>
 
 <p>And next time the app launches you can check:</p>
 
-<pre><code>$.ready(function() {
+<pre><code>$(function() {
     var tempDate = new Date().getTime();
     var oldDate = $.localItem("timestamp");
     // Since 36000 miliseconds are in an hour,

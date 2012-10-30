@@ -34,7 +34,7 @@ result.keyWillUpdate = function(object, key, currentValue, newValue) {
 <p>To make all this happen, we bind a click event on the checkbox to publish its value. That's all there is to it.</p>
 
 <pre><code>// When the button is clicked, set the checked key of the kvo object to true:
-checkbox.bind("click", function() { 
+checkbox.on("click", function() { 
     kvo.set('checked', this.checked); 
 });
 </code></pre>
@@ -65,7 +65,7 @@ label.keyWillUpdate = function(object, key, currentValue, newValue) {
 <p>To make it all happen we bind a "keyup" event on the text input which publishes its value.</p>
 
 <pre><code>// Bind a keyup event to trigger the updating of the key value to the value of the input.
-input.bind("keyup", function() {
+input.on("keyup", function() {
     kvo.set("text", this.value);
 });
 </code></pre>

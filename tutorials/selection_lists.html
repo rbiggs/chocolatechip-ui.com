@@ -35,7 +35,7 @@
 
 <p>The following code will output the <em>ui-value</em> of the selection list item to a container with the id "#activityChoices". Notice the term "item" passed in as a parameter to the anonymous function passed to UISelectionList. This becomes a reference to "this" or the item being chosen inside the UISelectionList method so that you can define what to do with it in your callback.</p>
 
-<pre><code>$.ready(function() {
+<pre><code>$(function() {
     $("#activityChoices").UISelectionList(function(item){
         $("#selectionResponse").fill(item.getAttribute("ui-value"));
     });

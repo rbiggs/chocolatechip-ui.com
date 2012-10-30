@@ -49,6 +49,12 @@
 <p>When there is an orientation change to portrait mode, the split view hides the root view and shows a button in the detail view's header with the name of the hidden root view. This button will toggle the visibility of the root view, which in portrait mode appears as a popover. When the user turns the tablet back to landscape mode, the popover get converted back to its normal root view layout.</p>
 
 
+<p class="illustration">
+<img src="screenshots/splitview-2.png" alt="Split View" />
+<img src="screenshots/splitview-3.png" alt="Split View" />
+<img src="screenshots/splitview-4.png" alt="Split View" />
+<img src="screenshots/splitview-5.png" alt="Split View" /></p>
+
 <p>If you&#8217;d prefer to not have the rootview hidden in portrait mode, you can add a class of &#8220;SplitViewFixed&#8221; to your app&#8217;s body tag. Then the rootview and detailview will remain visible in all orientations, with the detail view resizing depending on the amount of width available to it.</p>
 
 <p><strong>Example:</strong></p>
@@ -95,11 +101,8 @@
 &lt;/body&gt;
 </code></pre>
 
-
-<p>Please see the file "split-view-1.html" in the examples folder for a working example. Below are screenshots of the split view with different orientations and how the layout adjusts itself automatically.</p>
-
 <p class="illustration">
-<img src="screenshots/splitview-2.png" alt="Split View" />
-<img src="screenshots/splitview-3.png" alt="Split View" />
-<img src="screenshots/splitview-4.png" alt="Split View" />
-<img src="screenshots/splitview-5.png" alt="Split View" /></p>
+<img src="screenshots/splitview_fixed1.png" alt="Split View Fixed Landscape" />
+<img src="screenshots/splitview_fixed2.png" alt="Split View Fixed Portrait" /></p>
+
+<p>Please see the files "splitview.html" and "splitview-fixed.html" in the examples folder for a working example.</p>
