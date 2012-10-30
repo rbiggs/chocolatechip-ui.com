@@ -50,7 +50,7 @@ progressbar.gold {
 
 <p>Here are the best practices for using a progress bar. Before beginning the Ajax call, show the progress bar. When there is a success returned, remove the progress bar then insert the returned data. If an error is returned, remove the progress bar then inform the user however you wish of the problem. If you want to show a progress bar in the navbar of your app, you will need to hide the navbar title and then show it when you remove the progress bar. ChocolateChip-UI provides two methods: Element.UIHideNavBarHeader() and Element.UIShowNavBarHeader() to make this easier. The following code shows how to toggle the appearance of a progress bar in a navbar by binding a click event on a button:</p>
 
-<pre><code>$(".toggleProgressBar").on("click", function() {
+<pre><code>$(".toggleProgressBar").bind("click", function() {
     if (this.text().trim() == "Show") {
         this.UIToggleButtonLabel("Show", "Hide");
         $("navbar &gt; h1").UIHideNavBarHeader();

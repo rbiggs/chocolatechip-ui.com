@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-	<meta name="viewport" content="width=device-height">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" button-content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
     <meta name="apple-mobile-web-app-capable" button-content="yes">
 	<title>ChocolateChip-UI</title>
 	<link rel="stylesheet" href="css/main.css" />
@@ -54,7 +54,7 @@
 	<p>This project came about after using various Web app development frameworks. These didn't work as I expected, or wanted or needed. After two years of fighting against them, I had had enough. I decided to create my own framework. I wanted something that would be small, uncomplicated, and easy to maintain, learn, understand, extend and update. And did I say small? Yep, small was the number one reason. But being intuitive and easy to understand were also very high on the list. Easy to figure out and easy to understand means you can get your work done faster. The quality of visual presentation was also way up there. After all, the look and feel of an app can count more than anything else, sort of like Hollywood.</p>
 	
 	<h3>In The Beginning There Was ChocolateChip.</h3>
-	<p>First I created the light weight ChocolateChip JavaScript libarary for mobile Web app development. I didn't bother building in support for ancient browsers like IE6. I built it to support the latest standards for ECMAScript 5. That gives ChocolateChip a lot of advantages over desktop libraries&mdash;it can be small, modern and efficient. I think it hit the mark</p>
+	<p>First I created the light weight ChocolateChip JavaScript libarary for mobile Web app development. I didn't bother building in support for ancient browsers like IE6. I built it to support the latest standards for ECMAScript 5. That gives ChocolateChip a lot of advantages over desktop libraries&mdash;it can be small, modern and efficient. Since it's only 12k minified, I think it hit the mark</p>
 	
 	<p>I spent some time trying to find the right name for the project. Sun had Java, Apple had Cocoa. Since some of my coworkers had been holding regular "chocolate tasting" get-togethers at work, I thought, "Well, I like chocolate. Chocolate is pure pleasure. And this framework is really a pleasure to work with and it's really small." Then it hit me like a sack of cocoa beans falling from an airplane: ChocolateChip&mdash;it's tiny, but delicious.</p>
 	
@@ -70,9 +70,6 @@
 	
 	<p>If you're not satisfied with the functionality of a control, feel free to subclass it. (If you're not sure how to subclass, see the tutorial on subclassing for more details.) Same thing with the styles. Take the CSS and make it yours. I've put a lot of work into making this framework as identical to iOS as was possible. This was based on extensive documentation from Apple, as well as numerous screenshots from application interfaces on iOS devices. I also plan on releasing a version for Android Web apps with a similar level of fidelity, so if you're an Android developer, come back every so often to check on the progress. Or, feel free to fork this and make it do what you need it to now. Take the initiative and break some ground.</p>
 	
-	<h3>One UI to Rule the Three</h3>
-	<p>Although I originally created ChocolateChip-UI using my own JavaScript library&mdash;ChocolateChip.js&mdash;I eventually created a version that worked with jQuery, and then another version that worked with Zepto. Unfortunatley that resulted in three distinct code bases, which meant three times the work to support, update, fix bugs and add new features. I was feeling crush by the weight. So in May of 2012 I started work on a single version of ChocolateChip-UI that could run on top of ChocolateChip.js, jQuery or Zepto. I created an abstraction layer to deal with the difference in how these libraries handle DOM nodes, attributes, events, loops, and context. This has the added benefit that ChocolateChip-UI is now exactly the same on all three libraries. Although ChocolateChip-UI iteself can run on top of either of the three libraries, you still need to write your client-side code according to the conventions of the underlying library. Look at the examples provided for each library to see how best to put things together.</p>
-	
 	<h3>Web Apps are People too!</h3>
 	<p>One of the driving forces behind the creation of this framework was the desire to get mobile Web apps out of the "<a href="http://en.wikipedia.org/wiki/Uncanny_valley">uncanny valley</a>". This is the theory that states that when robots reach a certain level of similarity to humans they create a response of revulsion. After crossing that threshold with an increase in human-likeness, the revulsion is replaced with empathy. Mobile Web apps are presently stuck in the depths of the uncanny valley because their appearance and interaction feel clunky, not quite for real and at times out right Webby. Framework authors are contributing to this problem by creating generic themes that look like baubles designed for toddlers to suck on. End users can see the difference right away and therefore perceive the so-called Web apps as cheap, poorly implemented, of little monetary value and probably not very useful. ChocolateChip-UI is an attempt to pull Web apps up out of that valley of revulsion by offering controls and interfaces that are much closer to the look and feel of native apps. This is not to trick the end user but to get past prejudices so that the user can judge the app on its own merits.</p>
 	
@@ -83,12 +80,17 @@
 	
 	<h3>Offerings To The Goddess Of Chocolate.</h3>
 	<p>Special thanks to <a href="http://www.linkedin.com/profile/view?id=11293003&authType=name&authToken=rTAv&goback=%2Econ">Puja Soto</a>, a dear friend and colleague. Inspired by her love for chocolate and appreciation for ChocolateChip-UI, she created this site's scrumptious design. She also created the SVG images for resolution independent icons in ChocolateChip-UI.</p>
+	
+	<p>By the way, this site uses ChocolateChip.js for managing the menus, performing Ajax calls and other assorted functionality.</p>
+	
 </div>
 <div class="secondary-section">
 	<h2>Links</h2>
 	<ul id="side-menu">
 		<li><a href="https://github.com/rbiggs/chocolatechip">ChocolateChip.js on GitHub</a></li>
 		<li><a href="https://github.com/rbiggs/chocolatechip-ui">ChocolateChip-UI on GitHub</a></li>
+		<li><a href="https://github.com/rbiggs/chocolatechip-ui-jq">ChocolateChip-UI for jQuery on GitHub</a></li>
+		<li><a href="https://github.com/rbiggs/chocolatechip-ui-zepto">ChocolateChip-UI for Zepto on GitHub</a></li>
 		<li><a href="http://groups.google.com/group/chocolatechip-ui?hl=en">ChocolateChip-UI Forum</a></li>
 		<li><a href="http://chocolatechipmobile.wordpress.com/">ChocolateChip-Mobile.net</a></li>
 		<li><a href="http://www.css3wizardry.com">CSS3Wizardry.com</a></li>

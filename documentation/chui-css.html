@@ -11,9 +11,9 @@
 ChocolateChip-UI: A framework for mobile Web app development.
 ChUI.css: Good looks do impress
 
-Copyright 2012 Robert Biggs: www.choclatechip-ui.com
+Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 2.0
+Version 0.8 beta
 </code></pre>
 
 <p>&nbsp;</p>
@@ -368,8 +368,10 @@ switchcontrol.myCustomColor &gt; label[ui-implements=off] {
 
 <p>You can override the default colors of the action sheet by placing new styles for the its default styles in your document's head. Search for action sheet in ChUI.css to find its default styles. Some of the possible styles you could modify are illustrated below:</p>
 
-<pre><code>&lt;head&gt;
-&lt;style&gt;
+<p><head>
+...</p>
+
+<p><style>
     /* This will create a yellow to red gradient on the actionsheet: */
     actionsheet {
         background-image:
@@ -386,9 +388,8 @@ switchcontrol.myCustomColor &gt; label[ui-implements=off] {
             from(rgba(255,255,0,0.85)),
             to(rgba(225,0,0,0.85)));
     }
-&lt;/style&gt;
-&lt;/head&gt;
-</code></pre>
+</style>
+</head></p>
 
 <p>When modifying CSS gradients remember that the first gradient defined will be topmost and the last will be bottommost.</p>
 
@@ -447,43 +448,11 @@ $("view#main > subview").UIProgressBar({className: "green"});</p>
 
 <h2>Control: slider</h2>
 
-<p>This control has been replaced by the native <a href='#range_input'>HTML5 range input</a>.</p>
+<p>The slider is a simple control consisting of a track with a thumb. The visual complexity of the slider's track is implemented with CSS gradients. As the thumb is dragged, ChocolateChip-UI's JavaScript methods keep track of the position of the thumb and resize the blue gradient to match the thumb's position. The blue progress track is not a separate element but just a second gradient stacked over the underlying base gradient of the slider.</p>
 
-
-<p><a name="range_input"></a></p>
-<p>&nbsp;</p>
-
-<h2>Control: range input</h2>
-<p>The HTML5 range input provides a native way to implement sliders and especially sliders with stepping ability. To implement it you just give the input a type of 'range': <code>&ltinput type="range"&gt;</code></p>
-
-<p>The range input consists of two parts: a track and thumb. Any styles applied to the range input will affect the appearance of the track. To access the thumb you need to use a pseudo element. To change the look of the track, you can change the height, border radius, background image gradient and box shadow:</p>
-
-<pre><code>
-input[type="range"] {
-    height: 20px;
-    border-radius: 10px;
-    background-image: 
-		-webkit-linear-gradient(top, yellow, orange 40%, red);
-	 box-shadow: 0 3px 5px #000;
-}
-</code></pre>
-
-<p>Similarly, if you want to style the range input&#8217;s thumb, you can do so using its thumb pseudo element. You can change its height, width, border radius, background image gradient and box shadow. You could even use a png background image. Getting rid of the border radius and giving it borders, you could make it square or rectangular.</p>
+<p><strong>Note:</strong> For the slider to work properly you need to output the width you desire for the slider directly on it using an inline style setting, such as: <em>style="width: 186px;"</em>. This allows you to give each slider a different width depending on your needs. ChocolateChip-UI's methods will query this assigned width and use it for dragging the thumb and updating the slider's progress track.</p>
 
 <p>The slider's thumb has a child element called thumbprop. This exists purely for stylistic purposes to create more realistic, beveled appearances. Please refer to the documentation for the slider in ChUI.js and WAML for information on how to set up and use a slider.</p>
-
-<pre><code>
-input[type="range"]::-webkit-slider-thumb {
-	width: 20px;
-	height: 20px;
-	border-radius: 20px;   
-	background-image:
-		-webkit-linear-gradient(bottom, #8e8e8e, #fff);
-	box-shadow: inset 0 -2px rgba(0,0,0,0.3), 0 0px 1px rgba(0,0,0,0.5);
-}
-</code></pre>
-
-<p>Because of the way that browsers render the range input, the range&#8217;s thumb is not exposed to client-side JavaScript. This means there is no way for us to find out what position it is in pixels in relation of the pixel width of the range&#8217;s track. Therefore there is no way to reproduce the bluish track that most real world range sliders display on the left side of the thumb as the user drags it along.</p>
 
 <p>There are two possible looks for the slider. The default is a plastic look. By giving the slider a class of <em>media-player</em> it takes on a metallic look. You can modify the following properties in your document's head tag to override the default styles, or you could create a new class:</p>
 

@@ -11,9 +11,9 @@
 ChocolateChip-UI: A framework for mobile Web app development.
 WAML: Web App Markup Language
 
-Copyright 2012 Robert Biggs: www.choclatechip-ui.com
+Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 2.0
+Version 1.0
 </code></pre>
 
 <p>&nbsp;</p>
@@ -72,7 +72,7 @@ how to judge their correctness. Although a validator will not know about WAML ta
 
 <h2 id="waml_inline_and_inline_box_elements">WAML inline and inline-box elements:</h2>
 
-<p>WAML introduces the following elements: uibutton, segmentedcontrol, icon, switchcontrol, thumb, thumbprop, checkmark, deletedisclosure.</p>
+<p>WAML introduces the following elements: uibutton, segmentedcontrol, icon, slider, switchcontrol, thumb, thumbprop, checkmark, deletedisclosure.</p>
 
 <p>&nbsp;</p>
 
@@ -970,24 +970,45 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <h2 id="tag_slider">Tag: slider</h2>
 
-<p>The slider tag has been deprecated in favor of the <a href="#tag_range">HTML5 range input</a>.</p>
+<p>The slider tag is used for implementing a draggable value slider. At present ChocolateChip-UI provides only a horizontal slider. This does not yet offer ticks or steps. You will have to calculate the returned values using the methods and values with the $.UISlider and its related methods. For the slider to work properly you need to output the width you desire for the slider directly on it using an inline style setting, such as: <em>style=&#8221;width: 186px;&#8221;</em>. This allows you to give each slider a different width depending on your needs. ChocolateChip-UI&#8217;s methods will query this assigned width and use it for dragging the thumb and updating the slider&#8217;s progress track.  Please refer to the documentation for slider and $.UISlider in ChUI.css and ChUI.js for more information.</p>
 
+<p><strong>See Also:</strong></p>
+
+<p><a href="#thumb">thumb</a></p>
+
+<p><a href="#thumbprop">thumbprop</a></p>
 
 <p>&nbsp;</p>
 
-<p><a name="range"></a></p>
+<p><a name="thumb"></a></p>
 
-<h2 id="tag_range">Tag: range</h2>
+<h2 id="tag_thumb">Tag: thumb</h2>
 
-<p>ChocolateChip-UI uses the HTML5 range input. To get it to work, just use a normal input control with it's type set to range. Optionally you can set steps, as well as a min and max value for the range. To initalize the range control you just need to bind a <strong>change</strong> event to it. Please look in ChUI.js for documentation about how to handle user interaction with the range input.</p>
+<p>The thumb tag provides an affordance for dragging or switching depending on the control that uses it. Both the switchcontrol and the slider use thumb tags. A thumb tag always has a thumbprop tag as a child element.</p>
 
-<pre><code>
-&lt;input type="range" id="rangeControl1" value="10" min="0" max="40"&gt;
+<p><strong>See Also:</strong></p>
 
-&lt;input type="range" id="rangeControl2" step='5' value="20" min="0" max="40"&gt;
-</code></pre>
+<p><a href="#slider">slider</a></p>
 
-<p>Using CSS you can customize the look of the range input&#8217;s track and thumb to suit your needs. Please look in ChUI.css for documentation about how to style the range input. 
+<p><a href="#thumbprop">thumbprop</a></p>
+
+<p><a href="#switchcontrol">switchcontrol</a></p>
+
+<p><a name="thumbprop"></a></p>
+
+<p>&nbsp;</p>
+
+<h2 id="tag_thumbprop">Tag: thumbprop</h2>
+
+<p>This tag server merely as a prop for styling rendering on a thumb. Its used for adding great styling depth, such as inner border, shadows or gradients to create a more realistic thumb.</p>
+
+<p><strong>See Also:</strong></p>
+
+<p><a href="#slider">slider</a></p>
+
+<p><a href="#thumb">thumb</a></p>
+
+<p><a href="#switchcontrol">switchcontrol</a></p>
 
 <p>&nbsp;</p>
 
@@ -1090,28 +1111,28 @@ This layout has the celltitle aligned right and the cellsubtitle aligned left so
 
 <p>This tag creates an animated progress bar. The defaults are: height: 15px, width: 100px and has its margins set to 10px auto so that it centers in its container. Its background color controls the color of the stripes. The default is rgb(56,138,213). You can change the default color by adding a class to the progress bar and then defining a different background-color for the progress bar. In most cases you&#8217;ll want to create and delete it with JavaScript. Please see the tutorial for UIProgressBar.</p>
 
-<h2 id="tag_spinner">Tag: stepper</h2>
+<h2 id="tag_spinner">Tag: spinner</h2>
 
-<p>This tag create a stepper for a set of data, which might be strings or integers. The structure of a stepper is so:</p>
+<p>This tag create a spinner for a set of data, which might be strings or integers. The structure of a spinner is so:</p>
 
-<pre><code>&lt;stepper id="days" data-range-value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"&gt;
+<pre><code>&lt;spinner id="days" data-range-value="Sun,Mon,Tue,Wed,Thu,Fri,Sat"&gt;
     &lt;uibutton class="ui-custom-tint green disabled" ui-implements="icon"&gt;
         &lt;icon&gt;&lt;/icon&gt;
     &lt;/uibutton&gt;
-    &lt;label ui-kind="stepper-label"&gt;Sun&lt;/label&gt;
+    &lt;label ui-kind="spinner-label"&gt;Sun&lt;/label&gt;
     &lt;input type="text"&gt;
     &lt;uibutton class="ui-custom-tint green" ui-implements="icon"&gt;
         &lt;icon&gt;&lt;/icon&gt;
     &lt;/uibutton&gt;
-&lt;/stepper&gt;
+&lt;/spinner&gt;
 </code></pre>
 
-<p>However, to make a stepper all you need to to is put a basic stepper tag in you document and initialize. You can put the stepper tag there by hand coding it, or by injecting it dynamically with JavaScript. You put the tag in your document with a unique identifier, such as an id or class, unless you simply intend to use a complex CSS3 selector to target the stepper. The tag should be like this:</p>
+<p>However, to make a spinner all you need to to is put a basic spinner tag in you document and initialize. You can put the spinner tag there by hand coding it, or by injecting it dynamically with JavaScript. You put the tag in your document with a unique identifier, such as an id or class, unless you simply intend to use a complex CSS3 selector to target the spinner. The tag should be like this:</p>
 
-<pre><code>&lt;stepper&gt;&lt;/stepper&gt;
+<pre><code>&lt;spinner&gt;&lt;/spinner&gt;
 </code></pre>
 
-<p>You would then init the stepper using the $.UIStepper method while passing in the arguments for the stepper. See the documentation on Chui.js and the Tutorial on steppers for more information about how to initialize a stepper.</p>
+<p>You would then init the spinner using the $.UISpinner method while passing in the arguments for the spinner. See the documentation on Chui.js and the Tutorial on spinners for more information about how to initialize a spinner.</p>
 
 <h2 id="tag_popover">Tag: popover</h2>
 

@@ -1,27 +1,25 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-	<meta name="viewport" content="width=device-height">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" button-content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
     <meta name="apple-mobile-web-app-capable" button-content="yes">
 	<title>ChocolateChip-UI</title>
 	<link rel="stylesheet" href="css/main.css" />
 	<style type="text/css">
 		#wait { width: 50%; margin: 0 auto; }
 	</style>
-	<script src="scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="scripts/chocolatechip.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(function() {
-			var tutorialmenu = $("#side-menu a");
-			$.extend({
+			var tutorialmenu = $$("#side-menu a");
+			$.extend($, {
 				UISelectedTutorialItem : null
 			});
 			var UITutorialContainer = $("#tutorial_container");
-			
-			$.each(tutorialmenu, function(idx, item) {
-				var item = $(item);
-				item.on("click", function(e) {
+			tutorialmenu.forEach(function(item) {
+				item.bind("click", function(e) {
 					if (item.hasClass("selected")) {
 						e.preventDefault();
 					} else {
@@ -29,17 +27,17 @@
 						if (!!$.UISelectedTutorialItem) {
 							$($.UISelectedTutorialItem).removeClass("selected");
 						}
-						$.UISelectedTutorialItem = "#" + item[0].id
+						$.UISelectedTutorialItem = "#" + item.id
 						item.addClass("selected");
-						var tutorialChoice = $($.UISelectedTutorialItem)[0].href;
+						var tutorialChoice = $($.UISelectedTutorialItem).href;
 						tutorialChoice = tutorialChoice.split("#");
 						tutorialChoice = "tutorials/" + tutorialChoice[1];
-						$.ajax(tutorialChoice, {
-							success: function(data) {
+						item.xhr(tutorialChoice, {
+							successCallback: function() {
 								UITutorialContainer.empty();
-								UITutorialContainer.html(data).hide().fadeIn();
+								UITutorialContainer.insert($.responseText);
 							},
-							error: function(e) {
+							errorCallback: function(e) {
 								return e;
 							}
 						})
@@ -95,7 +93,7 @@
 		<li><a id="t_14" href="#switch_controls.html">Switch Controls</a></li>
 		<li><a id="t_15" href="#popups.html">Popups</a></li>
 		<li><a id="t_16" href="#action_sheets.html">Action Sheets</a></li>
-		<li><a id="t_17" href="#range_input.html">Range Input</a></li>
+		<li><a id="t_17" href="#slider.html">Slider</a></li>
 		<li><a id="t_18" href="#activity_indicators.html">Activity Indicator</a></li>
 		<li><a id="t_19" href="#expander.html">Expander</a></li>
 		<li><a id="t_20" href="#splitview.html">Split View</a></li>
@@ -104,12 +102,9 @@
 		<li><a id="t_23" href="#ellipsis.html">Ellipsis</a></li>
 		<li><a id="t_24" href="#progressbar.html">Progress Bar</a></li>
 		<li><a id="t_25" href="#custom_tints.html">Custom Tints</a></li>
-		<li><a id="t_26" href="#subclassing.html">Extending</a></li>
-		<li><a id="t_27" href="#templates.html">Templates</a></li>
-		<li><a id="t_28" href="#data_binding.html">Data Binding</a></li>
-		<li><a id="t_29" href="#routing.html">Routing</a></li>
-		<li><a id="t_30" href="#forms.html">Forms</a></li>
-		<li><a id="t_31" href="#ajax.html">Ajax</a></li>
+		<li><a id="t_26" href="#subclassing.html">Extending &amp; Subclassing</a></li>
+		<li><a id="t_27" href="#localstorage.html">LocalStorage</a></li>
+		<li><a id="t_28" href="#ajax.html">Ajax</a></li>
 	</ul>
 </div>
 </div>

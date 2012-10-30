@@ -60,7 +60,7 @@ popover.find("scrollpanel").insert('&lt;tableview ui-kind="grouped"&gt;\
 
 <p><strong>Example:</strong></p>
 
-<pre><code>$("#showPopover1").on("click", function() {
+<pre><code>$("#showPopover1").bind("click", function() {
     $.UIPopover.show($("#popover1"));
 });
 </code></pre>
@@ -77,25 +77,3 @@ popover.find("scrollpanel").insert('&lt;tableview ui-kind="grouped"&gt;\
 });
 </code></pre>
 
-<h1>Customizing the look of the popover</h1>
-
-<p>If you want to customize the colors of the popovers, you just need to style the default values in your app's header stylesheet. Here is an example:</p>
-
-<p class="illustration"><img src="screenshots/customized_popover.png" alt="A customized popover" title="A customized popover" /></p>
-
-<pre><code>popover#popover2  {
-	background-color: red;
-}
-popover#popover2  > header {
-	background-image: 
-	 -webkit-linear-gradient(top, yellow, orange 50%, red 50%);
-}
-popover#popover2:after {
-	background-color: yellow !important;
-}
-#popover2[ui-pointer-position*=bottom]:after {
-	background-color: red;
-}
-</code></pre>
-
-<p>From the above example, there are four areas that need styling: the background color for the popover, the gradient for the header, the background color for the pointer if on top or on bottom. The bottom of the header gradient should be the same as the background color of the popover. Similarly, the background pointer for the pointer when it's on top should be the same as the topmost color in the header's gradient. And the pointer when positioned on the bottom should have the same color as the popover's background. That's all there is to it.<p>

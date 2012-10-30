@@ -187,7 +187,7 @@ $("scrollpanel").UISegmentedControl();
 <p><strong>Example:</strong></p>
 
 <pre><code>$$("#mySpecialSegmentedControl &gt; uibutton").forEach(function(button) {
-    button.on("touchstart", function() {
+    button.bind("touchstart", function() {
         var segCtlVal = $("#mySpecialSegmentedControl").
             getAttribute("ui-selected-index");
         switch (segCtlVal) {

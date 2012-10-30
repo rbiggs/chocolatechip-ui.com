@@ -9,24 +9,10 @@ html, body
 }
 body {
 	overflow-y: scroll;
-	min-width: 1024px;
-	width: 100%;
-}
-
-@media all and (orientation:portrait) {
-	body {
-		width: 768px;
-	}
-}
-@media all and (orientation:landscape) {
-	body {
-		width: 1024px;
-	}
 }
 #header {
 	background: #fbf8f6 url("../images/ccHeader.png") repeat-x;
 	height: 120px;
-	-webkit-transform: translate3d(0,0,0);
 }
 #header h1, #header h2, #header h3 {
 	text-indent: -10000px;

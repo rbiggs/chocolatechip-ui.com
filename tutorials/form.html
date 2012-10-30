@@ -48,7 +48,7 @@
 
 <p>In the example below, we will be sending our JSON object as a string to another file (remoteFile.php).</p>
 
-<pre><code>$("#formSubmitButton").on("click", function() {
+<pre><code>$("#formSubmitButton").bind("click", function() {
     var data = $.form2JSON("#formID");
     data = JSON.stringify(data);
 });

@@ -1,7 +1,4 @@
 <h1>Ajax &amp; Templates</h1>
-<p>Each libary provides the ability to perform Ajax requests and posts. Visit the sites for <a href='http://api.jquery.com/category/ajax/?rdfrom=http%3A%2F%2Fdocs.jquery.com%2Fmw%2Findex.php%3Ftitle%3DAjax%26redirect%3Dno' target='new'>jQuery</a> and <a href='http://zeptojs.com/#ajax' target='new'>Zepto</a> to learn how they handle Ajax. The documentation below is specifically for ChocolateChip.js</p>
-
-<p>You can find a simple example of Ajax requests for JSON data in the templates folder inside the examples folder. That example makes a request for JSON data that gets rendered out using Handlebars templates.</p>
 
 <p>&nbsp;</p>
 
@@ -66,8 +63,187 @@ content.xhr("data.html", {
 
 <h2>Element.xhrjson</h2>
 
-<p>This method allows you to bind JSON data to elements in your app. It's very straightforward. Just create a JSON object with values that you can map to items in your document.</p>
+<p>This method allows you to bind JSON data to elements in your app. It very straightforward. Just create a JSON object with values that you can map to items in your document.</p>
 
-<p>You would normally use Ajax in conjunction with a template engine to output your data to your app. Please visit the tutorial about templating to learn more about your options.</p>
+<p>&nbsp;</p>
 
-<p>ChocolateChip.js itself provides a simple means of generating templates. However, if you have needs for robust and efficient templating for large amounts of data, by all means use a dedicated templating framework. To learn more about how to use ChocolateChip's template system, consult its <a href="/documentation.html">documentation</a> for more details.</p>
+<h2>$.template</h2>
+
+<p>This is a nifty way of implementing JavaScript-based templates, kind of like how Smarty and other templates work. Except that instead of PHP or Python or Ruby, you're using JavaScript. The templates are hungry for JSON objects, so feed them what they want.</p>
+
+<p>The first thing you need to do is define a template. All templates are stored in the $.templates object. Because templates are just strings defining markup and JavaScript, you can create them dynamically and assign them to $.templates later, or assign them directly into $.templates. An assignment and definition will look like this:</p>
+
+<pre><code>$.templates.myTemplate = "/* your markup and JavaScript here */";
+</code></pre>
+
+<p>Templates can include any type of executable JavaScript such as conditional statements or loops. Separate from the JavaScript blocks would be any markup you want output with the results from the JavaScript.</p>
+
+<p>$.template can handle three styles of delimiters for templates: JSP, Mustache and Smarty. Each style has two kinds of tags: for designating executable JavaScript and for outputting a JavaScript variable. The tags for each style are:</p>
+
+<pre><code>&lt;% %&gt; and for variable output: &lt;%= %&gt;
+{{ }} and for variable output: ${ }
+[[ ]] and for variable output: $[ ]
+</code></pre>
+
+<p>Here is an example of a template using the three styles:</p>
+
+<pre><code>$.templates.customers =
+"&lt;% for (var i = 0; i &lt; customers.length; i++) { %&gt;\
+    &lt;tablecell&gt;\
+      &lt;celltitle&gt;&lt;%= customers[i].firstName %&gt; &lt;%= customers[i].lastName %&gt;&lt;/celltitle&gt;\
+      &lt;cellsubtitle&gt;&lt;%= customers[i].address  %&gt;&lt;/cellsubtitle&gt;\
+      &lt;celldetail&gt;&lt;%= customers[i].description %&gt;&lt;/celldetail&gt;\
+    &lt;/tablecell&gt;\
+&lt;%  } %&gt;";
+
+$.templates.customers =
+"{{ for (var i = 0; i &lt; customers.length; i++) { }}\
+    &lt;tablecell&gt;\
+      &lt;celltitle&gt;${ customers[i].firstName } ${ customers[i].lastName }&lt;/celltitle&gt;\
+      &lt;cellsubtitle&gt;${ customers[i].address  }&lt;/cellsubtitle&gt;\
+      &lt;celldetail&gt;${ customers[i].description }&lt;/celldetail&gt;\
+    &lt;/tablecell&gt;\
+{{ } }}";
+
+$.templates.customers =
+"[[ for (var i = 0; i &lt; customers.length; i++) { ]]\
+    &lt;tablecell&gt;\
+      &lt;celltitle&gt;$[ customers[i].firstName ] $[ customers[i].lastName ]&lt;/celltitle&gt;\
+      &lt;cellsubtitle&gt;$[ customers[i].address  ]&lt;/cellsubtitle&gt;\
+      &lt;celldetail&gt;$[ customers[i].description ]&lt;/celldetail&gt;\
+    &lt;/tablecell&gt;\
+[[ } ]]";
+</code></pre>
+
+<p>To use the template, you only need to pass its name, in this case "customers" not $.template.customers. ChocolateChip-UI will resolve the template from that name. (See example below for details)</p>
+
+<p>After that we need some JSON data for our template to consume. We could get it any any number of ways. To make it simple, I assume it's in a normal script tag:</p>
+
+<pre><code>var data = {
+    users : [
+        {
+            firstName : "Ron",
+            lastName : "Buddle",
+            address : "123 Whatever LN, Sometown, AL 11109",
+            description : "A normal guy with normal likes and dislikes that can see to get too excited about anything, unless its the Super Bowl or World Series. He likes drinking beer and is always dreaming of going on spring break someplace exciting and different."
+
+        },
+        {
+            firstName: "Joe",
+            lastName : "Bodoni",
+            address : "9 Silly DR, Bozoville, MO 33393",
+            description : "Pretty much a totally looser and coach potato who really plans on being successful some day. But he is really good at watch reruns from the coach in his mother's basement."
+        },
+        {
+            firstName : "Sally",
+            lastName : "Ambercrumble",
+            address : "000 Deadend AVE, Zombie City, NY 00000",
+            description : "Rather sassy gal who is a hard worker and knows how to look out for herself. Don't giver her no lip though or she'll throw you for a loop. She's got a black belt in Judo"
+        },
+        {
+            firstName : "Bonny",
+            lastName : "Beezle",
+            address : "222 Twittledee RD, Bongo-bongo, FL 939393",
+            description : "Mostly loves to bead and do hand stitching and lace work while gazing lovingly at her cat on the sofa."
+        },
+        {
+            firstName : "Bondo",
+            lastName : "McKong",
+            address : "101 Ducky Highway, Flanders, WY 101010",
+            description : "This guy doesn't think the world is going to end in 2012. He thinks it already ended in Y2K and is freaked out about surviving in the post apocalyptic world where alien hybrids from another galaxy have infiltrated human populations."
+        }
+    ]
+};
+</code></pre>
+
+<p>Next, in the same script tag we need to pass $.template the parameters for the template id and the data to parse. We store this in a variable. Because the result returned is a string, we could cache it in various ways, such as using putting it in localStorage (see the tutorial on localStorage) with a timestamp to check if the content is still relevant.</p>
+
+<p>Below we get some external JSON data and store it in the variable "data":</p>
+
+<pre><code>$.app.xhr("customers.json", {
+    successCallback: function() {
+        data = $.responseText;
+        $.processJSON(data);
+    }
+});
+</code></pre>
+
+<p>After getting back the result of parsing the template with the data, we can inject it into our app. In this case we're outputting tablecells, so we insert the results into a tableview. The result returned by a XHR request is a string. In order to convert our JSON data from a string back to JavaScript data, we need to dynamically create a script tag, insert the returned string data in the tag and inject it into the head tag. This will force the browser to parse the string as JavaScript, making the JSON available. In order to give the browser enough time to evaluate the JSON, we put the code that consumes the JSON data in a separate $.ready block so that it gets executed after the code injection. When we evaluate the template we also store it in the $.templateCache so that we can retrieve it later, or, should we decide to, store in in localStorage, or whatever else we might deem appropriate for our application.</p>
+
+<pre><code>$.ready(function() {
+    // Process the template $.template.customers with JSON data in the variable "data".
+    // This is read from an Ajax call to an external JSON object in json.json.
+    $.templateCache.customers = $.template("customers", data); 
+    // Insert the results of the parsed template into the tableview.
+    $("#main tableview").insert($.templateCache.customers);    
+});
+</code></pre>
+
+<p>And here's the markup into which the template's results will be inserted.</p>
+
+<pre><code>&lt;tableview ui-tablecell-order="stacked" ui-kind="grouped"&gt;
+
+&lt;/tableview&gt;
+</code></pre>
+
+<p>Here's a complete document:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"&gt;
+&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+&lt;title&gt;Example of using $.Template&lt;/title&gt;
+&lt;link rel="stylesheet" href="../chui/chui.css"&gt;
+&lt;script src="../chui/chocolatechip.js"&gt;&lt;/script&gt;
+&lt;script src="../chui/chui.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    $.ready(function() {
+        var data = null;
+        $.templates.customers =
+        "[[ for (var i = 0; i &lt; customers.length; i++) { ]]\
+            &lt;tablecell&gt;\
+              &lt;celltitle&gt;$[ customers[i].firstName ] $[ customers[i].lastName ]&lt;/celltitle&gt;\
+              &lt;cellsubtitle&gt;$[ customers[i].address  ]&lt;/cellsubtitle&gt;\
+              &lt;celldetail&gt;$[ customers[i].description ]&lt;/celldetail&gt;\
+            &lt;/tablecell&gt;\
+        [[  } ]]";
+        $.app.xhr("customers.json", {
+            successCallback: function() {
+                data = $.responseText;
+                $.processJSON(data);
+            }
+        });
+    });
+    $.ready(function() {
+        $.defer(function() {
+            // Process the template of ID "template_01" with JSON data in the variable "data".
+            // This is read from an Ajax call to an external JSON object in json.json.
+            $.templateCache.customers = $.template("customers", data); 
+            // insert the results of the parsed template into the div with id "template_1_output."
+            $("#main tableview:first-of-type").insert($.templateCache.customers);        
+        });
+    });
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;app&gt;
+    &lt;view id="main" ui-background-style="slanted-left"&gt;
+        &lt;navbar class="ui-custom-tint"&gt;&lt;h1&gt;$.Template&lt;/h1&lt;/navbar&gt;
+        &lt;subview ui-associations="withNavBar"&gt;
+            &lt;scrollpanel&gt;
+                &lt;tableview ui-tablecell-order="stacked" ui-kind="grouped"&gt;
+
+                &lt;/tableview&gt;
+            &lt;/scrollpanel&gt;
+        &lt;/subview&gt;
+    &lt;/view&gt;
+&lt;/app&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>Open the examples included with ChocolateChip-UI and look for "template.html" in the Ajax folder to see a working example of this template injection technique.</p>
+
+<p>Please consult the documentation for <a href="/documentation.html">ChocolateChip.js</a> for more details on how to use templates.</p>

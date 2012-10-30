@@ -5,13 +5,11 @@
 
 <p>If you created your switch controls manually, you will need to initialize them with the UIInitSwitchToggling method. You attach the method directly to the tableview holding the switch controls. It will search the tableview for any switch controls and initialize them so that they toggle properly.</p>
 
-<p>You can create switch controls dynamically using the UICreateSwitchControl method. You can pass it a number parameters:</p>
+<p>You can create switch controls dynamically using the UICreateSwitchControl method. You can pass it fives parameters:</p>
 
 <ul>
 <li>id: a unique id for the switch.</li>
 <li>customClass: an optional class which you can use to give the switch a custom style.</li>
-<li>kind: an optional value of &#8220;traditional&#8221; for the old style switches, or &#8220;generic&#8221; for a simpler version of the new style.</li>
-<li>implements: an optional value of &#8220;attention&#8221; that gives the switch contorl a bright orange background.</li>
 <li>status: either &#8220;on&#8221; or &#8220;off&#8221;.</li>
 <li>value: a value for  when the switch is flipped to on.</li>
 <li>callback: a callback to execute when the user interacts with the switch control.</li>
@@ -32,12 +30,11 @@
 
 <p>The callback argument is also optional. If you pass in a callback, you can use a placeholder parameter in the callback to refer to the switchcontrol when the callback gets executed. In the example below, the parameter &#8220;item&#8221; will refer to &#8220;this&#8221; when the callback gets executed, which will be the switch control itself. The code below will output the state of the switch control when the switch is flipped. </p>
 
-<pre><code>$(function() {
+<pre><code>$.ready(function() {
     var switchOpts = {
         id : "workStatus",
         customClass : "mySpecialSwitchStyle",
         status : "on",
-        implements: "attention",
         value : "sort of working",
         callback : function(item) {
             var className = item.className;
@@ -54,7 +51,7 @@
 
 <p>Since ChocolateChip-UI reached version 1.0, the default output for a switchcontrol looks like the iOS 5 rounded switchcontrols. To get the previous squarish switchcontrols, you&#8217;d need to pass in an argument for <strong>kind: &#8220;traditional&#8221;</strong>. You can also pass in optional values for the ON and OFF label text using the new labelValue argument: <strong>labelValue: [&#8220;SI&#8221;, &#8220;NO&#8221;]</strong>. Be aware that the switchcontrol does not expand if the label is long, so anything more than three letters will look quite cramped. If you wanted to create traditional switchcontrols without any labels, just pass in an empty string: <strong>labelValue: [&#8220;&#8221;,&#8221;&#8220;]</strong>. Anyway, the iOS 5 style switches are the easiest because the require no localization: one button to rule them all. The initialization of the traditional button would be like this:</p>
 
-<pre><code>$(function() {
+<pre><code>$.ready(function() {
     var switchOpts = {
         id : "workStatus",
         customClass : "mySpecialSwitchStyle",
@@ -118,7 +115,7 @@
 <p>Here&#8217;s an example of getting the value of the switch control using its checked value. You could just as easily query the class of the switch control, whether it&#8217;s set to &#8220;on&#8221; or &#8220;off&#8221;.</p>
 
 <pre><code>$$("#tableview_1 switchcontrol").forEach(function(item) {
-    item.on("click", function () {
+    item.bind("click", function () {
         if (this.hasClass("on")) {
             // Get the value of the switchcontrol's input checkbox.
             // Then empty the target and fill it with the value.
