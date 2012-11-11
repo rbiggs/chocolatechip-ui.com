@@ -9,7 +9,13 @@
 	<title>ChocolateChip-UI</title>
 	<link rel="stylesheet" href="css/main.css" />
 	<style type="text/css">
-		
+		.primary-section.documentation img {
+			margin: 10px 0;
+		}
+		.primary-section.documentation img:nth-of-type(odd) {
+			margin-left: 40px;
+			margin-right: 40px;
+		}
 	</style>
 	<script src="scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -35,7 +41,7 @@
 						if (item.hasClass('external')) return;
 						var tutorialChoice = $($.UISelectedTutorialItem)[0].href;
 						tutorialChoice = tutorialChoice.split("#");
-						tutorialChoice = "documentation/" + tutorialChoice[1];
+						tutorialChoice = "android/" + tutorialChoice[1];
 						$.ajax(tutorialChoice, {
 							success: function(data) {
 								UITutorialContainer.empty();
@@ -65,28 +71,26 @@
 		<li><a href="index.html" title="This is the way home!">Home</a></li>
 		<li><a href="downloads.html" title="Click here to download ChocolateChip-UI">Downloads</a></li>
 		<li><a href="tutorials.html" title="Learn how to quickly and effeciently create Web apps with ChococlateChip-UI">Tutorials</a></li>
-		<li class="selected">Documentation</li>
+		<li><a href="documentation.html" title="The lowdown on how all of this works">Documentation</a></li>
 		<li><a href="snippets.html" title="Use these in your IDE to speed up app building.">Snippets</a></li>
-		<li><a href="android.html" title="A special theme for Android devices.">Android</a></li>
+		<li class='selected'>Android</li>
 		<li id="chuiAbout" title='The "Why", "When" and "Who done it".'><a href="about.html">About</a></li>
 	</ul>
 </div>
 <div id="content">
 <div class="primary-section documentation" id="tutorial_container">
 	<h2>Choose a Feature from the Menu on the Left</h2>
-	<p>ChocolateChip-UI together with either ChocolateChip.js, jQuery or Zepto constitutes a powerful framework for creating Web apps. ChocolateChip-UI consists of two files: ChUI.js and ChUI.css. It uses a special markup language called WAML. Read the documentation for these by choosing from the menu on the left.</p>
+	<p>ChocolateChip-UI is a powerful and easy to use framework for creating mobile Web apps. This version has a theme based on Android's Holo theme. Click on a menu item on the left to learn more about how to use the Android specific version of ChocolateChip-UI.</p>
 	
-	<p>Please note. ChocolateChip-UI is designed to work with Webkit browsers on current popular mobile devices comprising iOS and Android. That means that it will not render properly on Firefox, IE or Opera. The deskotp compatibility included in ChocolateChip-UI is only as a convenience for debugging in Chrome and Safari before deploying to a device. ChocolateChip-UI is not designed for, nor intended for Desktop use for Websites. Instead it's intended use case is either as a Website viewed on a mobile device, a pinned site, or a standalone mobile app created with <a href="http://phonegap.com/">PhoneGap</a>. Phonegap provides a native wrapper around ChocolateChip-UI which then runs in a native Web view. On iOS and Android the native Web view uses Webkit.</p>
 </div>
 <div class="secondary-section">
-	<h2>Documentation</h2>
+	<h2>Android</h2>
 	<ul id="side-menu">
-		<li><a id="t_04" href="#waml.html">WAML</a></li>
-		<li><a id="t_03" href="#chui-css.html">ChUI.css</a></li>
-		<li><a id="t_02" href="#chui-js.html">ChUI.js</a></li>
-		<li><a id="t_01" href="#chocolatechip.html">ChocolateChip.js</a></li>
-		<li><a target='new' href='http://docs.jquery.com/' class='external'>jQuery</a></li>
-		<li><a target='new' href='http://zeptojs.com/' class='external'>Zepto</a></li>
+		<li><a id="t_01" href="#holo_theme.html">Dark Holo Theme</a></li>
+		<li><a id="t_02" href="#differences.html">How it Differs from iOS ChUI</a></li>
+		<li><a id="t_03" href="#custom_color.html">Custom Color Scheme</a></li>
+		<li><a id="t_04" href="#pure_android.html">Pure Android</a></li>
+		<li><a id="t_05" href="#write_once.html">Write Once, Deploy for Both</a></li>
 	</ul>
 </div>
 </div>

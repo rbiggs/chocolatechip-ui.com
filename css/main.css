@@ -1,6 +1,6 @@
 html, body
 {
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 	height: 100%;
 	background: #f8f4f0 url("../images/ccBackgroundPattern.png");
@@ -27,6 +27,7 @@ body {
 	background: #fbf8f6 url("../images/ccHeader.png") repeat-x;
 	height: 120px;
 	-webkit-transform: translate3d(0,0,0);
+	margin: 0 auto;
 }
 #header h1, #header h2, #header h3 {
 	text-indent: -10000px;
@@ -55,6 +56,7 @@ img#itbd {
 #nav {
 	height: 34px;
 	background: transparent url("../images/ccNav.png") repeat-x;
+	margin: 0 auto;
 }
 #chuiAbout {
 	position: absolute;
@@ -148,7 +150,7 @@ div#nav ul.menu {
 }
 div#nav ul.menu li {
 	display: inline-block;
-	margin: 6px 20px
+	margin: 6px 14px
 }
 ul.menu li, ul.menu li a {
 	text-decoration: none;

@@ -1,0 +1,10 @@
+<h1>Write Once, Deploy for Both</h1>
+
+<p>&nbsp;</p>
+
+<h2>One App, Two Platforms</h2>
+
+<p>ChocolateChip-UI allows you to write an app that will reasonably mimic the native apps of iOS and Android. As a matter of fact, your client side code should be exactly the same for both, unless you wish to use the OS specific differences for popovers vs spinners. And even here, they're really the same control as far as Chocolate-Chip-UI is concerned.</p>
+
+<p>If you examine the same examples for Android and iOS, you'll see that the code to make them work is identical. The only place where things diverge is when you implement popovers or spinners. Popovers for iOS expecting information about where to place the pointer and what to display for the title in the popover's top bar. Spinners don't have top bars or pointers. However, if you have code for iOS popovers and open it with the Android theme, the pointers and top bar will be ignored and not displayed. So iOS popovers will work and resembled normal Andoid spinners. For Android, you'd only have to make a change to the buttons that show popovers/spinners. You add the property: <strong>ui-implements='spinner'</strong> to the buttons that will show the popovers/spinners. This will be ignored on iOS, but will display the expected spinner triangle on Android.</p>
+

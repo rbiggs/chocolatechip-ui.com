@@ -890,7 +890,7 @@ value of *ui-kind=generic*.
     -   id: and id for the switch control. and id must be supplied.
     -   kind: an optional value of “traditional” for the old style
         switches, or “generic” for a simpler version of the new style.
-    -   implements: an optional value of “attention” that gives the
+    -   uiImplements: an optional value of “attention” that gives the
         switch contorl a bright orange background.
     -   status: either “on” or “off”, the default is “off”.
     -   value: any integer or string value.

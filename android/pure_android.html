@@ -1,0 +1,54 @@
+<h1>Pure Android</h1>
+
+<p>&nbsp;</p>
+
+<h2>Just the Basics, Please.</h2>
+
+<p>If you are only creating a Web app for use on Android, it makes sense to only include the markup that the Android theme will use. And for Android, I changed the name of the popover to spinner to match the Android nomenclature. I also included a new icon specifically for Android: overflow-menu.svg. You can make an icon button in the top toolbar to open a spinner, like the disclosure in a standard Android CAB (Contextual Action Bar).</p>
+
+<p>Instead of using the iOS popover, you can use the Android alternate: $.UISpinner().
+
+<p><strong>Example:</strong></p>
+
+<p>A button to show an Android spinner:</p>
+<pre><code>&lt;toolbar&gt;
+   &lt;uibutton id="showspinner" ui-implements='spinner'&gt;
+      &lt;label&gt;Show spinner&lt;/label&gt;
+   &lt;/uibutton&gt;
+&lt;/toolbar&gt;
+</code></pre>
+
+<p>The code to handle the spinner:</p>
+<pre><code>$(function(){
+   var spinner = { 
+      triggerElement : "#showSpinner", 
+      pointerOrientation: "left", 
+      id: "spinner", 
+      title: "Popover One"
+   };
+   $.UISpinner(spinner);
+   $("#spinner scrollpanel").append('&lt;tableview&gt;\
+      &lt;tablecell&gt;&lt;celltitle&gt;item one&lt;/celltitle&gt;&lt;/tablecell&gt;\
+      &lt;tablecell&gt;&lt;celltitle&gt;item two&lt;/celltitle&gt;&lt;/tablecell&gt;\
+      &lt;tablecell&gt;&lt;celltitle&gt;item three&lt;/celltitle&gt;&lt;/tablecell&gt;\
+      &lt;tablecell&gt;&lt;celltitle&gt;item four&lt;/celltitle&gt;&lt;/tablecell&gt;\
+      &lt;/ul&gt;');
+   $("#showspinner").on("click", function() {
+       $.UISpinner.show($("#spinner"));
+   });
+});
+</code></pre>
+
+<p>If you want to recreate the CAB (Contextual Action Bar) with its icon on the right for showing more options, do the following. Instead of giving that button a <strong>ui-implements=spinner</strong> property, instead use a button with the overflow-menu.svg icon:</p>
+
+<pre><code>&lt;uibutton ui-kind="icon" ui-bar-align="right"&gt;
+   &lt;icon style="-webkit-mask-image: url(../icons/overflow-menu.svg);"&gt;
+&lt;/uibutton&gt;
+</code></pre>
+
+<p>Then all you have to do is initialize a spinner as described previously.</p>
+<p><strong>What to avoid</strong></p>
+
+<p>If you're targeting Android, don't bother with rounded-rectange buttons, they don't exist on Android. Instead use buttons with <strong> ui-kind="action"</strong>. Also button types, such as <strong>ui-implements="important"</strong> or <strong>ui-implements="done"</strong> or <strong>ui-implements="edit"</strong> or <strong>ui-implements="delete"</strong> should not be used either. Regardless, the Android theme ignores all those properties, but if your specifically making an app for Android, it doesn't make sense to use properties that will be ignored. This is also true with <strong>ui-background-style</strong> property, it will be ignored. Think twice before imlementing any background colors. The only place where you might want to use them is for buttons of type <strong>ui-implements="icon"</strong>. Giving them a background-color causes the icons to be colored. But even here, you probably want them to default to white and instead modify the hover color. There are no rounded corners in Android. Only two controls are round: the radio buttons in the selection list and the thumb on the range input. Everything else should have squared corners.</p>
+
+

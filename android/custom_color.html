@@ -1,0 +1,25 @@
+<h1>Custom Color Scheme</h1>
+
+<p>&nbsp;</p>
+
+<h2>Implement your Brand</h2>
+
+<p>You can modify the highlight colors of the Android theme to suit your brand. It is just a matter of searching and replacing the colors in these three files: <strong>chui.android.css</strong>, <strong>chui.android.desktop.css</strong> and <strong>chui.android.js</strong>. The main color for the default blue is <strong>#2da2cd</strong>. Replace all instances of it to the color you want in the above three files. Next you want to change the hover state of the tabbar. This is basically the same as the hover color with some black. The best way to get this color is to convert your main hover color to CMYK, then increase the black to 36%. Then replace all instances of the value <strong>#424344</strong> with your new tabbar hover/touch color.</p>
+
+<p>The delete disclosure has a blue checkmark. This is automatically updated to a new color when you replace all instances of the default hover color <strong>#2da2cd</strong>. However, you also need to replace another color used for the highlight around the checkmark box: <strong>#85d3f0</strong>. This is a lighter version of #2da2cd. On a touch device, the touched tablecell gets a background color of <strong>#586B96</strong>, so you'll need to replace that as well.</p>
+
+<p>The range control uses a radial gradient and a border color. The border color is the default #2da2cd, so when you replace that, the range control's thumb border will be updated automatically. The thumb's gradient is a little more complex. It has two states: normal and hover/touched. In the default state, the center of the gradient is the default color #2da2cd, so it will be updated when you globally replace that color. The outter part of the gradient is a transparent color using RGBA. Convert your color to RGB, then keep the same opacity as the default, which is 90%. Here's the value's default: <strong>rgba(18,152,205,.9)</strong> For the hover state, the center color remains the default, but you change the outter transparent color, which is the same as the color you used for the normal state, but with its opacity reduced to 50%. For example, if you were using red (rgb(255,0,0), your gradient color would be: <strong>rgba(255,0,0,.5)</strong>.</p>
+
+<p>The selection list uses an imitation radio button to indicate selection state. It uses a series of box shadows to create the radio button colors: <strong>box-shadow: inset 0 0 2px 2px #000, inset 0 2px 3px 3px #77d8ed, inset 0 0 8px 8px #0099cc</strong> The color #0099cc is the base color for the radio button, and #77d8ed is the lighter crescen color along the top. Replace these two to match your main theme color.</p>
+
+<p>The popup control has a box shadow that uses the same color as the box shadow on the delete disclosure: <strong>#85d3f0</strong>. So updating that color globally will take care of that.</p>
+
+<p>And that's really all there is to creating a custom theme for ChocolateChip-UI Android. Below is a theme using red (#ff0000)</p>
+
+
+	 
+	<img alt="" src="screenshots/android/custom-1.png">
+	<img alt="" src="screenshots/android/custom-2.png">
+	<img alt="" src="screenshots/android/custom-3.png">
+	<img alt="" src="screenshots/android/custom-4.png">
+	

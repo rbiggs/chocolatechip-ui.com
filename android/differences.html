@@ -1,0 +1,41 @@
+<h1>How it Differs from iOS ChUI</h1>
+
+<p>&nbsp;</p>
+
+<h2>CSS</h2>
+
+<p>The main difference between the iOS version of ChocolateChip-UI and the Android theme is the CSS. iOS is a lot more visually complex with different colors, transparency, gradients and textures. To support all that variety, ChocolateChip-UI has a number of special attributes to distingues, say, all the different types of buttons from each other. But in Android there are only a few buttons types.</p>
+
+<p>ChocolateChip-UI Android ignores the properties used for typical iOS visual characteristics. First off, iOS has a large number of button types. In Android you have only four. Like iOS, ChocolateChip iOS offers a wide assortment of buttons through the use of special attributes, and these can be customized with background colors using tints. Android does not do this.</p>
+
+<p>On iOS button may have drop shadows, gradients and extra pieces, such as the back and next buttons. These do not exist on Android so they are not present in the Android version of ChocolateChip-UI. The back and next buttons do get converted into proper back and next buttons for Android. iOS popovers have headers and a pointer that indicates the element that triggered their appearance. Android does not have popovers, but it does have spinners, a type of drop down menu. ChocolateChip-UI for Android takes the popovers and makes them behave as Android spinners. Any headers in the iOS popovers get hidden, and there are no pointers. By putting a property of <strong>ui-implements="spinner"</strong> on a button, it will be styled as an appropriate spinner menu for Android.</p>
+
+<p>Border radii on buttons, etc. do not occur on Android. The thumb on the range input and the radio button indicators on the selection list are the only round elememnts in ChocolateChip-UI Android.</p>
+
+<p>If you have done a lot of customization of elements in the iOS version of ChocoalteChip-UI, you will need to check that any custom background colors do not create awkward appearances on your Android version. The class <strong>ui-custom-tint</strong> will be ignored, but you will need to remove any hard-coded background colors or gradients that you may have styled directly on an element or in the app's stylesheet. ChocolateChip Android will ignore these:</p>
+
+<ul>
+	<li>[ui-background-style=*]</li>
+	<li>uibutton[ui-implements=done]</li>
+	<li>uibutton[ui-implements=delete]</li>
+	<li>uibutton[ui-implements=attention]</li>
+	<li>uibutton[ui-kind=rounded-rectangle]</li>
+	<li>uibutton[ui-kind=action].green</li>
+	<li>uibutton[ui-kind=action].gold</li>
+	<li>uibutton[ui-kind=action].green</li>
+	<li>uibutton[ui-kind=action].green</li>
+	<li>uibutton[ui-kind=action][ui-implements=cancel]</li>
+	<li>.ui-custom-tint</li>
+	<li>tablecell[ui-implements=disclosure]</li>
+	<li>tablecell[ui-implements=detail-disclosure]</li>
+	<li>tablecell[ui-implements=detail-disclosure].green</li>
+	<li>tableview[ui-kind=grouped]</li>
+	<li>switchcontrol[ui-kind=traditional]</li>
+	<li>switchcontrol[ui-kind=generic]</li>
+	<li>switchcontrol[ui-implements=attention]</li>
+	<li>actionsheet[ui-action-sheet-color=blue]</li>
+	<li>actionsheet[ui-action-sheet-color=black]</li>
+	<li>input[type=range].media-player</li>
+</ul>
+
+<p>All navbar/toolbar buttons, action buttons and rounded rectangle buttons will be rendered as standard Android buttons. The buttons with the attribute <strong>ui-kind='icon'</strong> will be rendered transparent with the only the icon showing. If you have a Back or Next button with a label, the label will be hidden and only the left or right chevron will be shown.
