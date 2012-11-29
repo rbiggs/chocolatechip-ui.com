@@ -245,14 +245,14 @@ Array: UINavigationHistory
 --------------------------
 
 An array to store the ids of views through which the user has navigated.
-\$.UIBackNavigation uses this to store which views the user was on and
+\$.UINavigateBack uses this to store which views the user was on and
 to pop them out successively for backward navigation. The default value
 is “\#main”. This means **the first view of every WAML document must
 have an id of \#main or navigation will not work**.
 
 **See Also:**
 
-[\$.UIBackNavigation](#UIBackNavigation)
+[\$.UINavigateBack](#UIBackNavigation)
 
 [\$.UINavigationList](#UINavigationList)
 
@@ -260,7 +260,7 @@ have an id of \#main or navigation will not work**.
 
  
 
-Function: \$.UIBackNavigation
+Function: \$.UINavigateBack
 -----------------------------
 
 A method to navigate back to the previous view from whence the user
@@ -277,7 +277,7 @@ and the previous view to transition into view from the left.
 
 **Syntax:**
 
-    $.UIBackNavigation();
+    $.UINavigateBack();
 
 **See Also:**
 
@@ -312,7 +312,7 @@ back navigation.
 
 **See Also**
 
-[\$.UIBackNavigation](#UIBackNavigation)
+[\$.UINavigateBack](#UIBackNavigation)
 
  
 
@@ -337,7 +337,7 @@ method takes one argument, the view to which you wish to go to.
 
 [\$.UINavigationList](#UINavigationList)
 
-[\$.UIBackNavigation](#UIBackNavigation)
+[\$.UINavigateBack](#UIBackNavigation)
 
  
 

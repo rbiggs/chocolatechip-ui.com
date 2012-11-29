@@ -212,11 +212,11 @@ $("tablecell", this).on("touchstart", function() {
 
 <h2 id="array_uinavigationhistory">Array: UINavigationHistory</h2>
 
-<p>An array to store the ids of views through which the user has navigated. $.UIBackNavigation uses this to store which views the user was on and to pop them out successively for backward navigation. The default value is &#8220;#main&#8221;. This means <strong>the first view of every WAML document must have an id of #main or navigation will not work</strong>.</p>
+<p>An array to store the ids of views through which the user has navigated. $.UINavigateBack uses this to store which views the user was on and to pop them out successively for backward navigation. The default value is &#8220;#main&#8221;. This means <strong>the first view of every WAML document must have an id of #main or navigation will not work</strong>.</p>
 
 <p><strong>See Also:</strong></p>
 
-<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
+<p><a href="#UIBackNavigation">$.UINavigateBack</a></p>
 
 <p><a href="#UINavigationList">$.UINavigationList</a></p>
 
@@ -226,13 +226,13 @@ $("tablecell", this).on("touchstart", function() {
 
 <p><a name="UIBackNavigation"></a></p>
 
-<h2 id="function_uibacknavigation">Function: $.UIBackNavigation</h2>
+<h2 id="function_uibacknavigation">Function: $.UINavigateBack</h2>
 
 <p>A method to navigate back to the previous view from whence the user came. This method uses an event delegate on the app tag to listen for clicks on all uibuttons with the attribute &#8216;ui-implements=&#8221;back&#8221;&#8217;. The method gets its destination by popping the value out of the $.UINavigationHistory array. This menu also implements page transitions by changing the ui-navigation-status of the views. The current view will always have a ui-navigation-status of &#8220;current&#8221;. When navigating back, the current view&#8217;s ui-navigation-status is changed to &#8220;upcoming&#8221;, and the previous view&#8217;s ui-navigation-status is changed to current. These changes cause the current view to transition out of view to the right and the previous view to transition into view from the left.</p>
 
 <p><strong>Syntax:</strong></p>
 
-<pre><code>$.UIBackNavigation();
+<pre><code>$.UINavigateBack();
 </code></pre>
 
 <p><strong>See Also:</strong></p>
@@ -255,7 +255,7 @@ $("tablecell", this).on("touchstart", function() {
 
 <p><strong>See Also</strong></p>
 
-<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
+<p><a href="#UIBackNavigation">$.UINavigateBack</a></p>
 
 <p>&nbsp;</p>
 
@@ -276,7 +276,7 @@ $("tablecell", this).on("touchstart", function() {
 
 <p><a href="#UINavigationList">$.UINavigationList</a></p>
 
-<p><a href="#UIBackNavigation">$.UIBackNavigation</a></p>
+<p><a href="#UIBackNavigation">$.UINavigateBack</a></p>
 
 <p>&nbsp;</p>
 
